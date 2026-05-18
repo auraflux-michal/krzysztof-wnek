@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Krzysztof Wnęk — od "muszę" do "chcę"</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --ink:#0a0d14;
+    --ink-2:#11151f;
+    --ink-3:#171c2a;
+    --navy:#0e1730;
+    --navy-2:#162447;
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(255,255,255,.16);
+    --paper:#f3f1ec;
+    --paper-dim:rgba(243,241,236,.62);
+    --paper-faint:rgba(243,241,236,.42);
+    --paper-ghost:rgba(243,241,236,.18);
+    --accent:oklch(0.85 0.2 145);     /* electric green default */
+    --accent-ink:#06170a;
+    --accent-glow: color-mix(in oklab, var(--accent) 35%, transparent);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--paper);}
+  body{
+    font-family:"Manrope",ui-sans-serif,system-ui,sans-serif;
+    font-size:16px;line-height:1.55;letter-spacing:.005em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:var(--accent-ink)}
+
+  .display{font-family:"Archivo",sans-serif;font-weight:900;letter-spacing:-0.025em;line-height:.92;text-wrap:balance;}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;}
+
+  /* Generic placeholder for imagery — striped, with monospace caption */
+  .ph{
+    position:relative;overflow:hidden;
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(255,255,255,.045) 0 14px,
+        rgba(255,255,255,.015) 14px 28px),
+      linear-gradient(180deg, #1b2238, #0d1426);
+    border:1px solid var(--line);
+    color:var(--paper-faint);
+  }
+  .ph::after{
+    content:attr(data-label);
+    position:absolute;left:14px;bottom:12px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;
+    color:var(--paper-faint);text-transform:uppercase;
+  }
+  .ph::before{
+    content:"▣";position:absolute;left:14px;top:12px;color:var(--paper-faint);font-size:10px;
+    font-family:"JetBrains Mono",monospace;letter-spacing:.04em;
+  }
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:18px 24px;border-radius:2px;border:0;cursor:pointer;
+    font-family:"Archivo",sans-serif;font-weight:800;font-size:15px;letter-spacing:.04em;text-transform:uppercase;
+    text-decoration:none;transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    line-height:1;
+  }
+  .btn-primary{ background:var(--accent); color:var(--accent-ink); box-shadow:0 0 0 0 var(--accent-glow);}
+  .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 14px 40px -10px var(--accent-glow);}
+  .btn-ghost{background:transparent;color:var(--paper);border:1.5px solid var(--paper);}
+  .btn-ghost:hover{background:var(--paper);color:var(--ink);}
+  .btn .arrow{display:inline-block;transition:transform .2s ease}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  /* Section scaffolding */
+  section{position:relative;}
+  .wrap{max-width:1360px;margin:0 auto;padding:0 56px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--paper-dim);
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 25%, transparent);}
+
+  /* Subtle UI helpers */
+  .rule{height:1px;background:var(--line);}
+  .ticker-track{display:flex;gap:64px;white-space:nowrap;will-change:transform;}
+
+  /* Density */
+  body[data-density="dense"] section.pad{padding-block:96px;}
+  body[data-density="regular"] section.pad{padding-block:140px;}
+  body[data-density="airy"] section.pad{padding-block:200px;}
+
+  @media (max-width: 900px){
+    .wrap{padding:0 24px}
+    body[data-density="dense"] section.pad{padding-block:64px;}
+    body[data-density="regular"] section.pad{padding-block:84px;}
+    body[data-density="airy"] section.pad{padding-block:120px;}
+  }
+</style>
+
+</head>
+<body data-density="regular">
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="sections-v1.jsx"></script>
+<script type="text/babel" src="app-v1.jsx"></script>
+
+</body>
+</html>

@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Krzysztof Wnęk — od "muszę" do "chcę"</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --paper:#ffffff;
+    --paper-2:#fafaf7;
+    --paper-3:#f3f1ec;
+    --ink:#0a0d14;
+    --ink-2:#181b22;
+    --ink-soft:#3a3f48;
+    --ink-dim:#6b6f78;
+    --ink-faint:#9aa0a8;
+    --line:#ebe9e2;
+    --line-2:#d8d6cf;
+    --accent:#ff4d2e;
+    --accent-ink:#ffffff;
+    --accent-soft:#ffece6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);}
+  body{
+    font-family:"Manrope",ui-sans-serif,system-ui,sans-serif;
+    font-size:16px;line-height:1.55;letter-spacing:.005em;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+  }
+  ::selection{background:var(--ink);color:var(--paper)}
+  .display{font-family:"Archivo",sans-serif;font-weight:900;letter-spacing:-0.025em;line-height:.95;text-wrap:balance;}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;}
+
+  .photo{
+    position:relative;overflow:hidden;
+    background:radial-gradient(120% 80% at 30% 20%,rgba(255,255,255,.10) 0%,transparent 60%),
+      radial-gradient(80% 60% at 80% 90%,rgba(0,0,0,.45) 0%,transparent 60%),
+      linear-gradient(135deg,#2a2e36 0%,#0e1117 100%);
+    color:rgba(255,255,255,.65);isolation:isolate;
+  }
+  .photo::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px),radial-gradient(rgba(0,0,0,.08) 1px,transparent 1px);
+    background-size:3px 3px,4px 4px;background-position:0 0,1px 2px;mix-blend-mode:overlay;opacity:.6;
+  }
+  .photo .caption{
+    position:absolute;left:18px;bottom:14px;display:flex;align-items:center;gap:10px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(255,255,255,.7);background:rgba(0,0,0,.35);padding:6px 10px;border-radius:2px;backdrop-filter:blur(4px);
+  }
+  .photo .tag,.photo-real .tag{
+    position:absolute;left:18px;top:14px;display:flex;align-items:center;gap:8px;
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.9);background:rgba(0,0,0,.38);padding:5px 10px;border-radius:2px;
+    backdrop-filter:blur(4px);z-index:2;
+  }
+  .photo .tag::before,.photo-real .tag::before{
+    content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 3px rgba(255,77,46,.25);flex-shrink:0;
+  }
+  .photo-real{position:relative;overflow:hidden;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:18px 26px;border-radius:999px;border:0;cursor:pointer;
+    font-family:"Archivo",sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase;
+    text-decoration:none;transition:transform .18s ease,box-shadow .25s ease,background .2s ease,color .2s ease;line-height:1;
+  }
+  .btn-primary{background:var(--accent);color:var(--accent-ink);}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(255,77,46,.55);}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper);}
+  .btn .arrow{display:inline-block;transition:transform .2s ease}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  section{position:relative;}
+  .wrap{max-width:1360px;margin:0 auto;padding:0 56px;}
+  .wrap-wide{max-width:1520px;margin:0 auto;padding:0 56px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(255,77,46,.18);}
+  .rule{height:1px;background:var(--line);}
+
+  body[data-density="dense"] section.pad{padding-block:120px;}
+  body[data-density="regular"] section.pad{padding-block:180px;}
+  body[data-density="airy"] section.pad{padding-block:240px;}
+  @media(max-width:900px){
+    .wrap,.wrap-wide{padding:0 24px}
+    body[data-density="dense"] section.pad{padding-block:80px;}
+    body[data-density="regular"] section.pad{padding-block:104px;}
+    body[data-density="airy"] section.pad{padding-block:140px;}
+  }
+  @keyframes kw-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .marquee{display:flex;overflow:hidden;border-block:1px solid var(--line);padding:22px 0}
+  .marquee .track{display:flex;gap:64px;white-space:nowrap;animation:kw-marquee 60s linear infinite}
+  .marquee .item{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:-.01em;font-size:clamp(20px,2.4vw,32px);text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:24px}
+  .marquee .item .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+</style>
+</head>
+<body data-density="regular">
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+/* ═══════════════════════════ TWEAKS PANEL ═══════════════════════════ */
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;overflow-x:hidden;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;overflow-wrap:anywhere}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = { x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)), y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)) };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(clampToViewport) : null;
+    if (ro) { ro.observe(document.documentElement); return () => ro.disconnect(); }
+    window.addEventListener('resize', clampToViewport);
+    return () => window.removeEventListener('resize', clampToViewport);
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => { setOpen(false); window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); };
+  const onDragStart = (e) => {
+    const panel = dragRef.current; if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right, startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => { offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) }; clampToViewport(); };
+    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
+  };
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-noncommentable="" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close" onMouseDown={(e) => e.stopPropagation()} onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label, children }) {
+  return <><div className="twk-sect">{label}</div>{children}</>;
+}
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl"><span>{label}</span>{value != null && <span className="twk-val">{value}</span>}</div>
+      {children}
+    </div>
+  );
+}
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'} role="switch" aria-checked={!!value} onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => { const v = typeof o === 'object' ? o.value : o; const l = typeof o === 'object' ? o.label : o; return <option key={v} value={v}>{l}</option>; })}
+      </select>
+    </TweakRow>
+  );
+}
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const valueRef = React.useRef(value); valueRef.current = value;
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    const resolve = (s) => { const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s); return m === undefined ? s : typeof m === 'object' ? m.value : m; };
+    return <TweakSelect label={label} value={value} options={options} onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+  const segAt = (clientX) => { const r = trackRef.current.getBoundingClientRect(); const inner = r.width - 4; const i = Math.floor(((clientX - r.left - 2) / inner) * n); return opts[Math.max(0, Math.min(n - 1, i))].value; };
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX); if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => { if (!trackRef.current) return; const v = segAt(ev.clientX); if (v !== valueRef.current) onChange(v); };
+    const up = () => { setDragging(false); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+  };
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown} className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb" style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`, width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>{o.label}</button>)}
+      </div>
+    </TweakRow>
+  );
+}
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', ''); const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16); if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255; return r * 299 + g * 587 + b * 114 > 148000;
+}
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} /></svg>
+);
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" style={{ width:56, height:22, border:'.5px solid rgba(0,0,0,.1)', borderRadius:6, padding:0, cursor:'default', background:'transparent', flexShrink:0 }} value={value} onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  const key = (o) => String(JSON.stringify(o)).toLowerCase(); const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o]; const [hero, ...rest] = colors; const sup = rest.slice(0, 4); const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio" aria-checked={on} data-on={on ? '1' : '0'} aria-label={colors.join(', ')} style={{ background: hero }} onClick={() => onChange(o)}>
+              {sup.length > 0 && <span>{sup.map((c, j) => <i key={j} style={{ background: c }} />)}</span>}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+/* ═══════════════════════════ SECTIONS ═══════════════════════════════ */
+
+function Photo({ label, tag, style, children, src }) {
+  if (src) {
+    return (
+      <div className="photo-real" style={style}>
+        <img src={src} alt={label || ''} style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top', display:'block' }} />
+        {tag && <div className="tag">{tag}</div>}
+        {children}
+      </div>
+    );
+  }
+  return (
+    <div className="photo" style={style}>
+      {tag && <div className="tag">{tag}</div>}
+      {children}
+      {label && <div className="caption">{label}</div>}
+    </div>
+  );
+}
+
+function Nav({ onCTAClick }) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 16); on();
+    window.addEventListener('scroll', on, { passive:true });
+    return () => window.removeEventListener('scroll', on);
+  }, []);
+  return (
+    <nav style={{
+      position:'fixed', top:0, left:0, right:0, zIndex:50,
+      padding: scrolled ? '14px 0' : '22px 0',
+      background: scrolled ? 'rgba(255,255,255,.82)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(18px) saturate(140%)' : 'none',
+      WebkitBackdropFilter: scrolled ? 'blur(18px) saturate(140%)' : 'none',
+      borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
+      transition:'all .25s ease',
+    }}>
+      <div className="wrap-wide" style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:24 }}>
+        <a href="#top" style={{ color:'var(--ink)', textDecoration:'none', display:'flex', alignItems:'center', gap:10 }}>
+          <span style={{ fontFamily:'"Archivo"', fontWeight:900, letterSpacing:'-.02em', fontSize:18 }}>KRZYSZTOF&nbsp;WNĘK</span>
+          <span className="mono" style={{ fontSize:10, color:'var(--ink-faint)', textTransform:'uppercase', letterSpacing:'.16em' }}>PQ · Mentor</span>
+        </a>
+        <div className="nav-links" style={{ display:'flex', gap:32, alignItems:'center' }}>
+          {[['Mechanizm','#mechanizm'],['Indywidualnie','#sciezki'],['Dla firm','#sciezki'],['Scena','#medrzec']].map(([label, href]) => (
+            <a key={label} href={href} style={{ color:'var(--ink)', textDecoration:'none', fontSize:13.5, fontWeight:500, letterSpacing:'.02em' }}>{label}</a>
+          ))}
+          <button className="btn btn-primary" onClick={onCTAClick} style={{ padding:'12px 18px', fontSize:12 }}>
+            Test Sabotażystów <span className="arrow">→</span>
+          </button>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.nav-links a{display:none}}`}</style>
+    </nav>
+  );
+}
+
+function Hero({ onTestClick }) {
+  return (
+    <section data-screen-label="01 Hero" id="top" style={{ position:'relative', paddingTop:160, paddingBottom:120, background:'var(--paper)' }}>
+      <div className="wrap-wide" style={{ position:'relative' }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:80, gap:24, flexWrap:'wrap' }}>
+          <div className="eyebrow"><span className="dot" /> Mentor / trener mentalny PQ / mówca</div>
+          <div className="mono" style={{ fontSize:11, letterSpacing:'.16em', textTransform:'uppercase', color:'var(--ink-faint)' }}>Kraków · 2026 · auraflux.pl</div>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1.45fr 1fr', gap:64, alignItems:'end' }} className="hero-grid">
+          <div>
+            <h1 className="display" style={{ fontSize:'clamp(56px,11vw,184px)', margin:'0 0 36px', maxWidth:'14ch' }}>
+              Od&nbsp;<em style={{ fontStyle:'normal', fontFamily:'"Archivo"', fontWeight:300, color:'var(--ink-faint)', textDecoration:'line-through', textDecorationThickness:'3px' }}>muszę</em>
+              {' '}do{' '}
+              <span style={{ color:'var(--accent)', fontStyle:'italic', fontFamily:'"Archivo"', fontWeight:900 }}>chcę.</span>
+              <br/>W&nbsp;6&nbsp;tygodni.<br/>
+              <span style={{ color:'var(--ink-faint)' }}>Bez&nbsp;terapii.</span>
+            </h1>
+          </div>
+          <div style={{ paddingBottom:24 }}>
+            <p style={{ fontSize:'clamp(17px,1.4vw,22px)', lineHeight:1.55, color:'var(--ink-soft)', margin:'0 0 36px', maxWidth:'34ch', fontWeight:400 }}>
+              Pracuję z liderami, przedsiębiorcami i top‑managementem,
+              którzy mają już wszystko — oprócz spokoju, sensu i wieczorów z&nbsp;rodziną.
+            </p>
+            <div style={{ display:'flex', gap:12, flexWrap:'wrap', marginBottom:32 }}>
+              <button className="btn btn-primary" onClick={onTestClick}>Zrób Test Sabotażystów <span className="arrow">→</span></button>
+              <a className="btn btn-ghost" href="#finish">Discovery Call · 30 min</a>
+            </div>
+            <div className="mono" style={{ fontSize:11, letterSpacing:'.12em', textTransform:'uppercase', color:'var(--ink-faint)' }}>Test trwa 15&nbsp;min · bez maila · bez karty</div>
+          </div>
+        </div>
+
+        <div className="photo-real" style={{ marginTop:80, height:'clamp(420px,62vh,720px)', width:'100%', border:'1px solid var(--line)' }}>
+          <img
+            src="assets/kw-hero.jpg"
+            alt="Krzysztof Wnęk z książką Positive Intelligence"
+            style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'60% center', display:'block' }}
+          />
+          <div className="tag">STAGE · KEYNOTE 2025</div>
+          <div style={{
+            position:'absolute', inset:0, pointerEvents:'none',
+            background:'linear-gradient(to right, rgba(255,255,255,.18) 0%, transparent 30%, transparent 70%, rgba(255,255,255,.12) 100%)',
+          }} />
+        </div>
+
+        <div style={{ marginTop:40, display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px,1fr))', gap:0, borderTop:'1px solid var(--line)', borderBottom:'1px solid var(--line)' }}>
+          {[['43','odcinki podcastu'],['1 200+','godzin mentoringu'],['6 tyg.','mierzalna zmiana'],['10','sabotażystów do złapania']].map(([n, l], i, a) => (
+            <div key={l} style={{ padding:'28px 28px', borderRight: i < a.length - 1 ? '1px solid var(--line)' : 'none' }}>
+              <div className="display" style={{ fontSize:38, lineHeight:1, marginBottom:8 }}>{n}</div>
+              <div className="mono" style={{ fontSize:10.5, letterSpacing:'.14em', textTransform:'uppercase', color:'var(--ink-faint)' }}>{l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.hero-grid{grid-template-columns:1fr !important;gap:32px !important}}`}</style>
+    </section>
+  );
+}
+
+function Lustro() {
+  const mirrors = [
+    { n:'01', title:'Konto rośnie. Ty się kurczysz.', body:'Wyniki finansowe wyglądają jak sukces. Twój kalendarz, sen i wieczne napięcie w szczęce mówią coś innego.' },
+    { n:'02', title:'Córka mówi „tato" do innego mężczyzny. Twojego telefonu.', body:'Wracasz do domu obecny ciałem, nieobecny głową. Zoom skończony. Drugi etat dopiero się zaczyna.' },
+    { n:'03', title:'Twoja żona już nie pyta, jak było w pracy.', body:'Bo nauczyła się, że odpowiesz „normalnie" i wrócisz do laptopa. To nie kryzys związku. To kryzys obecności.' },
+    { n:'04', title:'„Jeszcze tylko ten kwartał." Powtarzasz to od ośmiu lat.', body:'Każdy szczyt odsłania kolejny szczyt. Pytanie nie brzmi „ile to jest dosyć?". Pytanie brzmi: kto Ci to kiedykolwiek zdefiniował?' },
+  ];
+  return (
+    <section id="lustro" className="pad" style={{ background:'var(--paper)' }}>
+      <div className="wrap">
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'end', marginBottom:96 }} className="lustro-head">
+          <div>
+            <div className="eyebrow" style={{ marginBottom:24 }}><span className="dot" /> Lustro · S2</div>
+            <h2 className="display" style={{ fontSize:'clamp(40px,6.2vw,100px)', margin:0 }}>
+              Jeśli to siebie tu widzisz —<br/><span style={{ color:'var(--ink-faint)' }}>to nie jest przypadek.</span>
+            </h2>
+          </div>
+          <div>
+            <p style={{ fontSize:19, color:'var(--ink-soft)', maxWidth:'40ch', margin:0, lineHeight:1.6 }}>
+              Cztery zdania, które niedawno wypowiedział głośno mężczyzna zarabiający ponad milion złotych rocznie — zanim zdecydował się zacząć ze mną pracować.
+            </p>
+          </div>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:0, borderTop:'1px solid var(--line)', borderLeft:'1px solid var(--line)' }} className="mirror-grid">
+          {mirrors.map((m) => (
+            <article key={m.n} style={{ padding:'56px 48px 52px', borderRight:'1px solid var(--line)', borderBottom:'1px solid var(--line)', minHeight:300, background:'var(--paper)' }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline', marginBottom:32 }}>
+                <span className="mono" style={{ color:'var(--ink-faint)', fontSize:12, letterSpacing:'.14em' }}>{m.n} / 04</span>
+                <span style={{ width:48, height:1, background:'var(--line-2)' }} />
+              </div>
+              <h3 className="display" style={{ fontSize:'clamp(26px,2.6vw,38px)', lineHeight:1.05, margin:'0 0 22px', letterSpacing:'-.02em' }}>{m.title}</h3>
+              <p style={{ color:'var(--ink-soft)', fontSize:16.5, lineHeight:1.7, margin:0, maxWidth:'48ch' }}>{m.body}</p>
+            </article>
+          ))}
+        </div>
+        <div style={{ marginTop:96, display:'flex', justifyContent:'space-between', gap:48, alignItems:'baseline', flexWrap:'wrap' }}>
+          <p className="display" style={{ fontSize:'clamp(24px,2.8vw,38px)', lineHeight:1.15, margin:0, maxWidth:'26ch' }}>
+            To nie wypalenie.<br/>To system, który Cię tu doprowadził —<br/><span style={{ color:'var(--accent)' }}>i&nbsp;który nie zaprowadzi Cię dalej.</span>
+          </p>
+          <a href="#mechanizm" style={{ color:'var(--ink)', textDecoration:'none', fontSize:13.5, fontWeight:600, letterSpacing:'.04em', textTransform:'uppercase', display:'inline-flex', alignItems:'center', gap:10 }}>Zobacz mechanizm <span>↓</span></a>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.lustro-head,.mirror-grid{grid-template-columns:1fr !important;gap:32px !important}}`}</style>
+    </section>
+  );
+}
+
+function Mechanizm() {
+  const cols = [
+    { tag:'DIAGNOZA', title:'Sabotażyści', body:'Mierzymy 10 wewnętrznych sabotażystów, którzy podejmują za Ciebie 70% decyzji. Sędzia, Hyper-Achiever, Kontroler, Please-r. Nie domysł — test oparty na 25 latach badań Stanforda.', meta:'15 min · darmowe · w jęz. polskim', src:'assets/kw-portrait.jpg' },
+    { tag:'OPERATOR', title:'Mędrzec', body:'Aktywujemy część mózgu, która generuje spokój, kreatywność i zdecydowane działanie zamiast paniki, kontroli i odkładania. Pięć mocy: Empatia, Eksploracja, Innowacja, Nawigacja, Aktywacja.', meta:'5 mocy · mierzalne · neuroplastyczne', src:null },
+    { tag:'TRENING', title:'Reps', body:'6 tygodni × 15 minut dziennie w aplikacji + cotygodniowy mentoring 1:1 ze mną. Tak buduje się nawyk i nowy nawyk myślenia. Nie inaczej. Nie szybciej. Nie magicznie.', meta:'6 tyg. · ~15 min/dzień · 1:1 weekly', src:null },
+  ];
+  return (
+    <section id="mechanizm" className="pad" style={{ background:'var(--paper-2)' }}>
+      <div className="wrap-wide">
+        <div style={{ display:'grid', gridTemplateColumns:'1.1fr 1fr', gap:80, alignItems:'end', marginBottom:96 }} className="mech-head">
+          <div>
+            <div className="eyebrow" style={{ marginBottom:24 }}><span className="dot" /> Mechanizm · most między biznesem a głową</div>
+            <h2 className="display" style={{ fontSize:'clamp(40px,6vw,96px)', margin:0 }}>
+              PQ — czyli dlaczego<br/><span style={{ color:'var(--accent)' }}>terapia&nbsp;Cię&nbsp;nudzi,</span><br/>a&nbsp;coaching&nbsp;Cię&nbsp;irytuje.
+            </h2>
+          </div>
+          <div>
+            <p style={{ fontSize:18, color:'var(--ink-soft)', margin:'0 0 16px', lineHeight:1.65 }}>
+              <strong style={{ color:'var(--ink)' }}>Positive Intelligence</strong> to system treningu mięśni mentalnych Shirzada Chamine'a — 25 lat badań Stanforda i danych z 500 tys. liderów.
+            </p>
+            <p style={{ fontSize:15.5, color:'var(--ink-dim)', margin:0, lineHeight:1.65 }}>Mierzalny. Powtarzalny. Działa nawet wtedy, gdy nie wierzysz, że zadziała — bo nie pracuje na wierze. Pracuje na neuroplastyczności.</p>
+          </div>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:32 }} className="mech-grid">
+          {cols.map((c, i) => (
+            <article key={c.tag} style={{ background:'var(--paper)', border:'1px solid var(--line)', display:'flex', flexDirection:'column' }}>
+              <Photo tag={`KROK ${String(i+1).padStart(2,'0')}`} label={c.photo} src={c.src} style={{ aspectRatio:'4/3', width:'100%' }} />
+              <div style={{ padding:'36px 32px 32px', display:'flex', flexDirection:'column', gap:16, flex:1 }}>
+                <div className="mono" style={{ fontSize:10.5, letterSpacing:'.18em', color:'var(--accent)', textTransform:'uppercase' }}>{c.tag}</div>
+                <h3 className="display" style={{ fontSize:44, lineHeight:1, margin:0, letterSpacing:'-.025em' }}>{c.title}</h3>
+                <p style={{ color:'var(--ink-soft)', fontSize:15.5, lineHeight:1.65, margin:0 }}>{c.body}</p>
+                <div className="mono" style={{ marginTop:'auto', paddingTop:18, borderTop:'1px solid var(--line)', fontSize:11, color:'var(--ink-faint)', letterSpacing:'.06em' }}>{c.meta}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div style={{ marginTop:72, padding:'40px 44px', border:'1px solid var(--line)', background:'var(--paper)', display:'flex', justifyContent:'space-between', gap:24, alignItems:'center', flexWrap:'wrap' }}>
+          <div className="display" style={{ fontSize:'clamp(22px,2.3vw,32px)', lineHeight:1.15, letterSpacing:'-.015em' }}>
+            Logika inżyniera.&nbsp;<span style={{ color:'var(--ink-faint)' }}>Energia mentora.</span>&nbsp;<span style={{ color:'var(--accent)' }}>Wynik mierzalny w 6 tygodni.</span>
+          </div>
+          <a href="#sciezki" className="btn btn-primary" style={{ fontSize:13 }}>Wybierz ścieżkę <span className="arrow">→</span></a>
+        </div>
+      </div>
+      <style>{`
+        @media(max-width:1000px){.mech-grid{grid-template-columns:1fr !important;gap:24px !important}}
+        @media(max-width:900px){.mech-head{grid-template-columns:1fr !important;gap:32px !important}}
+      `}</style>
+    </section>
+  );
+}
+
+function Sciezki() {
+  return (
+    <section id="sciezki" className="pad" style={{ background:'var(--paper)' }}>
+      <div className="wrap-wide">
+        <div style={{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:32, marginBottom:80, flexWrap:'wrap' }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom:24 }}><span className="dot" /> Wybierz ścieżkę · S4</div>
+            <h2 className="display" style={{ fontSize:'clamp(40px,6vw,92px)', margin:0 }}>Dwa światy. <span style={{ color:'var(--ink-faint)' }}>Jedna metoda.</span></h2>
+          </div>
+          <p className="mono" style={{ fontSize:12, color:'var(--ink-faint)', letterSpacing:'.12em', textTransform:'uppercase', maxWidth:'32ch' }}>Dla Ciebie / dla zarządu Twojej firmy</p>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:32 }} className="sciezki-grid">
+          <article style={{ background:'var(--paper)', border:'1px solid var(--line)', display:'flex', flexDirection:'column' }}>
+            <Photo tag="ŚCIEŻKA A · INDYWIDUALNIE" label="LIFESTYLE · KW z klientem 1:1, kawa, słońce" style={{ aspectRatio:'16/10', width:'100%' }} />
+            <div style={{ padding:'40px 40px 36px', display:'flex', flexDirection:'column', gap:20 }}>
+              <h3 className="display" style={{ fontSize:'clamp(28px,3.4vw,48px)', lineHeight:1.02, margin:0 }}>Wróć do domu człowiekiem, którego sam chciałbyś mieć za ojca.</h3>
+              <p style={{ color:'var(--ink-soft)', fontSize:16, lineHeight:1.65, margin:0 }}>Sześć tygodni głębokiej pracy 1:1 ze mną i z aplikacją PQ. Energia, radość, obecność. Pierwsza zmiana zauważalna w 14 dni. Pełna — w 6 tygodni. Trwała — w 6 miesięcy.</p>
+              <ul style={{ listStyle:'none', padding:0, margin:0, display:'grid', gap:10 }}>
+                {['6-tygodniowy program PQ (Mental Fitness Bootcamp)','Cotygodniowy mentoring 1:1 ze mną (60 min)','Aplikacja PQ + 5 mocy Mędrca, codzienne reps','Zamknięta grupa absolwentów (akredytacja PQ)'].map(li => (
+                  <li key={li} style={{ display:'flex', gap:14, fontSize:15, color:'var(--ink)', lineHeight:1.5 }}>
+                    <span style={{ color:'var(--accent)', fontFamily:'JetBrains Mono', fontSize:13 }}>▸</span><span>{li}</span>
+                  </li>
+                ))}
+              </ul>
+              <div style={{ marginTop:8, paddingTop:24, borderTop:'1px solid var(--line)', display:'flex', justifyContent:'space-between', alignItems:'center', gap:16, flexWrap:'wrap' }}>
+                <div>
+                  <div className="mono" style={{ fontSize:10.5, color:'var(--ink-faint)', letterSpacing:'.14em', textTransform:'uppercase', marginBottom:6 }}>Inwestycja</div>
+                  <div className="display" style={{ fontSize:24, lineHeight:1 }}>na rozmowie</div>
+                </div>
+                <a href="#finish" className="btn btn-primary" style={{ fontSize:12.5 }}>Program indywidualny <span className="arrow">→</span></a>
+              </div>
+            </div>
+          </article>
+          <article style={{ background:'var(--ink)', color:'var(--paper)', border:'1px solid var(--ink)', display:'flex', flexDirection:'column' }}>
+            <Photo tag="ŚCIEŻKA B · DLA FIRM" label="BOARDROOM · KW prowadzi sesję dla zarządu" style={{ aspectRatio:'16/10', width:'100%' }} />
+            <div style={{ padding:'40px 40px 36px', display:'flex', flexDirection:'column', gap:20 }}>
+              <h3 className="display" style={{ fontSize:'clamp(28px,3.4vw,48px)', lineHeight:1.02, margin:0 }}>Top management nie pęka. Albo pęka po cichu — i drogo.</h3>
+              <p style={{ color:'rgba(255,255,255,.7)', fontSize:16, lineHeight:1.65, margin:0 }}>Program PQ dla C-level, zarządów i kluczowych liderów. Mierzalna redukcja kosztów blokad decyzyjnych, wypalenia i rotacji w warstwie sukcesyjnej. ROI w 90 dni od startu.</p>
+              <ul style={{ listStyle:'none', padding:0, margin:0, display:'grid', gap:10 }}>
+                {['Diagnoza Sabotażystów dla zespołu (raport zbiorczy + indywidualny)','Program 6–12 tyg. dla kadry (on-site + asynchronicznie)','Sesje keynote, off-site retreats, warsztaty zarządu','Raport HR: wpływ na produktywność, retencję, decyzyjność'].map(li => (
+                  <li key={li} style={{ display:'flex', gap:14, fontSize:15, color:'rgba(255,255,255,.92)', lineHeight:1.5 }}>
+                    <span style={{ color:'var(--accent)', fontFamily:'JetBrains Mono', fontSize:13 }}>▸</span><span>{li}</span>
+                  </li>
+                ))}
+              </ul>
+              <div style={{ marginTop:8, paddingTop:24, borderTop:'1px solid rgba(255,255,255,.12)', display:'flex', justifyContent:'space-between', alignItems:'center', gap:16, flexWrap:'wrap' }}>
+                <div>
+                  <div className="mono" style={{ fontSize:10.5, color:'rgba(255,255,255,.5)', letterSpacing:'.14em', textTransform:'uppercase', marginBottom:6 }}>Wycena</div>
+                  <div className="display" style={{ fontSize:24, lineHeight:1 }}>pod skalę</div>
+                </div>
+                <a href="#finish" className="btn" style={{ fontSize:12.5, background:'var(--paper)', color:'var(--ink)' }}>One-pager B2B <span className="arrow">↓</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.sciezki-grid{grid-template-columns:1fr !important}}`}</style>
+    </section>
+  );
+}
+
+function Marquee() {
+  const items = ['TEDX KRAKÓW','INFOSHARE','EEC EUROPEAN ECONOMIC CONGRESS','MASTERS&ROBOTS','KONGRES PRZEDSIĘBIORCÓW','CXO SUMMIT','POWER SPEECH · WARSZAWA','TEDX WROCŁAW','PRESS · FORBES PL','PODCAST · ARCHITEKCI SPOKOJU'];
+  const row = [...items, ...items];
+  return (
+    <div className="marquee" aria-hidden="true">
+      <div className="track">
+        {row.map((t, i) => <span className="item" key={i}>{t} <span className="dot" /></span>)}
+      </div>
+    </div>
+  );
+}
+
+function Medrzec() {
+  const speeches = [
+    { t:'Architekci Spokoju · #43', d:'Dlaczego dyscyplina Cię zabija. Rozmowa z prof. Janem K.', kind:'PODCAST', img:'YT_THUMB · rozmowa w studio, dwa krzesła, mikrofony' },
+    { t:'TEDx Kraków', d:'Sabotażysta w garniturze: 10 ról, które gramy zamiast siebie.', kind:'KEYNOTE', img:'STAGE · TEDx czerwony krąg, KW w ruchu' },
+    { t:'Infoshare 2025', d:'Decyzyjność liderów AI: jak nie pęknąć pod presją tempa.', kind:'KEYNOTE', img:'STAGE · duża scena, niebieskie światło, wide shot' },
+    { t:'Architekci Spokoju · #38', d:'Mąż, ojciec, prezes. Wybierz dwa. (A potem wybierz wszystkie trzy.)', kind:'PODCAST', img:'YT_THUMB · KW z gościem, kawa, ciepłe światło' },
+  ];
+  return (
+    <section id="medrzec" className="pad" style={{ background:'var(--paper)' }}>
+      <div className="wrap-wide">
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1.15fr', gap:80, alignItems:'center', marginBottom:96 }} className="med-head">
+          <Photo src="assets/kw-portrait.jpg" tag="O MNIE · 2026" label="Krzysztof Wnęk" style={{ aspectRatio:'4/5', width:'100%' }} />
+          <div>
+            <div className="eyebrow" style={{ marginBottom:24 }}><span className="dot" /> Mędrzec ze sceny · o&nbsp;mnie</div>
+            <h2 className="display" style={{ fontSize:'clamp(36px,5.4vw,84px)', margin:'0 0 32px' }}>Płonę, żeby<br/><span style={{ color:'var(--accent)' }}>zapalać innych.</span></h2>
+            <p style={{ fontSize:19, color:'var(--ink)', lineHeight:1.6, margin:'0 0 18px', maxWidth:'52ch' }}>
+              Krzysztof Wnęk. 20 lat w biznesie. Ostatnie 8 — w bardzo konkretnej pracy nad sobą i nad ludźmi, którzy z zewnątrz wyglądają, jakby nic im nie&nbsp;dolegało.
+            </p>
+            <p style={{ fontSize:16, color:'var(--ink-soft)', lineHeight:1.65, margin:'0 0 32px', maxWidth:'56ch' }}>
+              Certyfikowany trener Positive Intelligence. Twórca podcastu <em style={{ fontStyle:'normal', color:'var(--ink)' }}> „Architekci Spokoju"</em> (43 odcinki, ponad 180 tys. odsłuchań). Mówca na scenach TEDx, Infoshare, EEC. Mentor, nie terapeuta. Mędrzec, nie kaznodzieja.
+            </p>
+            <div style={{ display:'flex', gap:48, flexWrap:'wrap' }}>
+              {[['43','odcinki'],['180k','odsłuchań'],['12','wystąpień / rok']].map(([n, l]) => (
+                <div key={l}>
+                  <div className="display" style={{ fontSize:44, lineHeight:1, color:'var(--accent)' }}>{n}</div>
+                  <div className="mono" style={{ fontSize:10.5, color:'var(--ink-faint)', letterSpacing:'.14em', textTransform:'uppercase', marginTop:8 }}>{l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mono" style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline', padding:'22px 0', borderTop:'1px solid var(--line)', borderBottom:'1px solid var(--line)', marginBottom:32, fontSize:11.5, color:'var(--ink-faint)', letterSpacing:'.16em', textTransform:'uppercase' }}>
+          <span>Power Speeches &amp; Architekci Spokoju</span><span>4 / 43</span>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:24 }} className="speeches-grid">
+          {speeches.map((s, i) => (
+            <a key={i} href="#" style={{ background:'var(--paper)', border:'1px solid var(--line)', textDecoration:'none', color:'inherit', display:'block' }}>
+              <Photo tag={s.kind} label={s.img} style={{ aspectRatio:'16/10', width:'100%' }} />
+              <div style={{ padding:'22px 22px 26px' }}>
+                <div className="mono" style={{ fontSize:10.5, letterSpacing:'.14em', color:'var(--accent)', textTransform:'uppercase', marginBottom:12 }}>▸ play</div>
+                <div className="display" style={{ fontSize:19, lineHeight:1.15, margin:'0 0 8px', letterSpacing:'-.015em' }}>{s.t}</div>
+                <p style={{ fontSize:14, color:'var(--ink-soft)', margin:0, lineHeight:1.5 }}>{s.d}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:32, marginTop:96 }} className="quotes-grid">
+          {[
+            { q:'Z Krzysztofa wychodzi się innym człowiekiem. Nie „lepszym pracownikiem" — innym człowiekiem. Po sześciu tygodniach przestałem się budzić o 4:00 z głową w spreadsheetach.', who:'Marek W.', role:'CEO, scale-up SaaS, B+' },
+            { q:'Pierwszy mentor, który nie próbował mi sprzedać medytacji. Sprzedał mi konkretny system, którego użyłabym do wdrożenia procesu w firmie. Tylko że tym procesem byłam ja.', who:'Anna G.', role:'COO, FMCG, 1200+ osób' },
+          ].map((q, i) => (
+            <blockquote key={i} style={{ margin:0, padding:'40px 40px', border:'1px solid var(--line)', background:'var(--paper-2)', position:'relative' }}>
+              <span className="display" style={{ position:'absolute', top:-12, left:28, fontSize:90, lineHeight:1, color:'var(--accent)' }}>"</span>
+              <p style={{ fontSize:18, lineHeight:1.55, margin:'0 0 28px', color:'var(--ink)' }}>{q.q}</p>
+              <footer style={{ display:'flex', alignItems:'center', gap:14 }}>
+                <Photo style={{ width:44, height:44, borderRadius:'50%' }} />
+                <div>
+                  <div style={{ fontSize:14, fontWeight:600 }}>{q.who}</div>
+                  <div className="mono" style={{ fontSize:11, color:'var(--ink-faint)', letterSpacing:'.06em' }}>{q.role}</div>
+                </div>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        @media(max-width:1100px){.speeches-grid{grid-template-columns:repeat(2,1fr) !important}}
+        @media(max-width:900px){.med-head{grid-template-columns:1fr !important;gap:32px !important}.speeches-grid{grid-template-columns:1fr !important}.quotes-grid{grid-template-columns:1fr !important}}
+      `}</style>
+    </section>
+  );
+}
+
+function AcceptanceCard({ hovered, setHovered, onClick }) {
+  const sabos = [
+    { name:'Sędzia', score:0.84 },{ name:'Hyper-Achiever', score:0.72 },{ name:'Kontroler', score:0.68 },{ name:'Please-r', score:0.41 },{ name:'Ofiara', score:0.18 },
+  ];
+  return (
+    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{ background:'var(--paper)', border:'1px solid var(--line)', padding:'32px 32px 28px', position:'relative', boxShadow: hovered ? '0 30px 80px -30px rgba(0,0,0,.18)' : '0 18px 40px -20px rgba(0,0,0,.10)', transform: hovered ? 'translateY(-3px)' : 'none', transition:'all .25s ease' }}>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:28 }}>
+        <div>
+          <div className="mono" style={{ fontSize:10.5, letterSpacing:'.16em', color:'var(--ink-faint)', textTransform:'uppercase' }}>Centrum Akceptacji</div>
+          <div className="display" style={{ fontSize:24, marginTop:6, letterSpacing:'-.02em' }}>Twój raport · podgląd</div>
+        </div>
+        <span className="mono" style={{ fontSize:10, padding:'5px 9px', border:'1px solid var(--accent)', color:'var(--accent)', letterSpacing:'.14em', textTransform:'uppercase', borderRadius:999 }}>DEMO</span>
+      </div>
+      <div style={{ display:'grid', gap:12, marginBottom:28 }}>
+        {sabos.map((s, i) => (
+          <div key={s.name} style={{ display:'grid', gridTemplateColumns:'130px 1fr 40px', gap:14, alignItems:'center' }}>
+            <span style={{ fontSize:14, fontWeight:500 }}>{s.name}</span>
+            <div style={{ height:6, background:'var(--paper-3)', borderRadius:999, overflow:'hidden' }}>
+              <div style={{ height:'100%', width:`${s.score * 100}%`, background: i < 2 ? 'var(--accent)' : 'var(--ink-faint)', borderRadius:999, transition:'width .8s cubic-bezier(.6,.2,.2,1)' }} />
+            </div>
+            <span className="mono" style={{ fontSize:11, color:'var(--ink-faint)', textAlign:'right' }}>{Math.round(s.score * 100)}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding:'18px 20px', background:'var(--accent-soft)', borderRadius:4, marginBottom:22 }}>
+        <div className="mono" style={{ fontSize:10.5, color:'var(--accent)', letterSpacing:'.14em', textTransform:'uppercase', marginBottom:8 }}>Twoja diagnoza →</div>
+        <p style={{ margin:0, fontSize:14.5, lineHeight:1.55, color:'var(--ink)' }}>
+          <strong>Sędzia + Hyper-Achiever.</strong> Klasyczny duet polskiego przedsiębiorcy. Wynik: imponujący na zewnątrz. W środku — wyczerpanie i ciche poczucie, że nigdy nie jest dosyć.
+        </p>
+      </div>
+      <button className="btn btn-primary" onClick={onClick} style={{ width:'100%', justifyContent:'center', fontSize:13 }}>Zrób swój test · 15 min <span className="arrow">→</span></button>
+      <div className="mono" style={{ fontSize:10, color:'var(--ink-faint)', letterSpacing:'.12em', textTransform:'uppercase', textAlign:'center', marginTop:16 }}>Bez zapisu do newslettera · bez karty · bez triggerów</div>
+    </div>
+  );
+}
+
+function Finish({ onTestClick }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <section id="finish" className="pad" style={{ background:'var(--paper-2)', borderTop:'1px solid var(--line)' }}>
+      <div className="wrap-wide">
+        <div className="eyebrow" style={{ marginBottom:24 }}><span className="dot" /> Banalnie prosty start · S6</div>
+        <div style={{ display:'grid', gridTemplateColumns:'1.1fr 1fr', gap:80, alignItems:'start' }} className="finish-grid">
+          <div>
+            <h2 className="display" style={{ fontSize:'clamp(40px,6.4vw,104px)', margin:'0 0 40px' }}>
+              Trzy kroki.<br/><span style={{ color:'var(--accent)' }}>Pierwszy darmowy.</span><br/><span style={{ color:'var(--ink-faint)' }}>Bez listy mailingowej.</span>
+            </h2>
+            <ol style={{ listStyle:'none', padding:0, margin:'0 0 44px', display:'grid', gap:22 }}>
+              {[
+                ['Zrób darmowy Test Sabotażystów.','15 minut, online, w języku polskim. Dostajesz raport z 10 sabotażystów + wskazaniem dwóch dominujących.'],
+                ['Umów 30 min Discovery Call.','Bez sprzedaży, bez slajdów. Omawiam z Tobą raport i mówię uczciwie, czy moja praca jest tym, czego potrzebujesz.'],
+                ['Decyzja należy do Ciebie.','Wchodzisz w 6-tygodniowy program, dostajesz materiały do samodzielnej pracy, albo idziesz dalej z tym, czego się dowiedziałeś.'],
+              ].map(([t, b], i) => (
+                <li key={i} style={{ display:'grid', gridTemplateColumns:'auto 1fr', gap:28, alignItems:'baseline' }}>
+                  <span className="display" style={{ fontSize:44, color:'var(--accent)', lineHeight:1, minWidth:72 }}>{String(i+1).padStart(2,'0')}</span>
+                  <div>
+                    <div className="display" style={{ fontSize:'clamp(22px,2.2vw,30px)', lineHeight:1.15, margin:'0 0 10px', letterSpacing:'-.015em' }}>{t}</div>
+                    <p style={{ fontSize:16, color:'var(--ink-soft)', margin:0, lineHeight:1.65, maxWidth:'56ch' }}>{b}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div style={{ display:'flex', gap:14, flexWrap:'wrap' }}>
+              <button className="btn btn-primary" onClick={onTestClick}>Zacznij od testu <span className="arrow">→</span></button>
+              <a className="btn btn-ghost" href="#">Discovery Call · Zencal</a>
+            </div>
+          </div>
+          <AcceptanceCard hovered={hovered} setHovered={setHovered} onClick={onTestClick} />
+        </div>
+        <div style={{ marginTop:120, paddingTop:40, borderTop:'1px solid var(--line)', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:32, alignItems:'baseline' }}>
+          <p className="display" style={{ fontSize:'clamp(32px,4vw,56px)', lineHeight:1.05, margin:0, maxWidth:'24ch' }}>Nie musisz być gotowy. Musisz tylko zacząć.</p>
+          <p className="mono" style={{ fontSize:11.5, color:'var(--ink-faint)', letterSpacing:'.14em', textTransform:'uppercase', maxWidth:'28ch', textAlign:'right' }}>Test trwa 15 min. <br/> Discovery Call 30 min. <br/> Reszta to Twoja decyzja.</p>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.finish-grid{grid-template-columns:1fr !important;gap:48px !important}}`}</style>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer style={{ background:'var(--ink)', color:'var(--paper)', padding:'80px 0 56px' }}>
+      <div className="wrap-wide">
+        <div style={{ display:'grid', gridTemplateColumns:'1.6fr 1fr 1fr 1fr', gap:48, marginBottom:72 }} className="foot-grid">
+          <div>
+            <div className="display" style={{ fontSize:32, letterSpacing:'-.02em', marginBottom:18 }}>KRZYSZTOF&nbsp;WNĘK</div>
+            <p style={{ color:'rgba(255,255,255,.65)', fontSize:14.5, margin:'0 0 24px', lineHeight:1.6, maxWidth:'40ch' }}>Mentor PQ. Trener mentalny dla&nbsp;liderów i&nbsp;ich zespołów. Bo terapia nudzi, a coaching irytuje.</p>
+            <a href="#finish" className="btn btn-primary" style={{ fontSize:12.5, padding:'14px 20px' }}>Test Sabotażystów <span className="arrow">→</span></a>
+          </div>
+          {[['Praca',['Indywidualnie','Dla firm','Discovery Call','Test Sabotażystów']],['Scena',['Architekci Spokoju','Power Speeches','TEDx','Press']],['Kontakt',['krzysztof@auraflux.pl','LinkedIn','YouTube','Instagram']]].map(([h, items]) => (
+            <div key={h}>
+              <div className="mono" style={{ fontSize:11, letterSpacing:'.16em', color:'rgba(255,255,255,.45)', textTransform:'uppercase', marginBottom:20 }}>{h}</div>
+              <ul style={{ listStyle:'none', padding:0, margin:0, display:'grid', gap:12 }}>
+                {items.map(x => <li key={x}><a href="#" style={{ color:'rgba(255,255,255,.92)', textDecoration:'none', fontSize:14.5 }}>{x}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div style={{ display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:16, paddingTop:28, borderTop:'1px solid rgba(255,255,255,.10)', color:'rgba(255,255,255,.45)', fontSize:12 }}>
+          <span className="mono" style={{ letterSpacing:'.06em' }}>© 2026 Krzysztof Wnęk · wszystkie prawa zastrzeżone</span>
+          <span className="mono" style={{ letterSpacing:'.06em' }}>auraflux.pl · made for the ones who already have everything</span>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.foot-grid{grid-template-columns:1fr 1fr !important;gap:32px !important}}`}</style>
+    </footer>
+  );
+}
+
+/* ═══════════════════════════ APP ═══════════════════════════════════ */
+
+const KW_TWEAKS = /*EDITMODE-BEGIN*/{
+  "accent": "#ff4d2e",
+  "density": "regular",
+  "showDevNotes": false,
+  "displayFont": "Archivo",
+  "bodyFont": "Manrope",
+  "showMarquee": true
+}/*EDITMODE-END*/;
+
+function isLight(hex) {
+  if (!hex || hex[0] !== '#') return false;
+  const h = hex.replace('#','');
+  const v = h.length === 3 ? h.split('').map(x => parseInt(x+x,16)) : [0,2,4].map(i => parseInt(h.slice(i,i+2),16));
+  return (0.2126*v[0] + 0.7152*v[1] + 0.0722*v[2]) / 255 > 0.62;
+}
+function hexAlpha(hex, a) {
+  if (!hex || hex[0] !== '#') return hex;
+  const h = hex.replace('#','');
+  const v = h.length === 3 ? h.split('').map(x => parseInt(x+x,16)) : [0,2,4].map(i => parseInt(h.slice(i,i+2),16));
+  return `rgba(${v[0]},${v[1]},${v[2]},${a})`;
+}
+
+function TestModal({ onClose }) {
+  const questions = [
+    'Gdy mój zespół popełnia błąd, mój pierwszy odruch to znaleźć, kto zawinił.',
+    'Czuję, że nie mogę odpocząć, dopóki nie skończę listy.',
+    'Gdy ktoś mówi mi „zrelaksuj się", to mnie irytuje.',
+    'Często odpowiadam „dam radę", zanim sprawdzę swój kalendarz.',
+    'Mam ciche poczucie, że gdybym przestał napierać, wszystko by się rozpadło.',
+  ];
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const n = questions.length;
+  const isResult = step >= n;
+
+  useEffect(() => {
+    const on = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', on);
+    document.body.style.overflow = 'hidden';
+    return () => { window.removeEventListener('keydown', on); document.body.style.overflow = ''; };
+  }, [onClose]);
+
+  const answer = (val) => { setAnswers(a => ({ ...a, [step]: val })); setTimeout(() => setStep(s => s + 1), 180); };
+  const score = Object.values(answers).reduce((a, b) => a + b, 0);
+
+  return (
+    <div role="dialog" aria-modal="true" onClick={onClose} style={{ position:'fixed', inset:0, zIndex:1000, background:'rgba(10,13,20,.55)', backdropFilter:'blur(10px)', display:'flex', alignItems:'center', justifyContent:'center', padding:24 }}>
+      <div onClick={e => e.stopPropagation()} style={{ width:'min(720px,100%)', maxHeight:'90vh', overflow:'auto', background:'var(--paper)', border:'1px solid var(--line)', padding:'44px 48px', position:'relative', borderRadius:8, fontFamily:'"Manrope",sans-serif', color:'var(--ink)', boxShadow:'0 40px 100px -20px rgba(0,0,0,.35)' }}>
+        <button onClick={onClose} aria-label="Zamknij" style={{ position:'absolute', top:18, right:18, width:36, height:36, background:'transparent', border:'1px solid var(--line-2)', color:'var(--ink)', cursor:'pointer', fontFamily:'JetBrains Mono', fontSize:14, borderRadius:999 }}>×</button>
+        <div className="mono" style={{ fontSize:11, letterSpacing:'.18em', color:'var(--accent)', textTransform:'uppercase', marginBottom:14 }}>Test Sabotażystów · Demo</div>
+        {!isResult ? (
+          <>
+            <div className="mono" style={{ fontSize:11, color:'var(--ink-faint)', letterSpacing:'.12em', marginBottom:24 }}>PYTANIE {step + 1} / {n}</div>
+            <h3 className="display" style={{ fontSize:'clamp(24px,3vw,36px)', lineHeight:1.1, margin:'0 0 36px', letterSpacing:'-.02em' }}>{questions[step]}</h3>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:8, marginBottom:24 }}>
+              {[['1','wcale'],['2','rzadko'],['3','czasem'],['4','często'],['5','zawsze']].map(([v, l]) => (
+                <button key={v} onClick={() => answer(parseInt(v,10))} style={{ appearance:'none', cursor:'pointer', padding:'18px 6px', background:'transparent', color:'var(--ink)', border:'1px solid var(--line-2)', display:'grid', placeItems:'center', gap:6, fontFamily:'inherit', borderRadius:4, transition:'all .15s ease' }}
+                  onMouseEnter={e => { e.currentTarget.style.background='var(--accent)'; e.currentTarget.style.color='var(--accent-ink)'; e.currentTarget.style.borderColor='var(--accent)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='var(--ink)'; e.currentTarget.style.borderColor='var(--line-2)'; }}>
+                  <span className="display" style={{ fontSize:24, lineHeight:1 }}>{v}</span>
+                  <span className="mono" style={{ fontSize:10, letterSpacing:'.12em', textTransform:'uppercase' }}>{l}</span>
+                </button>
+              ))}
+            </div>
+            <div style={{ height:3, background:'var(--paper-3)', borderRadius:999 }}>
+              <div style={{ height:'100%', width:`${(step/n)*100}%`, background:'var(--accent)', borderRadius:999, transition:'width .25s ease' }} />
+            </div>
+          </>
+        ) : (
+          <>
+            <h3 className="display" style={{ fontSize:'clamp(28px,3.4vw,44px)', lineHeight:1.05, margin:'0 0 20px', letterSpacing:'-.02em' }}>
+              Wynik demo:&nbsp;<span style={{ color:'var(--accent)' }}>{score >= 18 ? 'Sędzia + Hyper-Achiever' : score >= 12 ? 'Sędzia + Kontroler' : 'Sędzia + Please-r'}</span>
+            </h3>
+            <p style={{ fontSize:16, color:'var(--ink-soft)', lineHeight:1.65, margin:'0 0 28px', maxWidth:'56ch' }}>
+              To tylko mini-szkic. Pełny Test Sabotażystów ma 75 pytań i wymaga ~15 minut. Otrzymujesz raport PDF z 10 sabotażystów + interpretacją dwóch dominujących. Następny krok: 30 min Discovery Call, w którym omawiamy go razem.
+            </p>
+            <div style={{ display:'flex', gap:12, flexWrap:'wrap' }}>
+              <a href="#" className="btn btn-primary">Zrób pełny test · 15 min <span className="arrow">→</span></a>
+              <a href="#" className="btn btn-ghost">Discovery Call · Zencal</a>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [t, setTweak] = useTweaks(KW_TWEAKS);
+  const [modal, setModal] = useState(null);
+
+  useEffect(() => {
+    const r = document.documentElement;
+    r.style.setProperty('--accent', t.accent);
+    r.style.setProperty('--accent-ink', isLight(t.accent) ? '#0a0d14' : '#ffffff');
+    r.style.setProperty('--accent-soft', hexAlpha(t.accent, 0.10));
+    document.body.dataset.density = t.density;
+    document.body.style.fontFamily = `"${t.bodyFont}",ui-sans-serif,system-ui,sans-serif`;
+    const sheetId = '__kw_font_sheet';
+    let s = document.getElementById(sheetId);
+    if (!s) { s = document.createElement('style'); s.id = sheetId; document.head.appendChild(s); }
+    s.textContent = `.display{font-family:"${t.displayFont}",sans-serif}`;
+  }, [t.accent, t.density, t.displayFont, t.bodyFont]);
+
+  const openTest = () => setModal('test');
+
+  return (
+    <div id="top">
+      <Nav onCTAClick={openTest} />
+      <Hero onTestClick={openTest} />
+      <Lustro />
+      <Mechanizm />
+      {t.showMarquee && <Marquee />}
+      <Sciezki />
+      <Medrzec />
+      <Finish onTestClick={openTest} />
+      <Footer />
+      {modal === 'test' && <TestModal onClose={() => setModal(null)} />}
+      <TweaksPanel>
+        <TweakSection label="Akcent &amp; energia" />
+        <TweakColor label="Kolor CTA" value={t.accent} options={['#ff4d2e','#0a0d14','#19a06e','#f2b441','#2d62ff']} onChange={(v) => setTweak('accent', v)} />
+        <TweakRadio label="Gęstość" value={t.density} options={['dense','regular','airy']} onChange={(v) => setTweak('density', v)} />
+        <TweakSection label="Typografia" />
+        <TweakSelect label="Nagłówki" value={t.displayFont} options={['Archivo','Manrope']} onChange={(v) => setTweak('displayFont', v)} />
+        <TweakSelect label="Tekst" value={t.bodyFont} options={['Manrope','Archivo']} onChange={(v) => setTweak('bodyFont', v)} />
+        <TweakSection label="Elementy" />
+        <TweakToggle label="Pasek scen / press" value={t.showMarquee} onChange={(v) => setTweak('showMarquee', v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
