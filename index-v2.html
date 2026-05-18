@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Krzysztof Wnęk — Wymieniasz sukces na stres.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --paper:   #f5f3ec;
+    --paper-2: #ebe8de;
+    --paper-3: #e0ddd3;
+    --ink:     #0a0a0a;
+    --ink-soft:#3a3a3a;
+    --ink-dim: #6c6c6c;
+    --ink-faint:#a8a59c;
+    --line:    #d6d3c8;
+    --line-d:  rgba(255,255,255,.10);
+    --navy:    #1e2c47;
+    --accent:  #19c3e6;
+    --accent-2:#f08a3a;
+    --accent-ink:#0a0a0a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);}
+  body{
+    font-family:"Inter",ui-sans-serif,system-ui,sans-serif;
+    font-size:16px;line-height:1.6;letter-spacing:.005em;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+  }
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  .d{font-family:"Oswald",sans-serif;font-weight:700;letter-spacing:.01em;line-height:.92;text-transform:uppercase;}
+  .anton{font-family:"Anton",sans-serif;font-weight:400;letter-spacing:.005em;line-height:.9;text-transform:uppercase;}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;}
+
+  .wrap{max-width:1480px;margin:0 auto;padding:0 56px;}
+  section{position:relative;}
+
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim);display:inline-flex;align-items:center;gap:14px;}
+  .eyebrow .num{color:var(--accent);}
+  .eyebrow.light{color:rgba(245,243,236,.5);}
+  .eyebrow.light .num{color:var(--accent);}
+
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:20px 32px;border-radius:0;border:0;cursor:pointer;font-family:"Oswald",sans-serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:transform .15s ease,box-shadow .2s ease,background .2s ease,color .2s ease;line-height:1;}
+  .btn-cyan{background:var(--accent);color:var(--accent-ink);}
+  .btn-cyan:hover{transform:translateY(-1px);box-shadow:0 10px 30px -8px rgba(25,195,230,.45);}
+  .btn-dark{background:var(--ink);color:var(--paper);}
+  .btn-dark:hover{background:#000;transform:translateY(-1px);}
+  .btn-paper{background:var(--paper);color:var(--ink);}
+  .btn-paper:hover{background:#fff;}
+  .btn-outline-light{background:transparent;color:var(--paper);border:1.5px solid rgba(245,243,236,.4);}
+  .btn-outline-light:hover{background:rgba(255,255,255,.08);border-color:var(--paper);}
+  .btn-outline-dark{background:transparent;color:var(--ink);border:1.5px solid var(--ink);}
+  .btn-outline-dark:hover{background:var(--ink);color:var(--paper);}
+  .btn .arr{display:inline-block;transition:transform .2s;font-family:"Inter";font-weight:300;font-size:18px;letter-spacing:0;}
+  .btn:hover .arr{transform:translateX(5px)}
+
+  hr.rule{height:1px;border:0;background:var(--line);margin:0;}
+  hr.rule-d{height:1px;border:0;background:var(--line-d);margin:0;}
+
+  @media(max-width:900px){.wrap{padding:0 24px}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* ── NAV ── */
+function Nav({ onTestClick }) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 60); fn();
+    window.addEventListener('scroll', fn, { passive:true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+  return (
+    <nav style={{
+      position:'fixed',top:0,left:0,right:0,zIndex:50,padding:'18px 0',
+      background: scrolled ? 'rgba(10,10,10,.85)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(16px)' : 'none',
+      WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
+      borderBottom: scrolled ? '1px solid rgba(255,255,255,.08)' : '1px solid transparent',
+      transition:'all .25s ease',
+    }}>
+      <div className="wrap" style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:24}}>
+        <a href="#top" style={{color:'var(--paper)',textDecoration:'none',display:'flex',alignItems:'center',gap:14}}>
+          <span className="d" style={{fontSize:22,letterSpacing:'.04em',color:'var(--paper)'}}>KW</span>
+          <span className="mono" style={{fontSize:10,color:'rgba(245,243,236,.45)',letterSpacing:'.2em',textTransform:'uppercase'}}>Mentor · PQ</span>
+        </a>
+        <div className="nav-v2" style={{display:'flex',gap:36,alignItems:'center'}}>
+          {[['Dla siebie','#sciezki'],['Dla firm','#sciezki'],['Dowody','#dowody'],['YouTube','#yt']].map(([l,h]) => (
+            <a key={l} href={h} style={{color:'rgba(245,243,236,.78)',textDecoration:'none',fontFamily:'"Oswald",sans-serif',fontWeight:500,fontSize:12,letterSpacing:'.2em',textTransform:'uppercase',transition:'color .15s'}}
+               onMouseEnter={e=>e.currentTarget.style.color='var(--accent)'}
+               onMouseLeave={e=>e.currentTarget.style.color='rgba(245,243,236,.78)'}
+            >{l}</a>
+          ))}
+          <button onClick={onTestClick} className="btn btn-paper" style={{padding:'13px 22px',fontSize:11}}>
+            Test sabotażystów <span className="arr">→</span>
+          </button>
+        </div>
+      </div>
+      <style>{`@media(max-width:980px){.nav-v2 a{display:none}}`}</style>
+    </nav>
+  );
+}
+
+/* ── HERO ── */
+function Hero({ onTestClick }) {
+  return (
+    <section id="top" style={{position:'relative',minHeight:'100vh',background:'#0a0a0a',color:'var(--paper)',overflow:'hidden'}}>
+      {/* bg gradient */}
+      <div style={{position:'absolute',inset:0,background:'radial-gradient(70% 80% at 80% 50%, rgba(30,44,71,.6) 0%, transparent 60%), linear-gradient(180deg,#0a0a0a 0%,#111520 100%)',zIndex:1}} />
+
+      <div className="wrap" style={{position:'relative',zIndex:3,display:'grid',gridTemplateColumns:'1.05fr 1fr',alignItems:'center',minHeight:'100vh',paddingTop:100,paddingBottom:60}} className="hero-v2-grid">
+        {/* LEFT */}
+        <div style={{paddingBlock:'40px 60px'}}>
+          <div className="eyebrow light" style={{marginBottom:36}}>
+            <span className="num">KW</span><span>—</span><span>Mentor · Mówca · Coach PQ</span>
+          </div>
+          <h1 className="anton" style={{fontSize:'clamp(64px,10.5vw,160px)',margin:'0 0 28px',color:'var(--paper)',maxWidth:'12ch'}}>
+            Wymieniasz<br/>
+            <span style={{color:'var(--accent)'}}>sukces</span><br/>
+            na <span style={{color:'rgba(245,243,236,.35)'}}>stres.</span>
+          </h1>
+          <p style={{fontSize:'clamp(17px,1.35vw,20px)',lineHeight:1.55,color:'rgba(245,243,236,.72)',margin:'0 0 44px',maxWidth:'44ch'}}>
+            Pomagam liderom odzyskać nadzór — bez rezygnowania z ambicji.
+            Pracujemy nad źródłem, nie nad symptomami.
+          </p>
+          <div style={{display:'flex',gap:14,flexWrap:'wrap'}}>
+            <button onClick={onTestClick} className="btn btn-cyan">
+              Wypełnij test sabotażystów <span className="arr">→</span>
+            </button>
+            <a href="#video" className="btn btn-outline-light">
+              Zobacz mój film <span style={{fontFamily:'serif'}}>▸</span>
+            </a>
+          </div>
+        </div>
+
+        {/* RIGHT — photo */}
+        <div style={{position:'relative',alignSelf:'stretch',minHeight:560}} className="hero-v2-photo">
+          <div style={{
+            position:'absolute',inset:0,
+            backgroundImage:'url(assets/kw-hero.jpg)',
+            backgroundSize:'cover',backgroundPosition:'60% 15%',
+            maskImage:'linear-gradient(to bottom, black 55%, transparent 100%), linear-gradient(to left, black 50%, transparent 100%)',
+            WebkitMaskImage:'linear-gradient(to bottom, black 55%, transparent 100%), linear-gradient(to left, black 50%, transparent 100%)',
+            maskComposite:'intersect',WebkitMaskComposite:'source-in',
+          }} />
+          <div style={{position:'absolute',inset:0,background:'linear-gradient(to left,transparent 40%,rgba(10,10,10,.7) 100%)',pointerEvents:'none'}} />
+        </div>
+      </div>
+
+      <style>{`
+        @media(max-width:900px){
+          .hero-v2-grid{grid-template-columns:1fr !important;min-height:auto !important}
+          .hero-v2-photo{height:55vh;order:-1}
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ── STAT BAR ── */
+function StatBar() {
+  const stats = [
+    {n:'200+',l:'absolwentów programu'},
+    {n:'43',l:'odcinków na YouTube'},
+    {n:'WSB',l:'wykładowca'},
+    {n:'PQ',l:'certyfikowany coach'},
+  ];
+  return (
+    <section style={{background:'#0f0f0f',color:'var(--paper)',borderTop:'1px solid rgba(255,255,255,.07)'}}>
+      <div className="wrap" style={{display:'grid',gridTemplateColumns:`repeat(${stats.length},1fr)`}} className="stat-grid">
+        {stats.map((s,i) => (
+          <div key={s.l} style={{padding:'44px 24px',textAlign:'center',borderRight:i<stats.length-1?'1px solid rgba(255,255,255,.07)':'none'}}>
+            <div className="d" style={{fontSize:'clamp(34px,4vw,52px)',lineHeight:1,marginBottom:10,color:'var(--paper)'}}>{s.n}</div>
+            <div className="mono" style={{fontSize:10.5,letterSpacing:'.2em',color:'rgba(245,243,236,.45)',textTransform:'uppercase'}}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+      <style>{`@media(max-width:700px){.stat-grid{grid-template-columns:1fr 1fr !important}}`}</style>
+    </section>
+  );
+}
+
+/* ── CZY ROZPOZNAJESZ SIEBIE ── */
+function Mirror() {
+  const items = [
+    'Osiągnąłeś to, czego chciałeś. Radość nie przyszła.',
+    'Praca przyszła do domu. Dom do pracy.',
+    'Otaczasz coraz więcej. Nadal nie dosyć.',
+    'Rodzina jest na ostatniej pozycji na liście.',
+  ];
+  return (
+    <section id="mirror" style={{background:'var(--paper)',paddingBlock:'140px 120px'}}>
+      <div className="wrap">
+        <div className="eyebrow" style={{marginBottom:48}}>
+          <span className="num">01</span><span>—</span><span>Problem</span>
+        </div>
+        <h2 className="anton" style={{fontSize:'clamp(64px,10vw,168px)',margin:'0 0 72px',maxWidth:'14ch',lineHeight:.88}}>
+          Czy<br/>rozpoznajesz<br/>siebie?
+        </h2>
+        <hr className="rule" style={{marginBottom:64}} />
+        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:48}} className="mirror-g">
+          {items.map((t,i) => (
+            <div key={i}>
+              <div className="mono" style={{fontSize:10.5,letterSpacing:'.2em',color:'var(--ink-faint)',textTransform:'uppercase',marginBottom:20}}>
+                {String(i+1).padStart(2,'0')}
+              </div>
+              <p style={{fontSize:17,lineHeight:1.6,margin:0,color:'var(--ink)',fontWeight:400,maxWidth:'28ch'}}>{t}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        @media(max-width:1000px){.mirror-g{grid-template-columns:repeat(2,1fr) !important;gap:40px !important}}
+        @media(max-width:600px){.mirror-g{grid-template-columns:1fr !important}}
+      `}</style>
+    </section>
+  );
+}
+
+/* ── PRZED / PO ── */
+function PrzedPo() {
+  const before = ['Stres i reaktywność','Późne noce, wczesne pobudki','Zaniedbane relacje','„Kiedy wystarczy?"'];
+  const after  = ['Spokój pod presją','Głęboka praca, prawdziwy odpoczynek','Obecność w domu i w pracy','Radość jako rodzinny standard'];
+  return (
+    <section style={{background:'var(--ink)',color:'var(--paper)',paddingBlock:'120px'}}>
+      <div className="wrap">
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:96}} className="pp-grid">
+          <div>
+            <div className="eyebrow light" style={{marginBottom:32}}><span style={{color:'rgba(245,243,236,.4)'}}>Przed</span></div>
+            <ul style={{listStyle:'none',padding:0,margin:0,display:'grid',gap:0}}>
+              {before.map((t,i) => (
+                <li key={i} style={{display:'grid',gridTemplateColumns:'auto 1fr',gap:18,alignItems:'baseline',padding:'20px 0',borderBottom:'1px solid rgba(255,255,255,.08)'}}>
+                  <span className="mono" style={{color:'rgba(245,243,236,.3)',fontSize:13}}>—</span>
+                  <span style={{fontSize:'clamp(17px,1.5vw,21px)',color:'rgba(245,243,236,.65)',fontWeight:400}}>{t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div className="eyebrow light" style={{marginBottom:32}}><span style={{color:'var(--accent)'}}>Po</span></div>
+            <ul style={{listStyle:'none',padding:0,margin:0,display:'grid',gap:0}}>
+              {after.map((t,i) => (
+                <li key={i} style={{display:'grid',gridTemplateColumns:'auto 1fr',gap:18,alignItems:'baseline',padding:'20px 0',borderBottom:'1px solid rgba(255,255,255,.08)'}}>
+                  <span className="mono" style={{color:'var(--accent)',fontSize:13}}>+</span>
+                  <span className="d" style={{fontSize:'clamp(19px,1.7vw,24px)',color:'var(--paper)',lineHeight:1.2}}>{t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div style={{marginTop:80,paddingTop:32,borderTop:'1px solid rgba(255,255,255,.08)',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:16}}>
+          <p className="mono" style={{fontSize:11,color:'rgba(245,243,236,.45)',letterSpacing:'.2em',textTransform:'uppercase',margin:0}}>Sprawdź czy to dla Ciebie</p>
+          <a href="#sciezki" className="mono" style={{fontSize:11,color:'var(--paper)',letterSpacing:'.2em',textTransform:'uppercase',textDecoration:'none',display:'inline-flex',gap:10,alignItems:'center',transition:'color .15s'}}
+            onMouseEnter={e=>e.currentTarget.style.color='var(--accent)'}
+            onMouseLeave={e=>e.currentTarget.style.color='var(--paper)'}>
+            Ścieżki współpracy <span>→</span>
+          </a>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.pp-grid{grid-template-columns:1fr !important;gap:56px !important}}`}</style>
+    </section>
+  );
+}
+
+/* ── VIDEO ── */
+function Video({ onPlay }) {
+  const [hover, setHover] = useState(false);
+  return (
+    <section id="video" style={{background:'#0a0a0a',paddingBlock:'80px 140px'}}>
+      <div className="wrap">
+        <div className="eyebrow light" style={{marginBottom:32}}>
+          <span className="num">02</span><span>—</span><span>Przekonaj się sam</span>
+        </div>
+        <h2 className="d" style={{fontSize:'clamp(40px,6vw,92px)',color:'var(--paper)',margin:'0 0 64px',maxWidth:'20ch'}}>
+          „2 minuty.<br/><span style={{color:'rgba(245,243,236,.3)'}}>Zdecyduj sam."</span>
+        </h2>
+        <div
+          onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} onClick={onPlay}
+          style={{
+            position:'relative',cursor:'pointer',aspectRatio:'16/9',width:'100%',
+            background:'radial-gradient(60% 80% at 50% 50%,rgba(30,44,71,.5) 0%,transparent 60%),linear-gradient(160deg,#1a1f2c 0%,#050608 100%)',
+            border:'1px solid rgba(255,255,255,.06)',overflow:'hidden',
+            transform:hover?'scale(1.004)':'scale(1)',transition:'transform .3s ease',
+          }}>
+          <div style={{position:'absolute',inset:0,background:'radial-gradient(20% 60% at 50% 100%,rgba(255,255,255,.10) 0%,transparent 70%)'}} />
+          <div className="mono" style={{position:'absolute',top:24,left:24,fontSize:10,letterSpacing:'.2em',textTransform:'uppercase',color:'rgba(245,243,236,.6)',display:'flex',alignItems:'center',gap:10}}>
+            <span style={{width:8,height:8,borderRadius:'50%',background:'var(--accent)',display:'inline-block'}} />
+            KW · stage 2025
+          </div>
+          <div style={{position:'absolute',left:32,bottom:32,display:'inline-flex',alignItems:'center',gap:14,padding:'14px 24px',background:hover?'var(--accent)':'rgba(245,243,236,.96)',color:'var(--ink)',fontFamily:'"Oswald",sans-serif',fontWeight:600,fontSize:12,letterSpacing:'.2em',textTransform:'uppercase',transition:'background .2s ease'}}>
+            <span style={{width:0,height:0,borderLeft:'10px solid var(--ink)',borderTop:'7px solid transparent',borderBottom:'7px solid transparent'}} />
+            Odtwórz · 2:14
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── ZANIM ZAWALCZYSZ ── */
+function Wrog({ onTestClick }) {
+  const sabos = ['Sędzia — ocenia Ciebie i innych','Pleaser — zawsze „tak", nigdy dla siebie','Kontroler — lęk ukryty za mikromanagementem','Hyper-Achiever — wartość = osiągnięcia','Restless — niemożność zatrzymania się','Stickler — perfekcja jako pułapka'];
+  return (
+    <section id="wrog" style={{background:'var(--paper)',paddingBlock:0}}>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr'}} className="wrog-grid">
+        {/* LEFT */}
+        <div style={{padding:'120px 64px 100px',background:'var(--paper)'}}>
+          <div className="eyebrow" style={{marginBottom:32}}>
+            <span className="num">03</span><span>—</span><span>Diagnoza</span>
+          </div>
+          <h2 className="d" style={{fontSize:'clamp(36px,4.8vw,72px)',margin:'0 0 28px',lineHeight:.95}}>
+            Zanim zawalczysz —<br/>poznaj swojego wroga.
+          </h2>
+          <p style={{fontSize:17,lineHeight:1.65,color:'var(--ink-soft)',margin:'0 0 40px',maxWidth:'44ch'}}>
+            Nie decydujesz pod wpływem rozumu. Decydujesz pod wpływem sabotażystów —
+            wzorców z dzieciństwa, które teraz zarządzają Twoją firmą.
+            Positive Intelligence (PQ) pozwala je zmierzyć i zmienić.
+          </p>
+          <button onClick={onTestClick} className="btn btn-dark">
+            Zrób bezpłatny test <span className="arr">→</span>
+          </button>
+        </div>
+        {/* RIGHT */}
+        <div style={{background:'var(--navy)',color:'var(--paper)',padding:'120px 64px 100px'}}>
+          <div className="eyebrow light" style={{marginBottom:40}}>
+            <span className="num">10</span><span>sabotażystów · wybrani</span>
+          </div>
+          <ul style={{listStyle:'none',padding:0,margin:0,display:'grid',gap:0}}>
+            {sabos.map((s,i) => (
+              <li key={i} style={{display:'flex',gap:20,alignItems:'baseline',padding:'18px 0',borderBottom:'1px solid rgba(255,255,255,.09)'}}>
+                <span className="mono" style={{color:'var(--accent)',fontSize:11,letterSpacing:'.1em',minWidth:28}}>{String(i+1).padStart(2,'0')}</span>
+                <span className="d" style={{fontSize:'clamp(17px,1.6vw,22px)',lineHeight:1.2,color:'var(--paper)'}}>{s}</span>
+              </li>
+            ))}
+          </ul>
+          <div style={{marginTop:40,paddingTop:32,borderTop:'1px solid rgba(255,255,255,.09)'}}>
+            <span className="mono" style={{fontSize:10.5,letterSpacing:'.2em',color:'rgba(245,243,236,.45)',textTransform:'uppercase'}}>+ 4 kolejne w pełnym teście</span>
+          </div>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.wrog-grid{grid-template-columns:1fr !important}.wrog-grid>div{padding:80px 32px !important}}`}</style>
+    </section>
+  );
+}
+
+/* ── CYTAT + PORTRET ── */
+function QuotePortrait() {
+  return (
+    <section style={{background:'var(--paper-2)',paddingBlock:'120px'}}>
+      <div className="wrap">
+        <div style={{display:'grid',gridTemplateColumns:'400px 1fr',gap:80,alignItems:'center'}} className="qp-grid">
+          {/* Photo */}
+          <div style={{position:'relative',aspectRatio:'4/5',overflow:'hidden'}}>
+            <img src="assets/kw-portrait.jpg" alt="Krzysztof Wnęk" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center top',display:'block'}} />
+          </div>
+          {/* Quote */}
+          <div>
+            <div className="eyebrow" style={{marginBottom:40}}>
+              <span className="num">04</span><span>—</span><span>Podejście</span>
+            </div>
+            <blockquote style={{margin:'0 0 40px'}}>
+              <p className="d" style={{fontSize:'clamp(26px,3.2vw,46px)',lineHeight:1.05,margin:'0 0 32px',color:'var(--ink)'}}>
+                „Nie prowadzę warsztatów.<br/>
+                <span style={{color:'var(--accent)'}}>Rozpalę Cię.</span><br/>
+                Potem dam Ci narzędzia,<br/>żebyś płonął dalej."
+              </p>
+            </blockquote>
+            <p style={{fontSize:17,lineHeight:1.65,color:'var(--ink-soft)',margin:'0 0 32px',maxWidth:'52ch'}}>
+              Krzysztof Wnęk. 20 lat w biznesie. Certyfikowany trener Positive Intelligence.
+              Twórca podcastu „Architekci Spokoju" (43 odcinki, 180 tys. odsłuchań).
+              Mówca TEDx, Infoshare, EEC. Wykładowca WSB.
+            </p>
+            <a href="#" style={{fontFamily:'"Oswald",sans-serif',fontWeight:600,fontSize:12,letterSpacing:'.2em',textTransform:'uppercase',color:'var(--ink)',textDecoration:'none',display:'inline-flex',alignItems:'center',gap:10,borderBottom:'2px solid var(--ink)',paddingBottom:4,transition:'color .15s,border-color .15s'}}
+               onMouseEnter={e=>{e.currentTarget.style.color='var(--accent)';e.currentTarget.style.borderColor='var(--accent)'}}
+               onMouseLeave={e=>{e.currentTarget.style.color='var(--ink)';e.currentTarget.style.borderColor='var(--ink)'}}>
+              Przeczytaj więcej o mnie <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.qp-grid{grid-template-columns:1fr !important;gap:48px !important}.qp-grid>div:first-child{max-width:340px}}`}</style>
+    </section>
+  );
+}
+
+/* ── DOWODY ── */
+function Dowody() {
+  const testimonials = [
+    {
+      q:'Pierwszy raz w życiu poczułem, że „radzenie sobie" nie jest dowodem siły. To był przełom. Po sześciu tygodniach przestałem się budzić o 4:00 z głową w spreadsheetach.',
+      who:'Marek W.', role:'CEO, scale-up SaaS', stars:5,
+    },
+    {
+      q:'Krzysztof nie sprzedał mi medytacji. Sprzedał mi konkretny system. Efekt: w trzy tygodnie przestałam się przepraszać za każdą decyzję. ROI przekroczył moje oczekiwania.',
+      who:'Anna G.', role:'COO, FMCG 1200+ osób', stars:5,
+    },
+    {
+      q:'Pracowałem z kilkoma coachami. Żaden nie mówił mi wprost, co nie działa. KW mówi. Boli. Działa. Program PQ to nie bajka — to neurologia i dyscyplina.',
+      who:'Tomasz K.', role:'Partner zarządzający, PE', stars:5,
+    },
+  ];
+  return (
+    <section id="dowody" style={{background:'var(--paper)',paddingBlock:'120px 100px'}}>
+      <div className="wrap">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',marginBottom:64,gap:32,flexWrap:'wrap'}}>
+          <div>
+            <div className="eyebrow" style={{marginBottom:20}}><span className="num">05</span><span>—</span><span>Wyniki</span></div>
+            <h2 className="d" style={{fontSize:'clamp(48px,7vw,112px)',margin:0,lineHeight:.92}}>Dowody.</h2>
+          </div>
+          <p style={{fontSize:15,color:'var(--ink-dim)',maxWidth:'36ch',textAlign:'right',margin:0}}>
+            Prawdziwi ludzie. Prawdziwe rezultaty.<br/>Mierzalne w tygodniach, nie w „nastroju".
+          </p>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:2}} className="dow-grid">
+          {testimonials.map((t,i) => (
+            <div key={i} style={{background:'var(--paper-2)',padding:'44px 36px',borderTop:'3px solid var(--accent)'}}>
+              <div style={{display:'flex',gap:3,marginBottom:28}}>
+                {Array(t.stars).fill(0).map((_,j) => (
+                  <span key={j} style={{color:'var(--accent-2)',fontSize:16}}>★</span>
+                ))}
+              </div>
+              <p style={{fontSize:17,lineHeight:1.6,color:'var(--ink)',margin:'0 0 32px',fontStyle:'italic'}}>„{t.q}"</p>
+              <div>
+                <div style={{fontFamily:'"Oswald",sans-serif',fontWeight:600,fontSize:15,letterSpacing:'.04em',textTransform:'uppercase'}}>{t.who}</div>
+                <div className="mono" style={{fontSize:10.5,color:'var(--ink-faint)',letterSpacing:'.08em',marginTop:4}}>{t.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        @media(max-width:1000px){.dow-grid{grid-template-columns:1fr !important;gap:2px !important}}
+      `}</style>
+    </section>
+  );
+}
+
+/* ── TRZY ŚCIEŻKI ── */
+function Sciezki() {
+  const paths = [
+    {
+      tag:'Indywidualnie · B2C',
+      title:'6-tygodniowy System',
+      desc:'Program PQ z cotygodniowym mentoringiem 1:1. Aplikacja + sesje + zamknięta społeczność absolwentów. Pierwsza zmiana widoczna w 14 dni.',
+      price:'4 000 – 5 000 PLN',
+      cta:'Dowiedz się więcej',
+      href:'#',
+    },
+    {
+      tag:'Sesja Indywidualna',
+      title:'Minimum 1 sesji',
+      desc:'Dla osób, które chcą sprawdzić metodę albo omówić wyniki testu. Bez zobowiązań, z pełnym zaangażowaniem z mojej strony.',
+      price:'Do ustalenia',
+      cta:'Napisz do mnie',
+      href:'#',
+      accent:true,
+    },
+    {
+      tag:'Firmy · B2B',
+      title:'Przemówienia i Warsztaty',
+      desc:'Keynoty, off-site retreeaty, programy dla zarządu. Mierzalna zmiana kultury decyzyjnej i odporności pod presją. ROI w 90 dni.',
+      price:'Wycena indywidualna',
+      cta:'Zapytaj o ofertę',
+      href:'#',
+    },
+  ];
+  return (
+    <section id="sciezki" style={{background:'var(--paper)',paddingBlock:'120px',borderTop:'1px solid var(--line)'}}>
+      <div className="wrap">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',marginBottom:72,gap:32,flexWrap:'wrap'}}>
+          <div>
+            <div className="eyebrow" style={{marginBottom:20}}><span className="num">06</span><span>—</span><span>Współpraca</span></div>
+            <h2 className="d" style={{fontSize:'clamp(48px,7vw,112px)',margin:0,lineHeight:.92}}>Trzy ścieżki.</h2>
+          </div>
+          <p style={{fontSize:15,color:'var(--ink-dim)',maxWidth:'40ch',margin:0}}>Znajdź format, który pasuje do Ciebie — jedynym złym wyborem jest brak wyboru.</p>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:2}} className="sc-grid">
+          {paths.map((p,i) => (
+            <div key={i} style={{
+              background: p.accent ? 'var(--navy)' : 'var(--paper-2)',
+              color: p.accent ? 'var(--paper)' : 'var(--ink)',
+              padding:'48px 36px',
+              borderTop:`3px solid ${p.accent ? 'var(--accent)' : 'var(--line)'}`,
+              display:'flex',flexDirection:'column',
+            }}>
+              <div className="mono" style={{fontSize:10.5,letterSpacing:'.2em',textTransform:'uppercase',color:p.accent?'var(--accent)':'var(--ink-faint)',marginBottom:20}}>{p.tag}</div>
+              <h3 className="d" style={{fontSize:'clamp(26px,2.8vw,38px)',margin:'0 0 20px',color:p.accent?'var(--paper)':'var(--ink)',lineHeight:.95}}>{p.title}</h3>
+              <p style={{fontSize:15.5,lineHeight:1.65,color:p.accent?'rgba(245,243,236,.72)':'var(--ink-soft)',margin:'0 0 32px',flex:1}}>{p.desc}</p>
+              <div style={{paddingTop:28,borderTop:`1px solid ${p.accent?'rgba(255,255,255,.12)':'var(--line)'}`,display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,flexWrap:'wrap'}}>
+                <div>
+                  <div className="mono" style={{fontSize:10,letterSpacing:'.14em',textTransform:'uppercase',color:p.accent?'rgba(245,243,236,.45)':'var(--ink-faint)',marginBottom:6}}>Inwestycja</div>
+                  <div className="d" style={{fontSize:'clamp(18px,1.8vw,24px)',color:p.accent?'var(--paper)':'var(--ink)'}}>{p.price}</div>
+                </div>
+                <a href={p.href} className={`btn ${p.accent ? 'btn-cyan' : 'btn-dark'}`} style={{fontSize:11,padding:'14px 20px'}}>
+                  {p.cta} <span className="arr">→</span>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@media(max-width:1000px){.sc-grid{grid-template-columns:1fr !important;gap:2px !important}}`}</style>
+    </section>
+  );
+}
+
+/* ── YOUTUBE ── */
+function YouTube() {
+  const vids = [
+    {title:'Jak nie pęknąć, gdy wszystko się wali.', desc:'Odcinek #43 — Architekci Spokoju', dur:'38 min'},
+    {title:'Sabotażysta w garniturze.', desc:'TEDx Kraków — wystąpienie', dur:'18 min'},
+    {title:'Mąż, ojciec, prezes. Wybierz dwa.', desc:'Odcinek #38 — Architekci Spokoju', dur:'42 min'},
+  ];
+  return (
+    <section id="yt" style={{background:'#0a0a0a',paddingBlock:'100px 120px'}}>
+      <div className="wrap">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',marginBottom:56,gap:32,flexWrap:'wrap'}}>
+          <div>
+            <div className="eyebrow light" style={{marginBottom:20}}><span className="num">07</span><span>—</span><span>Treści bezpłatne</span></div>
+            <h2 className="d" style={{fontSize:'clamp(40px,6vw,92px)',margin:0,lineHeight:.92,color:'var(--paper)'}}>Bezpłatnie.<br/>Na YouTube.</h2>
+          </div>
+          <a href="https://youtube.com" target="_blank" rel="noopener" className="btn btn-outline-light" style={{fontSize:11,padding:'14px 22px',alignSelf:'flex-end'}}>
+            Cały kanał <span className="arr">→</span>
+          </a>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:2}} className="yt-grid">
+          {vids.map((v,i) => (
+            <div key={i} style={{background:'#141414',border:'1px solid rgba(255,255,255,.06)',overflow:'hidden',cursor:'pointer',transition:'border-color .2s'}}
+                 onMouseEnter={e=>e.currentTarget.style.borderColor='rgba(25,195,230,.4)'}
+                 onMouseLeave={e=>e.currentTarget.style.borderColor='rgba(255,255,255,.06)'}>
+              {/* Thumbnail placeholder */}
+              <div style={{aspectRatio:'16/9',background:'radial-gradient(60% 60% at 50% 50%,rgba(30,44,71,.5) 0%,transparent 60%),linear-gradient(135deg,#1a1f2c 0%,#050608 100%)',position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                <div style={{width:52,height:52,borderRadius:'50%',background:'rgba(245,243,236,.9)',display:'flex',alignItems:'center',justifyContent:'center',transition:'transform .2s'}}>
+                  <span style={{width:0,height:0,borderLeft:'18px solid #0a0a0a',borderTop:'12px solid transparent',borderBottom:'12px solid transparent',marginLeft:4}} />
+                </div>
+                <div className="mono" style={{position:'absolute',bottom:14,right:14,fontSize:10,letterSpacing:'.12em',color:'rgba(245,243,236,.6)',background:'rgba(0,0,0,.5)',padding:'4px 8px'}}>{v.dur}</div>
+              </div>
+              <div style={{padding:'24px 22px 26px'}}>
+                <div className="mono" style={{fontSize:10.5,letterSpacing:'.14em',color:'var(--accent)',textTransform:'uppercase',marginBottom:12}}>▸ play</div>
+                <h3 className="d" style={{fontSize:'clamp(18px,1.8vw,22px)',color:'var(--paper)',margin:'0 0 10px',lineHeight:1.1}}>{v.title}</h3>
+                <p style={{fontSize:13.5,color:'rgba(245,243,236,.5)',margin:0,lineHeight:1.5}}>{v.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.yt-grid{grid-template-columns:1fr !important}}`}</style>
+    </section>
+  );
+}
+
+/* ── CTA KOŃCOWE ── */
+function CTAEnd({ onTestClick }) {
+  return (
+    <section style={{background:'var(--paper-2)',paddingBlock:'140px',borderTop:'1px solid var(--line)'}}>
+      <div className="wrap" style={{textAlign:'center'}}>
+        <div className="eyebrow" style={{marginBottom:40,justifyContent:'center'}}>
+          <span className="num">08</span><span>—</span><span>Następny krok</span>
+        </div>
+        <h2 className="d" style={{fontSize:'clamp(42px,8vw,128px)',margin:'0 auto 40px',lineHeight:.9,maxWidth:'16ch'}}>
+          Gotowy na rozmowę,<br/><span style={{color:'var(--accent)'}}>która zmieni</span><br/>wszystko?
+        </h2>
+        <p style={{fontSize:18,color:'var(--ink-soft)',margin:'0 auto 56px',maxWidth:'48ch',lineHeight:1.6}}>
+          Zacznij od bezpłatnego testu sabotażystów (15 min). Potem umów 30-minutową rozmowę — bez slajdów, bez sprzedaży.
+        </p>
+        <div style={{display:'flex',gap:16,justifyContent:'center',flexWrap:'wrap'}}>
+          <button onClick={onTestClick} className="btn btn-dark" style={{padding:'22px 40px',fontSize:14}}>
+            Zarezerwuj rozmowę <span className="arr">→</span>
+          </button>
+          <a href="#" className="btn btn-outline-dark" style={{padding:'22px 36px',fontSize:14}}>
+            lub zrób test bezpłatnie
+          </a>
+        </div>
+        <p className="mono" style={{fontSize:10.5,color:'var(--ink-faint)',letterSpacing:'.16em',textTransform:'uppercase',marginTop:36}}>
+          Bez listy mailingowej · Test 15 min · Rozmowa 30 min
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ── FOOTER ── */
+function Footer() {
+  return (
+    <footer style={{background:'#0a0a0a',color:'var(--paper)',padding:'80px 0 48px'}}>
+      <div className="wrap">
+        <div style={{display:'grid',gridTemplateColumns:'1.8fr 1fr 1fr 1fr',gap:48,marginBottom:64}} className="foot-v2">
+          <div>
+            <div className="d" style={{fontSize:34,letterSpacing:'.03em',marginBottom:16,color:'var(--paper)'}}>KW</div>
+            <p style={{color:'rgba(245,243,236,.55)',fontSize:14.5,margin:'0 0 8px',lineHeight:1.65,maxWidth:'36ch'}}>Mentor PQ. Trener mentalny dla liderów i ich zespołów.</p>
+            <p style={{color:'var(--accent)',fontFamily:'"Oswald",sans-serif',fontWeight:600,fontSize:11,letterSpacing:'.2em',textTransform:'uppercase',margin:'0 0 28px'}}>czesc@auraflux.pl</p>
+            <a href="#top" className="btn btn-paper" style={{fontSize:11,padding:'13px 20px'}}>Test sabotażystów <span className="arr">→</span></a>
+          </div>
+          {[
+            ['Praca',['Indywidualnie','Dla firm','Discovery Call','Program PQ']],
+            ['Scena',['Architekci Spokoju','Power Speeches','TEDx','Press']],
+            ['Social',['LinkedIn','YouTube','Instagram','Newsletter']],
+          ].map(([h,items]) => (
+            <div key={h}>
+              <div className="mono" style={{fontSize:11,letterSpacing:'.2em',color:'rgba(245,243,236,.35)',textTransform:'uppercase',marginBottom:20}}>{h}</div>
+              <ul style={{listStyle:'none',padding:0,margin:0,display:'grid',gap:14}}>
+                {items.map(x=><li key={x}><a href="#" style={{color:'rgba(245,243,236,.75)',textDecoration:'none',fontSize:14.5,transition:'color .15s'}}
+                  onMouseEnter={e=>e.currentTarget.style.color='var(--accent)'}
+                  onMouseLeave={e=>e.currentTarget.style.color='rgba(245,243,236,.75)'}>{x}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div style={{display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:16,paddingTop:28,borderTop:'1px solid rgba(255,255,255,.08)',color:'rgba(245,243,236,.35)',fontSize:12}}>
+          <span className="mono" style={{letterSpacing:'.06em'}}>© 2026 Krzysztof Wnęk · wszystkie prawa zastrzeżone</span>
+          <span className="mono" style={{letterSpacing:'.06em'}}>auraflux.pl · made for the ones who already have everything</span>
+        </div>
+      </div>
+      <style>{`@media(max-width:900px){.foot-v2{grid-template-columns:1fr 1fr !important;gap:32px !important}}`}</style>
+    </footer>
+  );
+}
+
+/* ── TEST MODAL ── */
+function TestModal({ onClose }) {
+  const questions = [
+    'Gdy mój zespół popełnia błąd, mój pierwszy odruch to znaleźć, kto zawinił.',
+    'Czuję, że nie mogę odpocząć, dopóki nie skończę listy.',
+    'Gdy ktoś mówi mi „zrelaksuj się", to mnie irytuje.',
+    'Często odpowiadam „dam radę", zanim sprawdzę swój kalendarz.',
+    'Mam ciche poczucie, że gdybym przestał napierać, wszystko by się rozpadło.',
+  ];
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const n = questions.length;
+  const done = step >= n;
+  const score = Object.values(answers).reduce((a,b)=>a+b,0);
+
+  useEffect(()=>{
+    const fn = e => { if(e.key==='Escape') onClose(); };
+    window.addEventListener('keydown',fn);
+    document.body.style.overflow='hidden';
+    return()=>{ window.removeEventListener('keydown',fn); document.body.style.overflow=''; };
+  },[onClose]);
+
+  const answer = v => { setAnswers(a=>({...a,[step]:v})); setTimeout(()=>setStep(s=>s+1),180); };
+
+  return (
+    <div role="dialog" aria-modal="true" onClick={onClose}
+      style={{position:'fixed',inset:0,zIndex:1000,background:'rgba(0,0,0,.7)',backdropFilter:'blur(12px)',display:'flex',alignItems:'center',justifyContent:'center',padding:24}}>
+      <div onClick={e=>e.stopPropagation()} style={{
+        width:'min(700px,100%)',maxHeight:'90vh',overflow:'auto',
+        background:'var(--paper)',padding:'44px 48px',position:'relative',
+        fontFamily:'"Inter",sans-serif',color:'var(--ink)',
+        boxShadow:'0 40px 100px rgba(0,0,0,.5)',
+      }}>
+        <button onClick={onClose} style={{position:'absolute',top:18,right:18,width:36,height:36,background:'transparent',border:'1px solid var(--line)',color:'var(--ink)',cursor:'pointer',fontSize:14,fontFamily:'JetBrains Mono'}}>×</button>
+        <div className="mono" style={{fontSize:11,letterSpacing:'.2em',color:'var(--accent)',textTransform:'uppercase',marginBottom:14}}>Test Sabotażystów · Demo</div>
+        {!done ? (
+          <>
+            <div className="mono" style={{fontSize:11,color:'var(--ink-faint)',letterSpacing:'.14em',marginBottom:24}}>PYTANIE {step+1} / {n}</div>
+            <h3 className="d" style={{fontSize:'clamp(22px,2.8vw,34px)',lineHeight:1.05,margin:'0 0 36px'}}>{questions[step]}</h3>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:8,marginBottom:24}}>
+              {[['1','wcale'],['2','rzadko'],['3','czasem'],['4','często'],['5','zawsze']].map(([v,l]) => (
+                <button key={v} onClick={()=>answer(parseInt(v,10))} style={{appearance:'none',cursor:'pointer',padding:'18px 6px',background:'transparent',color:'var(--ink)',border:'1px solid var(--line)',display:'grid',placeItems:'center',gap:6,fontFamily:'inherit',transition:'all .15s'}}
+                  onMouseEnter={e=>{e.currentTarget.style.background='var(--accent)';e.currentTarget.style.borderColor='var(--accent)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.borderColor='var(--line)';}}>
+                  <span className="d" style={{fontSize:24,lineHeight:1}}>{v}</span>
+                  <span className="mono" style={{fontSize:10,letterSpacing:'.12em',textTransform:'uppercase'}}>{l}</span>
+                </button>
+              ))}
+            </div>
+            <div style={{height:3,background:'var(--paper-3)',borderRadius:0}}>
+              <div style={{height:'100%',width:`${(step/n)*100}%`,background:'var(--accent)',transition:'width .25s'}} />
+            </div>
+          </>
+        ) : (
+          <>
+            <h3 className="d" style={{fontSize:'clamp(26px,3vw,42px)',lineHeight:1.02,margin:'0 0 20px'}}>
+              Wynik:&nbsp;<span style={{color:'var(--accent)'}}>{score>=18?'Sędzia + Hyper-Achiever':score>=12?'Sędzia + Kontroler':'Sędzia + Please-r'}</span>
+            </h3>
+            <p style={{fontSize:16,color:'var(--ink-soft)',lineHeight:1.65,margin:'0 0 28px',maxWidth:'52ch'}}>
+              To mini-szkic. Pełny test ma 75 pytań i zajmuje 15 minut. Dostajesz raport PDF + interpretację. Następny krok: 30 min Discovery Call.
+            </p>
+            <div style={{display:'flex',gap:12,flexWrap:'wrap'}}>
+              <a href="#" className="btn btn-dark">Zrób pełny test <span className="arr">→</span></a>
+              <a href="#" className="btn btn-outline-dark">Discovery Call · Zencal</a>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── APP ── */
+function App() {
+  const [modal, setModal] = useState(null);
+  const openTest = () => setModal('test');
+  return (
+    <div id="top">
+      <Nav onTestClick={openTest} />
+      <Hero onTestClick={openTest} />
+      <StatBar />
+      <Mirror />
+      <PrzedPo />
+      <Video onPlay={openTest} />
+      <Wrog onTestClick={openTest} />
+      <QuotePortrait />
+      <Dowody />
+      <Sciezki />
+      <YouTube />
+      <CTAEnd onTestClick={openTest} />
+      <Footer />
+      {modal === 'test' && <TestModal onClose={() => setModal(null)} />}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
