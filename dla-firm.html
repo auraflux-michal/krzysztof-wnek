@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dla Firm — Krzysztof Wnęk</title>
+<meta name="description" content="Prelekcja lub program dla liderów i zespołów — budowanie odporności decyzyjnej i kultury myślowej. Power Speech i Program Zespołowy PQ." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink:        #0E0E0E;
+    --ink-2:      #131313;
+    --ink-3:      #1A1A1A;
+    --surface:    #F2F0EB;
+    --surface-2:  #EAE7E0;
+    --paper:      #FFFFFF;
+    --text:       #131313;
+    --text-muted: #6E6E6E;
+    --text-dim:   #9A9A9A;
+    --text-light: rgba(255,255,255,0.78);
+    --text-light-muted: rgba(255,255,255,0.5);
+    --accent:        #5C7D7E;
+    --accent-deep:   #3D5C5D;
+    --accent-light:  #87A4A3;
+    --rule-dark:  rgba(255,255,255,0.10);
+    --rule-light: rgba(0,0,0,0.10);
+    --display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+    --sans:    "Inter", system-ui, -apple-system, sans-serif;
+    --mono:    "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-feature-settings: "ss01" on, "cv01" on;
+  }
+  img { max-width: 100%; display: block; }
+  a   { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  .display { font-family: var(--display); font-weight: 500; letter-spacing: -0.015em; line-height: 1.02; }
+  .display .it { font-style: italic; font-weight: 400; }
+  .eyebrow { font-family: var(--mono); font-size: 10.5px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+  .eyebrow.teal { color: var(--accent); }
+  .eyebrow.on-dark { color: var(--accent-light); }
+  .eyebrow .em { color: inherit; opacity: 0.6; margin: 0 10px; }
+
+  .wrap        { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  .wrap-narrow { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+  section { position: relative; }
+  .dark  { background: var(--ink);     color: #fff; }
+  .light { background: var(--surface); color: var(--text); }
+  @media (max-width: 720px) { .wrap, .wrap-narrow { padding: 0 24px; } }
+
+  .sec       { padding: clamp(96px, 13vw, 180px) 0; }
+  .sec-tight { padding: clamp(72px, 9vw, 120px) 0; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 16px 26px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+    border-radius: 1px; border: 1px solid transparent;
+    transition: transform .25s cubic-bezier(.2,.7,.3,1), background .25s, color .25s, border-color .25s;
+    white-space: nowrap; cursor: pointer;
+  }
+  .btn .arrow { display: inline-block; transition: transform .25s cubic-bezier(.2,.7,.3,1); }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Primary CTA — orange */
+  .btn-teal { background: #F08A3A; color: #fff; border-color: #F08A3A; }
+  .btn-teal:hover { background: #D97730; border-color: #D97730; transform: translateY(-1px); }
+
+  .btn-dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-dark:hover { background: #2a2a2a; }
+
+  .btn-outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.25); }
+  .btn-outline-light:hover { border-color: rgba(255,255,255,0.6); }
+
+  .btn-outline-dark { background: transparent; color: var(--ink); border-color: rgba(0,0,0,0.18); }
+  .btn-outline-dark:hover { border-color: var(--ink); }
+
+  .link-text {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text); border-bottom: 1px solid transparent; padding-bottom: 2px;
+    transition: color .2s, border-color .2s, gap .25s;
+  }
+  .link-text:hover { gap: 14px; color: var(--accent); border-bottom-color: var(--accent); }
+  .link-text.light { color: rgba(255,255,255,0.78); }
+  .link-text.light:hover { color: var(--accent-light); border-bottom-color: var(--accent-light); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s cubic-bezier(.2,.7,.3,1), transform 1s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal[data-delay="1"] { transition-delay: .08s; }
+  .reveal[data-delay="2"] { transition-delay: .16s; }
+  .reveal[data-delay="3"] { transition-delay: .24s; }
+  .reveal[data-delay="4"] { transition-delay: .32s; }
+
+  /* NAV */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 80; transition: background .45s, backdrop-filter .45s, border-color .45s; border-bottom: 1px solid transparent; color: #fff; }
+  .nav.scrolled { background: rgba(14,14,14,0.92); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border-bottom-color: rgba(255,255,255,0.06); }
+  .nav-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 22px 40px; max-width: 1480px; margin: 0 auto; }
+  .nav-brand { display: flex; align-items: center; gap: 14px; }
+  .mono-kw { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.45); color: #fff; display: grid; place-items: center; font-family: var(--display); font-size: 14px; font-weight: 500; letter-spacing: 0.02em; }
+  .nav-brand-name { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.75); line-height: 1.4; }
+  .nav-brand-name .small { display: block; font-size: 9.5px; opacity: 0.55; margin-top: 2px; }
+  .nav-links { display: flex; align-items: center; gap: 42px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .nav-links a { color: rgba(255,255,255,0.75); transition: color .2s; position: relative; padding: 6px 0; }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent-light); transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.2,.7,.3,1); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-links a.active { color: #fff; }
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta-wrap { display: flex; justify-content: flex-end; align-items: center; gap: 14px; }
+  .nav-burger { display: none; width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; align-items: center; justify-content: center; }
+  .nav-burger span { display: block; width: 14px; height: 1px; background: #fff; position: relative; }
+  .nav-burger span::before, .nav-burger span::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: #fff; }
+  .nav-burger span::before { top: -4px; }
+  .nav-burger span::after  { top:  4px; }
+  @media (max-width: 980px) { .nav-inner { grid-template-columns: 1fr auto; } .nav-links { display: none; } .nav-cta-wrap .btn { display: none; } .nav-burger { display: inline-flex; } }
+
+  /* HERO — B2B variant */
+  .hero-b2b { position: relative; min-height: 100vh; background: var(--ink); color: #fff; overflow: hidden; display: flex; align-items: flex-end; }
+  .hero-b2b-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(92,125,126,0.18) 0%, rgba(14,14,14,0) 70%),
+                linear-gradient(135deg, #0E0E0E 0%, #131313 50%, #0a0c0c 100%);
+  }
+  .hero-b2b-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 90% 80% at 60% 40%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 60% 40%, black 30%, transparent 80%);
+  }
+  .hero-b2b-inner { position: relative; z-index: 2; width: 100%; max-width: 1480px; margin: 0 auto; padding: 140px 40px 88px; }
+  @media (max-width: 980px) { .hero-b2b-inner { padding: 130px 24px 64px; } }
+  .hero-b2b-text { max-width: 700px; }
+  .hero-b2b-eyebrow { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 36px; }
+  .hero-b2b-eyebrow .line { width: 32px; height: 1px; background: rgba(135,164,163,0.5); }
+  .hero-b2b h1 { font-family: var(--display); font-weight: 500; font-size: clamp(44px, 6.4vw, 96px); line-height: 1.0; letter-spacing: -0.02em; margin: 0 0 32px; text-wrap: balance; }
+  .hero-b2b-sub { font-size: 16px; color: rgba(255,255,255,0.58); line-height: 1.65; max-width: 52ch; margin: 0 0 44px; }
+  .hero-b2b-ctas { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .hero-b2b-edge { position: absolute; bottom: 32px; left: 40px; z-index: 3; font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.35); display: flex; gap: 14px; align-items: center; }
+  .hero-b2b-edge .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-light); animation: hpulse 2.2s infinite; }
+  @keyframes hpulse { 0% { box-shadow: 0 0 0 0 rgba(135,164,163,0.5); } 70% { box-shadow: 0 0 0 12px rgba(135,164,163,0); } 100% { box-shadow: 0 0 0 0 rgba(135,164,163,0); } }
+
+  /* COST SECTION */
+  .cost-head { margin-bottom: 72px; }
+  .cost-head h2 { font-family: var(--display); font-weight: 500; font-style: italic; font-size: clamp(40px, 5.2vw, 74px); line-height: 1.04; letter-spacing: -0.018em; margin: 18px 0 0; max-width: 20ch; text-wrap: balance; }
+  .cost-head h2 em { font-style: italic; font-weight: 400; }
+  .cost-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  @media (max-width: 980px) { .cost-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .cost-grid { grid-template-columns: 1fr; } }
+  .cost-card { padding: 48px 36px; background: var(--surface-2); }
+  .cost-card:nth-child(odd) { background: var(--surface); }
+  .cost-stat { font-family: var(--display); font-size: clamp(56px, 6vw, 84px); line-height: 1; font-weight: 500; color: var(--accent-deep); letter-spacing: -0.02em; margin-bottom: 18px; }
+  .cost-label { font-family: var(--sans); font-size: 14px; color: var(--text-muted); line-height: 1.55; max-width: 24ch; }
+
+  /* FORMATS SECTION */
+  .formats-head { margin-bottom: 72px; }
+  .formats-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(44px, 5.6vw, 80px); line-height: 1.0; letter-spacing: -0.02em; margin: 18px 0 0; }
+  .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  @media (max-width: 720px) { .format-grid { grid-template-columns: 1fr; } }
+  .format-card { padding: 52px 48px; background: var(--ink-3); position: relative; }
+  .format-card:first-child { border-right: 1px solid rgba(255,255,255,0.06); }
+  @media (max-width: 720px) { .format-card:first-child { border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.06); } }
+  .format-card .tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 28px; display: inline-block; }
+  .format-card .title { font-family: var(--display); font-size: clamp(32px, 3.2vw, 48px); font-weight: 500; line-height: 1.02; letter-spacing: -0.015em; color: #fff; margin-bottom: 20px; }
+  .format-card .desc { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.65; margin: 0 0 36px; max-width: 48ch; }
+  .format-includes { list-style: none; padding: 0; margin: 0 0 40px; display: flex; flex-direction: column; gap: 12px; }
+  .format-includes li { font-family: var(--mono); font-size: 11px; letter-spacing: 0.10em; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 12px; }
+  .format-includes li::before { content: ""; width: 6px; height: 1px; background: var(--accent-light); display: inline-block; flex-shrink: 0; }
+  .format-price { font-family: var(--display); font-size: clamp(24px, 2.4vw, 34px); font-weight: 500; color: var(--accent-light); letter-spacing: -0.01em; margin-bottom: 28px; }
+  .format-rule { height: 1px; background: rgba(255,255,255,0.08); margin: 0 0 40px; }
+
+  /* ROI SECTION */
+  .roi-head { margin-bottom: 64px; }
+  .roi-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(44px, 5.6vw, 80px); line-height: 1.0; letter-spacing: -0.02em; margin: 18px 0 0; }
+  .roi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  @media (max-width: 980px) { .roi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .roi-grid { grid-template-columns: 1fr; } }
+  .roi-card { padding: 48px 36px; border-left: 1px solid var(--rule-light); }
+  .roi-card:first-child { border-left: 0; }
+  @media (max-width: 980px) { .roi-card:nth-child(odd) { border-left: 0; } .roi-card:nth-child(3), .roi-card:nth-child(4) { border-top: 1px solid var(--rule-light); padding-top: 40px; } }
+  @media (max-width: 520px) { .roi-card { border-left: 0; border-top: 1px solid var(--rule-light); } .roi-card:first-child { border-top: 0; } }
+  .roi-stat { font-family: var(--display); font-size: clamp(52px, 5.5vw, 80px); line-height: 1; font-weight: 500; color: var(--accent-deep); letter-spacing: -0.02em; margin-bottom: 16px; }
+  .roi-label { font-family: var(--sans); font-size: 14px; color: var(--text-muted); line-height: 1.55; max-width: 24ch; }
+  .roi-desc { margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--rule-light); }
+  .roi-desc p { font-size: 16px; color: var(--text-muted); line-height: 1.7; max-width: 68ch; }
+  .roi-desc p strong { color: var(--text); font-weight: 500; }
+
+  /* FORM SECTION */
+  .brief-head { margin-bottom: 56px; }
+  .brief-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 5vw, 72px); line-height: 1.0; letter-spacing: -0.02em; margin: 18px 0 0; }
+  .brief-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 96px; align-items: start; }
+  @media (max-width: 980px) { .brief-layout { grid-template-columns: 1fr; gap: 48px; } }
+  .brief-info p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin: 0 0 32px; max-width: 42ch; }
+  .brief-info p strong { color: var(--text); font-weight: 500; }
+  .brief-note { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; color: var(--text-dim); display: flex; align-items: center; gap: 10px; }
+  .brief-note::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; flex-shrink: 0; }
+  .brief-form { display: flex; flex-direction: column; gap: 0; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+  .form-field { display: flex; flex-direction: column; }
+  .form-field label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; display: block; }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%; padding: 14px 16px;
+    background: var(--surface-2); border: 1px solid transparent;
+    border-bottom-color: rgba(0,0,0,0.14);
+    font-family: var(--sans); font-size: 14px; color: var(--text);
+    outline: none; transition: border-color .2s, background .2s;
+    appearance: none; -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--accent); background: #fff;
+  }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder { color: var(--text-dim); }
+  .form-field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%236E6E6E' stroke-width='1.5' d='M4 6l4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .form-field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+  .form-gap { height: 2px; }
+  .form-gap-lg { height: 24px; }
+  .form-submit-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 24px; flex-wrap: wrap; }
+  .form-success { display: none; }
+  .form-success.visible { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent-deep); }
+
+  /* FOOTER */
+  footer.foot { background: var(--ink); color: rgba(255,255,255,0.5); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .foot-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 64px; padding-bottom: 64px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  @media (max-width: 880px) { .foot-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .foot-brand .row { display: flex; align-items: center; gap: 14px; }
+  .foot-brand .row .nav-brand-name { color: #fff; }
+  .foot-brand p { font-size: 14px; line-height: 1.65; max-width: 36ch; margin: 24px 0 0; color: rgba(255,255,255,0.45); }
+  .foot-col h5 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-light); margin: 8px 0 22px; font-weight: 500; }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; }
+  .foot-col a { transition: color .2s; }
+  .foot-col a:hover { color: var(--accent-light); }
+  .foot-bot { margin-top: 36px; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.32); letter-spacing: 0.08em; text-transform: uppercase; flex-wrap: wrap; gap: 16px; }
+  .foot-bot .social { display: flex; gap: 12px; }
+  .foot-bot .social a { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.14); display: grid; place-items: center; color: rgba(255,255,255,0.5); transition: color .2s, border-color .2s; }
+  .foot-bot .social a:hover { color: var(--accent-light); border-color: var(--accent-light); }
+  .foot-bot .social svg { width: 13px; height: 13px; }
+
+  /* Theme overrides */
+  body.theme-copper   { --accent: #B07A47; --accent-deep: #7C5530; --accent-light: #D6A56F; }
+  body.theme-graphite { --accent: #707683; --accent-deep: #424753; --accent-light: #9DA3B0; }
+  body.theme-bordeaux { --accent: #93414B; --accent-deep: #67242C; --accent-light: #C97A82; }
+  body.theme-forest   { --accent: #4E7A4B; --accent-deep: #2F4E2F; --accent-light: #84A781; }
+  body.font-playfair  { --display: "Playfair Display", Georgia, serif; }
+  body.font-fraunces  { --display: "Fraunces", Georgia, serif; }
+  body.surface-warm   { --surface: #F2F0EB; --surface-2: #EAE7E0; }
+  body.surface-paper  { --surface: #FAFAF7; --surface-2: #F1F0EB; }
+  body.surface-cool   { --surface: #EEF0F1; --surface-2: #E2E5E7; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+// ─── ICONS ───────────────────────────────────────────────────────────────────
+const Ic = {
+  Arr: () => (<span>→</span>),
+  Yt:  () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2c-.2-.9-.9-1.5-1.7-1.7C18.3 5 12 5 12 5s-6.3 0-7.9.5c-.8.2-1.5.8-1.7 1.7C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.5 1.7 1.7C5.7 19 12 19 12 19s6.3 0 7.9-.5c.8-.2 1.5-.8 1.7-1.7.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5 3-5 3z"/></svg>),
+  In:  () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 1.5C4.6 1.5 3.5 2.6 3.5 4S4.6 6.5 6 6.5 8.5 5.4 8.5 4 7.4 1.5 6 1.5zM20 12.5c0-2.7-1.5-4.5-4-4.5-1.5 0-2.4.8-2.8 1.6V8H10v12h3.5v-6.3c0-1.5.5-2.5 1.9-2.5s1.8 1 1.8 2.5V20H20v-7.5z"/></svg>),
+  Fb:  () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V6.5c0-.6.4-1 1-1h2V2h-3a4 4 0 00-4 4v3H7v4h3v9h4v-9h3l1-4h-4z"/></svg>),
+  Ig:  () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>),
+  Check: () => (<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M3 8l3.5 3.5L13 5" strokeLinecap="round" strokeLinejoin="round"/></svg>),
+};
+
+const YT_CHANNEL_URL = "https://www.youtube.com/@PozytywnaInteligencja";
+
+// ─── REVEAL ──────────────────────────────────────────────────────────────────
+function useReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <nav className={"nav" + (scrolled ? " scrolled" : "")}>
+      <div className="nav-inner">
+        <a className="nav-brand" href="index.html">
+          <div className="mono-kw">KW</div>
+          <div className="nav-brand-name">Krzysztof Wnęk<span className="small">Mówca · Mentor</span></div>
+        </a>
+        <div className="nav-links">
+          <a href="dla-ciebie.html">Dla Ciebie</a>
+          <a href="dla-firm.html" className="active">Dla Firm</a>
+          <a href="o-mnie.html">O Mnie</a>
+          <a href="#youtube">YouTube</a>
+        </div>
+        <div className="nav-cta-wrap">
+          <a href="discovery.html" className="btn btn-teal" style={{ padding: "12px 20px" }}>
+            Zapytaj o wycenę<span className="arrow">→</span>
+          </a>
+          <button className="nav-burger" aria-label="Menu"><span /></button>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+// ─── HERO ────────────────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section className="hero-b2b dark">
+      <div className="hero-b2b-bg" aria-hidden="true" />
+      <div className="hero-b2b-grid" aria-hidden="true" />
+      <div className="hero-b2b-inner">
+        <div className="hero-b2b-text">
+          <div className="hero-b2b-eyebrow">
+            <span className="line" />
+            <span>Dla Firm&nbsp;&nbsp;·&nbsp;&nbsp;B2B</span>
+          </div>
+          <h1>Decyzje podejmowane pod presją wyznaczają sufit Twojego zespołu.</h1>
+          <p className="hero-b2b-sub">
+            Prelekcja lub program dla liderów i zespołów — budowanie odporności decyzyjnej i kultury myślowej.
+          </p>
+          <div className="hero-b2b-ctas">
+            <a href="discovery.html" className="btn btn-teal">
+              Zapytaj o wycenę<span className="arrow">→</span>
+            </a>
+            <a href="#formaty" className="btn btn-outline-light">
+              Zobacz formaty<span className="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="hero-b2b-edge">
+        <span className="pulse" />
+        B2B · Prelekcje · Warsztaty · Programy Zespołowe
+      </div>
+    </section>
+  );
+}
+
+// ─── COST / PROBLEM ──────────────────────────────────────────────────────────
+function Cost() {
+  const stats = [
+    { n: "37%",  l: "Spadek produktywności podczas reaktywnego zarządzania" },
+    { n: "52%",  l: "Liderów odczuwa wypalenie zawodowe jako główne ryzyko" },
+    { n: "31%",  l: "Wyższy turnover w zespołach z niską kulturą psychologiczną" },
+    { n: "3×",   l: "Wyższe koszty błędów decyzyjnych podejmowanych pod presją" },
+  ];
+  return (
+    <section className="sec light">
+      <div className="wrap">
+        <div className="cost-head reveal">
+          <div className="eyebrow">01 <span className="em">—</span> Koszt nieodporności</div>
+          <h2>Co kosztuje Twój zespół działanie <em>pod wpływem sabotażystów</em>?</h2>
+        </div>
+        <div className="cost-grid">
+          {stats.map((s, i) => (
+            <div className="cost-card reveal" data-delay={i} key={i}>
+              <div className="cost-stat">{s.n}</div>
+              <div className="cost-label">{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FORMATS ─────────────────────────────────────────────────────────────────
+function Formats() {
+  const cards = [
+    {
+      tag: "Prelekcja · 45–90 min",
+      title: "Power Speech",
+      desc: "Energetyczna prelekcja dla konferencji, kickoffów i spotkań zarządu. Temat: Pozytywna Inteligencja w biznesie — jak sabotażyści wpływają na decyzje i wyniki zespołu.",
+      includes: ["Indywidualny brief", "Dostosowanie do branży", "Q&A sesja", "Materiały dla uczestników"],
+      price: "Wycena indywidualna",
+      cta: "Zapytaj o wycenę →",
+      href: "discovery.html",
+    },
+    {
+      tag: "Warsztat · 8 tygodni",
+      title: "Program Zespołowy",
+      desc: "Pełny program PQ dla zespołu lub grupy liderów. Cotygodniowe sesje grupowe, dostęp do aplikacji, trwała zmiana kultury decyzyjnej.",
+      includes: ["Diagnoza zespołu", "Dostęp do aplikacji PQ", "8 sesji warsztatowych", "Raport końcowy", "Follow-up po 30 dniach"],
+      price: "Od 15 000 PLN",
+      cta: "Zapytaj o program →",
+      href: "discovery.html",
+    },
+  ];
+  return (
+    <section className="sec dark" id="formaty">
+      <div className="wrap">
+        <div className="formats-head reveal">
+          <div className="eyebrow on-dark">02 <span className="em">—</span> Formaty współpracy</div>
+          <h2>Dwa formaty. Jeden cel.</h2>
+        </div>
+        <div className="format-grid">
+          {cards.map((c, i) => (
+            <div className="format-card reveal" data-delay={i} key={i}>
+              <div className="tag">{c.tag}</div>
+              <div className="title">{c.title}</div>
+              <div className="format-rule" />
+              <p className="desc">{c.desc}</p>
+              <ul className="format-includes">
+                {c.includes.map((item, j) => (
+                  <li key={j}>{item}</li>
+                ))}
+              </ul>
+              <div className="format-price">{c.price}</div>
+              <a href={c.href} className="btn btn-teal">
+                {c.cta}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── ROI / RESULTS ───────────────────────────────────────────────────────────
+function ROI() {
+  const stats = [
+    { n: "37%",  l: "Wzrost produktywności po wdrożeniu kultury decyzyjnej PQ" },
+    { n: "52%",  l: "Liderów zgłasza mniejsze wypalenie po programie 8 tygodni" },
+    { n: "31%",  l: "Redukcja rotacji w zespołach po pracy z sabotażystami" },
+    { n: "3×",   l: "Szybsze podejmowanie trafnych decyzji pod presją czasu" },
+  ];
+  return (
+    <section className="sec light">
+      <div className="wrap">
+        <div className="roi-head reveal">
+          <div className="eyebrow">03 <span className="em">—</span> Zwrot z inwestycji</div>
+          <h2>Mierzalne wyniki.</h2>
+        </div>
+        <div className="roi-grid">
+          {stats.map((s, i) => (
+            <div className="roi-card reveal" data-delay={i} key={i}>
+              <div className="roi-stat">{s.n}</div>
+              <div className="roi-label">{s.l}</div>
+            </div>
+          ))}
+        </div>
+        <div className="roi-desc reveal">
+          <p>
+            Dane oparte na badaniach <strong>Positive Intelligence Inc.</strong> oraz wynikach programów prowadzonych przez Krzysztofa Wnęka z ponad 200 uczestnikami w Polsce. Każdy program zaczyna się od diagnozy — i kończy raportem z mierzalnymi zmianami.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── CONTACT FORM ────────────────────────────────────────────────────────────
+function Brief() {
+  const [form, setForm] = useState({
+    name: "", company: "", email: "", phone: "", topic: "", message: ""
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <section className="sec light" id="brief">
+      <div className="wrap">
+        <div className="brief-layout">
+          <div className="reveal">
+            <div className="brief-head">
+              <div className="eyebrow">04 <span className="em">—</span> Brief</div>
+              <h2>Wyślij brief. Wycena w 48h.</h2>
+            </div>
+            <div className="brief-info">
+              <p>
+                Powiedz mi o swoim zespole, evencie lub potrzebie. Im więcej wiem na starcie, tym precyzyjniejsza wycena i program dostosowany do Twojego kontekstu.
+              </p>
+              <p>
+                Pracuję z <strong>firmami każdej wielkości</strong> — od 20-osobowych startupów po duże organizacje korporacyjne. Brief zajmuje 3 minuty.
+              </p>
+              <div className="brief-note">
+                Odpowiadam w ciągu 48 godzin w dni robocze.
+              </div>
+            </div>
+          </div>
+
+          <div className="reveal" data-delay="1">
+            {submitted ? (
+              <div style={{ padding: "48px 0" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: "10.5px", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent-deep)", marginBottom: "16px" }}>
+                  Brief wysłany ✓
+                </div>
+                <p style={{ fontFamily: "var(--display)", fontSize: "clamp(24px, 3vw, 36px)", color: "var(--text)", lineHeight: "1.2", margin: "0 0 16px" }}>
+                  Dziękuję. Odezwę się w ciągu 48 godzin.
+                </p>
+                <p style={{ fontSize: "14px", color: "var(--text-muted)", margin: 0 }}>
+                  Sprawdź też skrzynkę spam — jeśli adres był nowy.
+                </p>
+              </div>
+            ) : (
+              <form className="brief-form" onSubmit={handleSubmit} noValidate>
+                <div className="form-row">
+                  <div className="form-field" style={{ padding: "0 0 2px" }}>
+                    <label htmlFor="name">Imię i nazwisko</label>
+                    <input
+                      id="name" name="name" type="text"
+                      placeholder="Jan Kowalski"
+                      value={form.name} onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-field" style={{ padding: "0 0 2px" }}>
+                    <label htmlFor="company">Firma</label>
+                    <input
+                      id="company" name="company" type="text"
+                      placeholder="Nazwa firmy"
+                      value={form.company} onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-gap" />
+                <div className="form-row">
+                  <div className="form-field" style={{ padding: "0 0 2px" }}>
+                    <label htmlFor="email">Email</label>
+                    <input
+                      id="email" name="email" type="email"
+                      placeholder="jan@firma.pl"
+                      value={form.email} onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-field" style={{ padding: "0 0 2px" }}>
+                    <label htmlFor="phone">Telefon</label>
+                    <input
+                      id="phone" name="phone" type="tel"
+                      placeholder="+48 600 000 000"
+                      value={form.phone} onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-gap" />
+                <div className="form-field" style={{ padding: "0 0 2px" }}>
+                  <label htmlFor="topic">Temat</label>
+                  <select
+                    id="topic" name="topic"
+                    value={form.topic} onChange={handleChange}
+                    required
+                  >
+                    <option value="" disabled>Wybierz format</option>
+                    <option value="prelekcja">Prelekcja</option>
+                    <option value="program">Program Zespołowy</option>
+                    <option value="nie-wiem">Nie wiem jeszcze</option>
+                  </select>
+                </div>
+                <div className="form-gap" />
+                <div className="form-field" style={{ padding: "0 0 2px" }}>
+                  <label htmlFor="message">Wiadomość</label>
+                  <textarea
+                    id="message" name="message"
+                    placeholder="Opowiedz o wydarzeniu, zespole, potrzebie — im więcej, tym lepiej."
+                    value={form.message} onChange={handleChange}
+                    rows={5}
+                  />
+                </div>
+                <div className="form-gap-lg" />
+                <div className="form-submit-row">
+                  <button type="submit" className="btn btn-teal">
+                    Wyślij brief<span className="arrow">→</span>
+                  </button>
+                  <div className="brief-note">
+                    Odpowiadam w ciągu 48h.
+                  </div>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FOOTER ──────────────────────────────────────────────────────────────────
+function Foot() {
+  return (
+    <footer className="foot">
+      <div className="wrap">
+        <div className="foot-grid">
+          <div className="foot-brand">
+            <div className="row">
+              <div className="mono-kw">KW</div>
+              <div className="nav-brand-name">Krzysztof Wnęk<span className="small">Mówca · Mentor · Coach PQ</span></div>
+            </div>
+            <p>Pomagam liderom odzyskać radość — bez rezygnacji ze sprawczości. Z metodą Positive Intelligence i językiem, który nie owija rzeczywistości w bawełnę.</p>
+          </div>
+          <div className="foot-col">
+            <h5>Nawigacja</h5>
+            <ul>
+              <li><a href="dla-ciebie.html">Dla Ciebie</a></li>
+              <li><a href="dla-firm.html">Dla Firm</a></li>
+              <li><a href="o-mnie.html">O Mnie</a></li>
+              <li><a href="dla-ciebie.html">Test Sabotażystów</a></li>
+              <li><a href="discovery.html">Zarezerwuj Rozmowę</a></li>
+            </ul>
+          </div>
+          <div className="foot-col">
+            <h5>Znajdź mnie</h5>
+            <ul>
+              <li><a href={YT_CHANNEL_URL} target="_blank" rel="noreferrer">YouTube</a></li>
+              <li><a href="https://www.linkedin.com/in/krzysztofwnek/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li><a href="#">Newsletter</a></li>
+              <li><a href="#">Polityka prywatności</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="foot-bot">
+          <div>© 2026 Krzysztof Wnęk · Wszelkie prawa zastrzeżone</div>
+          <div className="social">
+            <a href={YT_CHANNEL_URL} target="_blank" rel="noreferrer" aria-label="YouTube"><Ic.Yt /></a>
+            <a href="https://www.linkedin.com/in/krzysztofwnek/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Ic.In /></a>
+            <a href="#" aria-label="Facebook"><Ic.Fb /></a>
+            <a href="#" aria-label="Instagram"><Ic.Ig /></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ─── APP ─────────────────────────────────────────────────────────────────────
+function App() {
+  useReveal();
+  return (
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <Cost />
+        <Formats />
+        <ROI />
+        <Brief />
+      </main>
+      <Foot />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dla Ciebie — Krzysztof Wnęk</title>
+<meta name="description" content="8-tygodniowy program PQ — naukowe narzędzia do życia z pełną mocą i spokojem. Weź bezpłatny test sabotażystów." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink:        #0E0E0E;
+    --ink-2:      #131313;
+    --ink-3:      #1A1A1A;
+    --surface:    #F2F0EB;
+    --surface-2:  #EAE7E0;
+    --paper:      #FFFFFF;
+    --text:       #131313;
+    --text-muted: #6E6E6E;
+    --text-dim:   #9A9A9A;
+    --text-light: rgba(255,255,255,0.78);
+    --text-light-muted: rgba(255,255,255,0.5);
+    --accent:        #5C7D7E;
+    --accent-deep:   #3D5C5D;
+    --accent-light:  #87A4A3;
+    --rule-dark:  rgba(255,255,255,0.10);
+    --rule-light: rgba(0,0,0,0.10);
+    --display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+    --sans:    "Inter", system-ui, -apple-system, sans-serif;
+    --mono:    "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-feature-settings: "ss01" on, "cv01" on;
+  }
+  img { max-width: 100%; display: block; }
+  a   { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  .display { font-family: var(--display); font-weight: 500; letter-spacing: -0.015em; line-height: 1.02; }
+  .display .it { font-style: italic; font-weight: 400; }
+  .eyebrow { font-family: var(--mono); font-size: 10.5px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+  .eyebrow.teal { color: var(--accent); }
+  .eyebrow.on-dark { color: var(--accent-light); }
+  .eyebrow .em { color: inherit; opacity: 0.6; margin: 0 10px; }
+
+  .wrap        { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  .wrap-narrow { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+  section { position: relative; }
+  .dark  { background: var(--ink);     color: #fff; }
+  .light { background: var(--surface); color: var(--text); }
+  @media (max-width: 720px) { .wrap, .wrap-narrow { padding: 0 24px; } }
+
+  .sec       { padding: clamp(96px, 13vw, 180px) 0; }
+  .sec-tight { padding: clamp(72px, 9vw, 120px) 0; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 16px 26px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+    border-radius: 1px; border: 1px solid transparent;
+    transition: transform .25s cubic-bezier(.2,.7,.3,1), background .25s, color .25s, border-color .25s;
+    white-space: nowrap; cursor: pointer;
+  }
+  .btn .arrow { display: inline-block; transition: transform .25s cubic-bezier(.2,.7,.3,1); }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Primary CTA — orange */
+  .btn-teal { background: #F08A3A; color: #fff; border-color: #F08A3A; }
+  .btn-teal:hover { background: #D97730; border-color: #D97730; transform: translateY(-1px); }
+
+  .btn-dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-dark:hover { background: #2a2a2a; }
+
+  .btn-outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.25); }
+  .btn-outline-light:hover { border-color: rgba(255,255,255,0.6); }
+
+  .btn-outline-dark { background: transparent; color: var(--ink); border-color: rgba(0,0,0,0.18); }
+  .btn-outline-dark:hover { border-color: var(--ink); }
+
+  .link-text {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text); border-bottom: 1px solid transparent; padding-bottom: 2px;
+    transition: color .2s, border-color .2s, gap .25s;
+  }
+  .link-text:hover { gap: 14px; color: var(--accent); border-bottom-color: var(--accent); }
+  .link-text.light { color: rgba(255,255,255,0.78); }
+  .link-text.light:hover { color: var(--accent-light); border-bottom-color: var(--accent-light); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s cubic-bezier(.2,.7,.3,1), transform 1s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal[data-delay="1"] { transition-delay: .08s; }
+  .reveal[data-delay="2"] { transition-delay: .16s; }
+  .reveal[data-delay="3"] { transition-delay: .24s; }
+  .reveal[data-delay="4"] { transition-delay: .32s; }
+
+  /* NAV */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 80; transition: background .45s, backdrop-filter .45s, border-color .45s; border-bottom: 1px solid transparent; color: #fff; }
+  .nav.scrolled { background: rgba(14,14,14,0.92); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border-bottom-color: rgba(255,255,255,0.06); }
+  .nav-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 22px 40px; max-width: 1480px; margin: 0 auto; }
+  .nav-brand { display: flex; align-items: center; gap: 14px; }
+  .mono-kw { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.45); color: #fff; display: grid; place-items: center; font-family: var(--display); font-size: 14px; font-weight: 500; letter-spacing: 0.02em; }
+  .nav-brand-name { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.75); line-height: 1.4; }
+  .nav-brand-name .small { display: block; font-size: 9.5px; opacity: 0.55; margin-top: 2px; }
+  .nav-links { display: flex; align-items: center; gap: 42px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .nav-links a { color: rgba(255,255,255,0.75); transition: color .2s; position: relative; padding: 6px 0; }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent-light); transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.2,.7,.3,1); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-links a.active { color: #fff; }
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta-wrap { display: flex; justify-content: flex-end; align-items: center; gap: 14px; }
+  .nav-burger { display: none; width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; align-items: center; justify-content: center; }
+  .nav-burger span { display: block; width: 14px; height: 1px; background: #fff; position: relative; }
+  .nav-burger span::before, .nav-burger span::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: #fff; }
+  .nav-burger span::before { top: -4px; }
+  .nav-burger span::after  { top:  4px; }
+  @media (max-width: 980px) { .nav-inner { grid-template-columns: 1fr auto; } .nav-links { display: none; } .nav-cta-wrap .btn { display: none; } .nav-burger { display: inline-flex; } }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100vh; background: var(--ink); color: #fff; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background-image: url('assets/hero.jpg'); background-size: cover; background-position: center 18%; background-repeat: no-repeat; filter: contrast(1.02) saturate(0.92); }
+  .hero-bg::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(8,8,8,0.62) 0%, rgba(8,8,8,0.42) 35%, rgba(8,8,8,0.62) 70%, rgba(8,8,8,0.93) 100%),
+      linear-gradient(90deg, rgba(8,8,8,0.90) 0%, rgba(8,8,8,0.60) 32%, rgba(8,8,8,0.22) 55%, rgba(8,8,8,0) 78%);
+  }
+  .hero-inner { position: relative; z-index: 2; display: flex; align-items: flex-end; min-height: 100vh; padding: 140px 40px 80px; max-width: 1480px; margin: 0 auto; }
+  @media (max-width: 980px) { .hero-inner { padding: 130px 24px 60px; } }
+  .hero-text { max-width: 680px; padding-bottom: 32px; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 36px; }
+  .hero-eyebrow .line { width: 32px; height: 1px; background: rgba(135,164,163,0.5); }
+  .hero h1 { font-family: var(--display); font-weight: 500; font-size: clamp(44px, 6.2vw, 96px); line-height: 1.0; letter-spacing: -0.02em; margin: 0 0 32px; text-wrap: balance; }
+  .hero h1 .it { font-style: italic; font-weight: 400; }
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,0.62); line-height: 1.6; max-width: 48ch; margin: 0 0 40px; }
+  .hero-ctas { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .hero-edge { position: absolute; left: 40px; bottom: 32px; z-index: 3; font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.4); display: flex; gap: 14px; align-items: center; }
+  .hero-edge .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-light); animation: hpulse 2.2s infinite; }
+  @keyframes hpulse { 0% { box-shadow: 0 0 0 0 rgba(135,164,163,0.5); } 70% { box-shadow: 0 0 0 12px rgba(135,164,163,0); } 100% { box-shadow: 0 0 0 0 rgba(135,164,163,0); } }
+
+  /* PQ EXPLANATION */
+  .pq-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 96px; align-items: start; }
+  @media (max-width: 880px) { .pq-grid { grid-template-columns: 1fr; gap: 56px; } }
+  .pq-body h2 { font-family: var(--display); font-weight: 500; font-size: clamp(36px, 4.8vw, 72px); line-height: 1.05; letter-spacing: -0.018em; margin: 18px 0 32px; max-width: 16ch; }
+  .pq-body h2 .it { font-style: italic; font-weight: 400; }
+  .pq-body p { font-size: 15.5px; line-height: 1.72; color: var(--text-muted); margin: 0 0 16px; max-width: 54ch; }
+  .pq-body p strong { color: var(--text); font-weight: 500; }
+  .pq-stats { display: flex; flex-direction: column; gap: 0; padding-top: 8px; }
+  .pq-stat { padding: 32px 0; border-bottom: 1px solid var(--rule-light); }
+  .pq-stat:first-child { padding-top: 0; }
+  .pq-stat:last-child { border-bottom: 0; }
+  .pq-stat .num { font-family: var(--display); font-size: clamp(40px, 4vw, 56px); line-height: 1; font-weight: 500; color: var(--accent-deep); letter-spacing: -0.01em; }
+  .pq-stat .label { margin-top: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); line-height: 1.6; }
+
+  /* PROCESS STEPS */
+  .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 72px; }
+  .process-step { display: grid; grid-template-columns: 100px 1fr; gap: 32px; padding: 48px 0; border-bottom: 1px solid var(--rule-dark); align-items: baseline; }
+  .process-step:first-child { border-top: 1px solid var(--rule-dark); }
+  .process-step .step-num { font-family: var(--display); font-style: italic; font-size: clamp(52px, 6vw, 88px); line-height: 1; color: var(--accent-light); opacity: 0.6; }
+  .process-step .step-body .step-title { font-family: var(--display); font-weight: 500; font-size: clamp(24px, 2.8vw, 38px); line-height: 1.1; letter-spacing: -0.01em; color: #fff; margin: 0 0 12px; }
+  .process-step .step-body .step-desc { font-size: 14.5px; color: rgba(255,255,255,0.52); line-height: 1.6; margin: 0; max-width: 44ch; }
+  @media (max-width: 600px) { .process-step { grid-template-columns: 64px 1fr; gap: 20px; padding: 36px 0; } }
+
+  /* PRICING */
+  .pricing-inner { max-width: 760px; }
+  .price-display { font-family: var(--display); font-weight: 500; font-size: clamp(52px, 7vw, 108px); line-height: 1; letter-spacing: -0.025em; color: var(--text); margin: 24px 0 12px; }
+  .price-sub { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 56px; }
+  .includes-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 20px; }
+  .includes-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 0; }
+  .includes-list li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--rule-light); font-size: 15px; color: var(--text); align-items: center; }
+  .includes-list li:first-child { border-top: 1px solid var(--rule-light); }
+  .includes-list li::before { content: "✓"; color: var(--accent-deep); font-family: var(--mono); font-size: 12px; font-weight: 500; }
+
+  /* FAQ ACCORDION */
+  .faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 64px; }
+  .faq-item { border-bottom: 1px solid var(--rule-light); }
+  .faq-item:first-child { border-top: 1px solid var(--rule-light); }
+  .faq-trigger {
+    width: 100%; background: transparent; border: 0; padding: 28px 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    font-family: var(--display); font-weight: 500; font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.2; letter-spacing: -0.005em; color: var(--text); text-align: left;
+    cursor: pointer; transition: color .2s;
+  }
+  .faq-trigger:hover { color: var(--accent-deep); }
+  .faq-icon {
+    flex-shrink: 0; width: 28px; height: 28px; border: 1px solid var(--rule-light);
+    display: grid; place-items: center; font-size: 16px; line-height: 1;
+    color: var(--text-muted); transition: transform .35s cubic-bezier(.2,.7,.3,1), border-color .2s, color .2s;
+    font-family: var(--sans); font-weight: 300;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); border-color: var(--accent); color: var(--accent); }
+  .faq-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .45s cubic-bezier(.2,.7,.3,1), opacity .35s;
+    opacity: 0;
+  }
+  .faq-item.open .faq-body { max-height: 320px; opacity: 1; }
+  .faq-body p { font-size: 15px; line-height: 1.7; color: var(--text-muted); margin: 0 0 28px; max-width: 60ch; padding-right: 52px; }
+
+  /* FOOTER */
+  footer.foot { background: var(--ink); color: rgba(255,255,255,0.5); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .foot-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 64px; padding-bottom: 64px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  @media (max-width: 880px) { .foot-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .foot-brand .row { display: flex; align-items: center; gap: 14px; }
+  .foot-brand .row .nav-brand-name { color: #fff; }
+  .foot-brand p { font-size: 14px; line-height: 1.65; max-width: 36ch; margin: 24px 0 0; color: rgba(255,255,255,0.45); }
+  .foot-col h5 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-light); margin: 8px 0 22px; font-weight: 500; }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; }
+  .foot-col a { transition: color .2s; }
+  .foot-col a:hover { color: var(--accent-light); }
+  .foot-bot { margin-top: 36px; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.32); letter-spacing: 0.08em; text-transform: uppercase; flex-wrap: wrap; gap: 16px; }
+  .foot-bot .social { display: flex; gap: 12px; }
+  .foot-bot .social a { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.14); display: grid; place-items: center; color: rgba(255,255,255,0.5); transition: color .2s, border-color .2s; }
+  .foot-bot .social a:hover { color: var(--accent-light); border-color: var(--accent-light); }
+  .foot-bot .social svg { width: 13px; height: 13px; }
+
+  /* Theme overrides */
+  body.theme-copper   { --accent: #B07A47; --accent-deep: #7C5530; --accent-light: #D6A56F; }
+  body.theme-graphite { --accent: #707683; --accent-deep: #424753; --accent-light: #9DA3B0; }
+  body.theme-bordeaux { --accent: #93414B; --accent-deep: #67242C; --accent-light: #C97A82; }
+  body.theme-forest   { --accent: #4E7A4B; --accent-deep: #2F4E2F; --accent-light: #84A781; }
+  body.font-playfair  { --display: "Playfair Display", Georgia, serif; }
+  body.font-fraunces  { --display: "Fraunces", Georgia, serif; }
+  body.surface-warm   { --surface: #F2F0EB; --surface-2: #EAE7E0; }
+  body.surface-paper  { --surface: #FAFAF7; --surface-2: #F1F0EB; }
+  body.surface-cool   { --surface: #EEF0F1; --surface-2: #E2E5E7; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+// ─── ICONS ───────────────────────────────────────────────────────────────────
+const Ic = {
+  Yt: () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2c-.2-.9-.9-1.5-1.7-1.7C18.3 5 12 5 12 5s-6.3 0-7.9.5c-.8.2-1.5.8-1.7 1.7C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.5 1.7 1.7C5.7 19 12 19 12 19s6.3 0 7.9-.5c.8-.2 1.5-.8 1.7-1.7.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5 3-5 3z"/></svg>),
+  In: () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 1.5C4.6 1.5 3.5 2.6 3.5 4S4.6 6.5 6 6.5 8.5 5.4 8.5 4 7.4 1.5 6 1.5zM20 12.5c0-2.7-1.5-4.5-4-4.5-1.5 0-2.4.8-2.8 1.6V8H10v12h3.5v-6.3c0-1.5.5-2.5 1.9-2.5s1.8 1 1.8 2.5V20H20v-7.5z"/></svg>),
+  Fb: () => (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V6.5c0-.6.4-1 1-1h2V2h-3a4 4 0 00-4 4v3H7v4h3v9h4v-9h3l1-4h-4z"/></svg>),
+  Ig: () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>),
+};
+
+const YT_CHANNEL_URL = "https://www.youtube.com/@PozytywnaInteligencja";
+
+// ─── REVEAL HOOK ─────────────────────────────────────────────────────────────
+function useReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <nav className={"nav" + (scrolled ? " scrolled" : "")}>
+      <div className="nav-inner">
+        <a className="nav-brand" href="index.html">
+          <div className="mono-kw">KW</div>
+          <div className="nav-brand-name">Krzysztof Wnęk<span className="small">Mówca · Mentor</span></div>
+        </a>
+        <div className="nav-links">
+          <a href="dla-ciebie.html" className="active">Dla Ciebie</a>
+          <a href="dla-firm.html">Dla Firm</a>
+          <a href="o-mnie.html">O Mnie</a>
+          <a href="#youtube">YouTube</a>
+        </div>
+        <div className="nav-cta-wrap">
+          <a href="discovery.html" className="btn btn-teal" style={{ padding: "12px 20px" }}>
+            Umów rozmowę<span className="arrow">→</span>
+          </a>
+          <button className="nav-burger" aria-label="Menu"><span /></button>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+// ─── HERO ─────────────────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section className="hero">
+      <div className="hero-bg" aria-hidden="true" />
+      <div className="hero-inner">
+        <div className="hero-text">
+          <div className="hero-eyebrow"><span className="line" /><span>Dla Ciebie &nbsp;·&nbsp; Program PQ</span></div>
+          <h1>Zapewniasz wszystkim.<br/><span className="it">Kto zapewnia</span><br/>Tobie?</h1>
+          <p className="hero-sub">8-tygodniowy program PQ — naukowe narzędzia do życia z pełną mocą i spokojem.</p>
+          <div className="hero-ctas">
+            <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-teal">
+              Weź bezpłatny test sabotażystów<span className="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="hero-edge"><span className="pulse" />Program PQ · Positive Intelligence · Krzysztof Wnęk</div>
+    </section>
+  );
+}
+
+// ─── PQ EXPLANATION ──────────────────────────────────────────────────────────
+function PQExplanation() {
+  const stats = [
+    { num: "500k+", label: "Uczestników na całym świecie" },
+    { num: "10+",   label: "Lat badań i weryfikacji" },
+    { num: "74%",   label: "Średnia poprawa wyników PQ" },
+  ];
+  return (
+    <section className="sec light">
+      <div className="wrap">
+        <div className="pq-grid">
+          <div className="pq-body reveal">
+            <div className="eyebrow">01 <span className="em">—</span> Czym jest PQ</div>
+            <h2>Positive Intelligence — nie coaching. <span className="it">Neurobiologia.</span></h2>
+            <p>
+              <strong>Positive Intelligence (PQ)</strong> to metoda opracowana przez Shirzada Chamine —
+              wykładowcę Stanforda i CEO Coach of Coaches. Opiera się na badaniach z neuronauki,
+              psychologii pozytywnej i osiągnięć oraz kognitywistyki.
+            </p>
+            <p>
+              Zamiast mówić Ci, co czujesz — PQ pokazuje Ci, <strong>jakie automatyczne wzorce myślowe</strong>
+              sabotują Twoją skuteczność, relacje i spokój. A potem daje konkretne ćwiczenia, które je zmieniają.
+            </p>
+            <p>
+              To nie jest kolejna teoria. To trening mentalny — 15–20 minut dziennie przez 8 tygodni,
+              wspierany aplikacją i cotygodniowymi sesjami grupowymi.
+            </p>
+          </div>
+          <div className="pq-stats reveal" data-delay="2">
+            {stats.map((s, i) => (
+              <div className="pq-stat" key={i}>
+                <div className="num">{s.num}</div>
+                <div className="label">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── PROCESS ─────────────────────────────────────────────────────────────────
+function Process() {
+  const steps = [
+    {
+      n: "1",
+      title: "Zrób test",
+      desc: "5-minutowy test sabotażystów online. Bezpłatny. Natychmiastowe wyniki. Dowiedz się, które wewnętrzne głosy sabotują Twoje życie.",
+    },
+    {
+      n: "2",
+      title: "Dołącz do programu",
+      desc: "8 tygodni. Aplikacja PQ. Cotygodniowe spotkania grupowe z Krzysztofem. Ćwiczenia 15–20 minut dziennie, które budują nowe wzorce.",
+    },
+    {
+      n: "3",
+      title: "Transformuj",
+      desc: "Trwała zmiana zachowań, nie chwilowa motywacja. Mierzalna poprawa w relacjach, wynikach zawodowych i wewnętrznym spokoju.",
+    },
+  ];
+  return (
+    <section className="sec dark">
+      <div className="wrap-narrow">
+        <div className="reveal">
+          <div className="eyebrow on-dark">02 <span className="em">—</span> Trzy kroki</div>
+          <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px, 5.4vw, 76px)", lineHeight: 1.02, letterSpacing: "-0.02em", margin: "18px 0 0", color: "#fff" }}>
+            Prosta droga do zmiany.
+          </h2>
+        </div>
+        <div className="process-steps">
+          {steps.map((s, i) => (
+            <div className="process-step reveal" data-delay={i} key={i}>
+              <div className="step-num">{s.n}</div>
+              <div className="step-body">
+                <div className="step-title">{s.title}</div>
+                <p className="step-desc">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── PRICING ─────────────────────────────────────────────────────────────────
+function Pricing() {
+  const includes = [
+    "Test sabotażystów",
+    "Dostęp do aplikacji PQ",
+    "8 sesji grupowych",
+    "Materiały PDF",
+    "Certyfikat ukończenia",
+  ];
+  return (
+    <section className="sec light">
+      <div className="wrap">
+        <div className="pricing-inner">
+          <div className="reveal">
+            <div className="eyebrow">03 <span className="em">—</span> Inwestycja</div>
+          </div>
+          <div className="price-display reveal" data-delay="1">4 000 — 5 000 PLN</div>
+          <p className="price-sub reveal" data-delay="2">lub 12 × 300 PLN · rozłożone na raty</p>
+          <div className="reveal" data-delay="3">
+            <div className="includes-label">Co jest w cenie</div>
+            <ul className="includes-list">
+              {includes.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+            <a href="discovery.html" className="btn btn-teal">
+              Zarezerwuj miejsce<span className="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FAQ ─────────────────────────────────────────────────────────────────────
+function FAQ() {
+  const faqs = [
+    {
+      q: "Czy muszę mówić po angielsku?",
+      a: "Program prowadzony jest po polsku. Aplikacja PQ jest w języku angielskim, ale nie wymaga zaawansowanej znajomości — wszystkie ćwiczenia są proste i wizualne.",
+    },
+    {
+      q: "Jak długo trwa program?",
+      a: "8 tygodni, z tygodniowym zaangażowaniem ok. 15–20 minut dziennie. Do tego cotygodniowe spotkania grupowe, które trwają około godziny.",
+    },
+    {
+      q: "Co to są sabotażyści?",
+      a: "To wewnętrzne głosy i automatyczne reakcje, które sabotują Twoje wyniki, relacje i spokój. Każdy ma ich od 1 do kilku. Test pozwala zidentyfikować Twoje dominujące wzorce.",
+    },
+    {
+      q: "Czy to terapia?",
+      a: "Nie. PQ to trening mentalny oparty na neuronauce. Nie zajmujemy się przeszłością — budujemy nowe wzorce w teraźniejszości. Program jest skierowany do sprawnych mentalnie dorosłych, którzy chcą działać lepiej.",
+    },
+    {
+      q: "Co jeśli nie pasuje mi termin?",
+      a: "Skontaktuj się — mogę dopasować do Twojego harmonogramu lub zapisać na kolejną edycję programu.",
+    },
+  ];
+
+  const [openIdx, setOpenIdx] = useState(null);
+
+  const toggle = (i) => setOpenIdx((prev) => (prev === i ? null : i));
+
+  return (
+    <section className="sec light">
+      <div className="wrap-narrow">
+        <div className="reveal">
+          <div className="eyebrow">04 <span className="em">—</span> Często pytane</div>
+          <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(36px, 4.8vw, 68px)", lineHeight: 1.04, letterSpacing: "-0.018em", margin: "18px 0 0", color: "var(--text)" }}>
+            Masz pytania?
+          </h2>
+        </div>
+        <div className="faq-list reveal" data-delay="1">
+          {faqs.map((faq, i) => (
+            <div className={"faq-item" + (openIdx === i ? " open" : "")} key={i}>
+              <button className="faq-trigger" onClick={() => toggle(i)} aria-expanded={openIdx === i}>
+                <span>{faq.q}</span>
+                <span className="faq-icon">+</span>
+              </button>
+              <div className="faq-body">
+                <p>{faq.a}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FOOT ────────────────────────────────────────────────────────────────────
+function Foot() {
+  return (
+    <footer className="foot">
+      <div className="wrap">
+        <div className="foot-grid">
+          <div className="foot-brand">
+            <div className="row">
+              <div className="mono-kw">KW</div>
+              <div className="nav-brand-name">Krzysztof Wnęk<span className="small">Mówca · Mentor · Coach PQ</span></div>
+            </div>
+            <p>Pomagam liderom odzyskać radość — bez rezygnacji ze sprawczości. Z metodą Positive Intelligence i językiem, który nie owija rzeczywistości w bawełnę.</p>
+          </div>
+          <div className="foot-col">
+            <h5>Nawigacja</h5>
+            <ul>
+              <li><a href="dla-ciebie.html">Dla Ciebie</a></li>
+              <li><a href="dla-firm.html">Dla Firm</a></li>
+              <li><a href="o-mnie.html">O Mnie</a></li>
+              <li><a href="dla-ciebie.html">Test Sabotażystów</a></li>
+              <li><a href="discovery.html">Zarezerwuj Rozmowę</a></li>
+            </ul>
+          </div>
+          <div className="foot-col">
+            <h5>Znajdź mnie</h5>
+            <ul>
+              <li><a href={YT_CHANNEL_URL} target="_blank" rel="noreferrer">YouTube</a></li>
+              <li><a href="https://www.linkedin.com/in/krzysztofwnek/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li><a href="#">Newsletter</a></li>
+              <li><a href="#">Polityka prywatności</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="foot-bot">
+          <div>© 2026 Krzysztof Wnęk · Wszelkie prawa zastrzeżone</div>
+          <div className="social">
+            <a href={YT_CHANNEL_URL} target="_blank" rel="noreferrer" aria-label="YouTube"><Ic.Yt /></a>
+            <a href="https://www.linkedin.com/in/krzysztofwnek/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Ic.In /></a>
+            <a href="#" aria-label="Facebook"><Ic.Fb /></a>
+            <a href="#" aria-label="Instagram"><Ic.Ig /></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ─── APP ─────────────────────────────────────────────────────────────────────
+function App() {
+  useReveal();
+  return (
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <PQExplanation />
+        <Process />
+        <Pricing />
+        <FAQ />
+      </main>
+      <Foot />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
