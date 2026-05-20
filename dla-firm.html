@@ -11,128 +11,113 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div id="root"></div>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
-<script type="text/babel">
-function useReveal() {
-  React.useEffect(()=>{
-    const io=new IntersectionObserver((entries)=>{entries.forEach((e)=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:0.1,rootMargin:"0px 0px -40px 0px"});
-    document.querySelectorAll(".reveal").forEach((el)=>io.observe(el));return()=>io.disconnect();
-  },[]);
-}
-const Ic = {
-  Yt: ()=>(<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2c-.2-.9-.9-1.5-1.7-1.7C18.3 5 12 5 12 5s-6.3 0-7.9.5c-.8.2-1.5.8-1.7 1.7C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.5 1.7 1.7C5.7 19 12 19 12 19s6.3 0 7.9-.5c.8-.2 1.5-.8 1.7-1.7.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5 3-5 3z"/></svg>),
-  In: ()=>(<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 1.5C4.6 1.5 3.5 2.6 3.5 4S4.6 6.5 6 6.5 8.5 5.4 8.5 4 7.4 1.5 6 1.5zM20 12.5c0-2.7-1.5-4.5-4-4.5-1.5 0-2.4.8-2.8 1.6V8H10v12h3.5v-6.3c0-1.5.5-2.5 1.9-2.5s1.8 1 1.8 2.5V20H20v-7.5z"/></svg>),
-  Fb: ()=>(<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V6.5c0-.6.4-1 1-1h2V2h-3a4 4 0 00-4 4v3H7v4h3v9h4v-9h3l1-4h-4z"/></svg>),
-  Ig: ()=>(<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>),
-};
-function Nav() {
-  const [s,setS]=React.useState(false);
-  React.useEffect(()=>{const fn=()=>setS(window.scrollY>60);fn();window.addEventListener("scroll",fn,{passive:true});return()=>window.removeEventListener("scroll",fn);},[]);
-  return (<nav className={"nav"+(s?" scrolled":"")}>
-    <div className="nav-inner">
-      <a className="nav-brand" href="index.html"><div className="mono-kw">KW</div><div className="nav-brand-name">Krzysztof Wnęk<span className="small">Mówca · Mentor</span></div></a>
-      <div className="nav-links"><a href="dla-ciebie.html">Dla Ciebie</a><a href="dla-firm.html">Dla Firm</a><a href="o-mnie.html">O Mnie</a><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a></div>
-      <div className="nav-cta-wrap"><a href="umow-rozmowe.html" className="btn btn-teal" style={{padding:"12px 20px"}}>Umów rozmowę <span className="arrow">→</span></a><button className="nav-burger" aria-label="Menu"><span /></button></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html"><div class="mono-kw">KW</div><div class="nav-brand-name">Krzysztof Wnęk<span class="small">Mówca · Mentor</span></div></a>
+    <div class="nav-links"><a href="dla-ciebie.html">Dla Ciebie</a><a href="dla-firm.html">Dla Firm</a><a href="o-mnie.html">O Mnie</a><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a></div>
+    <div class="nav-cta-wrap"><a href="umow-rozmowe.html" class="btn btn-teal" style="padding:12px 20px">Umów rozmowę <span class="arrow">→</span></a><button class="nav-burger" aria-label="Menu"><span></span></button></div>
+  </div>
+</nav>
+
+<main>
+
+<section class="sub-hero dark">
+  <div class="sub-hero-inner">
+    <div class="eyebrow on-dark reveal">Dla Firm <span class="em">—</span> B2B</div>
+    <h1 class="reveal" data-delay="1">Decyzje<br>podejmowane<br>pod presją<br>wyznaczają <span class="it">sufit</span><br>Twojego zespołu.</h1>
+    <p class="lead reveal" data-delay="2">Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet gdy stawki są wysokie.</p>
+  </div>
+</section>
+
+<section class="sec light">
+  <div class="wrap">
+    <div class="content-2col">
+      <div class="reveal">
+        <div class="eyebrow">01 <span class="em">—</span> Koszt</div>
+        <h2 style="font-family:var(--display);font-weight:500;font-size:clamp(36px,4.8vw,64px);line-height:1.02;letter-spacing:-0.018em;margin:18px 0 0;text-wrap:balance">Paraliż decyzyjny<br>kosztuje <em>pieniądze</em>.</h2>
+      </div>
+      <div class="reveal" data-delay="1">
+        <p style="font-size:15.5px;line-height:1.7;color:var(--text-muted);margin:0 0 16px;max-width:52ch">Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.</p>
+        <p style="font-size:15.5px;line-height:1.7;color:var(--text-muted);margin:0;max-width:52ch">Program PQ dla zespołów to nie team building. To <strong>neurobiologiczna zmiana sposobu myślenia</strong> — u każdego uczestnika i w dynamice grupy.</p>
+      </div>
     </div>
-  </nav>);
-}
-function Foot() {
-  return (<footer className="foot"><div className="wrap">
-    <div className="foot-grid">
-      <div className="foot-brand"><div className="row"><div className="mono-kw">KW</div><div className="nav-brand-name">Krzysztof Wnęk<span className="small">Mówca · Mentor · Coach PQ</span></div></div><p>Pomagam liderom odzyskać radość — bez rezygnacji ze sprawczości.</p></div>
-      <div className="foot-col"><h5>Nawigacja</h5><ul><li><a href="dla-ciebie.html">Dla Ciebie</a></li><li><a href="dla-firm.html">Dla Firm</a></li><li><a href="o-mnie.html">O Mnie</a></li><li><a href="index.html#test">Test Sabotażystów</a></li><li><a href="umow-rozmowe.html">Umów Rozmowę</a></li></ul></div>
-      <div className="foot-col"><h5>Obserwuj</h5><ul><li><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a></li><li><a href="https://www.linkedin.com/in/krzysztofwnek" target="_blank" rel="noreferrer">LinkedIn</a></li><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li></ul></div>
+  </div>
+</section>
+
+<section class="sec light" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">02 <span class="em">—</span> Formaty</div>
+    <h2 style="font-family:var(--display);font-weight:500;font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-0.02em;margin:18px 0 48px" class="reveal" data-delay="1">Dwa formaty.</h2>
+    <div class="formats-row reveal" data-delay="2">
+      <div class="format-col">
+        <div class="eyebrow">Format A</div>
+        <h3>Power Speech</h3>
+        <p>45–90 minut na scenie konferencyjnej lub dla Twojego zespołu. Energetyczne wystąpienie, które zmienia perspektywę. Brief 15 min, wycena 48h.</p>
+        <a href="#kontakt" class="link-text amber">Wycena indywidualna →</a>
+      </div>
+      <div class="format-col">
+        <div class="eyebrow">Format B</div>
+        <h3>Program Zespołowy</h3>
+        <p>6-tygodniowy program PQ dla zespołu (10–30 osób). Cotygodniowe sesje, aplikacja PQ, wsparcie coachingowe. Efekty po pierwszym tygodniu.</p>
+        <a href="#kontakt" class="link-text amber">Wycena indywidualna →</a>
+      </div>
     </div>
-    <div className="foot-bot"><div>© 2026 Krzysztof Wnęk · Wszelkie prawa zastrzeżone</div><div className="social"><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer" aria-label="YouTube"><Ic.Yt /></a><a href="#" aria-label="LinkedIn"><Ic.In /></a><a href="#" aria-label="Facebook"><Ic.Fb /></a><a href="#" aria-label="Instagram"><Ic.Ig /></a></div></div>
-  </div></footer>);
+  </div>
+</section>
+
+<section class="dark sec-tight">
+  <div class="wrap">
+    <div class="eyebrow on-dark reveal">03 <span class="em">—</span> Efektywność</div>
+    <h2 style="font-family:var(--display);font-weight:500;font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-0.02em;margin:18px 0 64px;color:#fff" class="reveal" data-delay="1">ROI, który można zmierzyć.</h2>
+    <div class="roi-grid reveal" data-delay="2">
+      <div class="roi-cell"><div class="roi-num">↑ 37%</div><div class="roi-label">Poprawa wydajności<br>pod presją</div></div>
+      <div class="roi-cell"><div class="roi-num">↑ 54%</div><div class="roi-label">Lepsza komunikacja<br>w zespołach</div></div>
+      <div class="roi-cell"><div class="roi-num">↑ 31%</div><div class="roi-label">Jakość podejmowania<br>decyzji</div></div>
+      <div class="roi-cell"><div class="roi-num">↑ 3×</div><div class="roi-label">Zaangażowanie<br>po programie</div></div>
+    </div>
+    <p style="text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:32px">Dane z badań Positive Intelligence Institute · próba 50 000+ uczestników</p>
+  </div>
+</section>
+
+<section class="sec light" id="kontakt">
+  <div class="wrap">
+    <div class="eyebrow reveal">04 <span class="em">—</span> Porozmawiajmy</div>
+    <h2 style="font-family:var(--display);font-weight:500;font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-0.02em;margin:18px 0 0" class="reveal" data-delay="1">Porozmawiajmy.</h2>
+    <form class="contact-form reveal" data-delay="2" id="contact-form" onsubmit="submitForm(event)">
+      <div class="field"><label>Imię i nazwisko</label><input type="text" placeholder="Jan Kowalski" required /></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="jan@firma.pl" required /></div>
+      <div class="field"><label>Firma</label><input type="text" placeholder="Nazwa firmy" /></div>
+      <div class="field"><label>Wiadomość</label><textarea placeholder="Opisz krótko, czego szukasz..." rows="4"></textarea></div>
+      <button type="submit" class="btn btn-teal" style="margin-top:8px">Wyślij zapytanie <span class="arrow">→</span></button>
+    </form>
+    <div id="form-success" style="display:none;padding-top:48px;font-family:var(--display);font-size:24px;font-style:italic;color:var(--text)">Dziękuję. Odezwę się w ciągu 24 godzin.</div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand"><div class="row"><div class="mono-kw">KW</div><div class="nav-brand-name">Krzysztof Wnęk<span class="small">Mówca · Mentor · Coach PQ</span></div></div><p>Pomagam liderom odzyskać radość — bez rezygnacji ze sprawczości.</p></div>
+      <div class="foot-col"><h5>Nawigacja</h5><ul><li><a href="dla-ciebie.html">Dla Ciebie</a></li><li><a href="dla-firm.html">Dla Firm</a></li><li><a href="o-mnie.html">O Mnie</a></li><li><a href="index.html#test">Test Sabotażystów</a></li><li><a href="umow-rozmowe.html">Umów Rozmowę</a></li></ul></div>
+      <div class="foot-col"><h5>Obserwuj</h5><ul><li><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a></li><li><a href="https://www.linkedin.com/in/krzysztofwnek" target="_blank" rel="noreferrer">LinkedIn</a></li><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li></ul></div>
+    </div>
+    <div class="foot-bot"><div>© 2026 Krzysztof Wnęk · Wszelkie prawa zastrzeżone</div></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+const io = new IntersectionObserver((e) => { e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+function submitForm(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
 }
-
-const roiStats = [
-  {num:"↑ 37%",label:"Poprawa wydajności\npod presją"},
-  {num:"↑ 54%",label:"Lepsza komunikacja\nw zespołach"},
-  {num:"↑ 31%",label:"Jakość podejmowania\ndecyzji"},
-  {num:"↑ 3×",label:"Zaangażowanie\npo programie"},
-];
-function ContactForm() {
-  const [sent,setSent]=React.useState(false);
-  if(sent) return (<div style={{paddingTop:48}}><p style={{fontFamily:"var(--display)",fontSize:24,fontStyle:"italic",color:"var(--text)"}}>Dziękuję. Odezwę się w ciągu 24 godzin.</p></div>);
-  return (<form className="contact-form" onSubmit={e=>{e.preventDefault();setSent(true);}}>
-    <div className="field"><label>Imię i nazwisko</label><input type="text" placeholder="Jan Kowalski" required /></div>
-    <div className="field"><label>Email</label><input type="email" placeholder="jan@firma.pl" required /></div>
-    <div className="field"><label>Firma</label><input type="text" placeholder="Nazwa firmy" /></div>
-    <div className="field"><label>Wiadomość</label><textarea placeholder="Opisz krótko, czego szukasz..." rows={4} /></div>
-    <button type="submit" className="btn btn-teal" style={{marginTop:8}}>Wyślij zapytanie <span className="arrow">→</span></button>
-  </form>);
-}
-function Page() {
-  useReveal();
-  return (<><Nav /><main>
-    <section className="sub-hero dark">
-      <div className="sub-hero-inner">
-        <div className="eyebrow on-dark reveal">Dla Firm <span className="em">—</span> B2B</div>
-        <h1 className="reveal" data-delay="1">Decyzje<br/>podejmowane<br/>pod presją<br/>wyznaczają <span className="it">sufit</span><br/>Twojego zespołu.</h1>
-        <p className="lead reveal" data-delay="2">Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet gdy stawki są wysokie.</p>
-      </div>
-    </section>
-
-    <section className="sec light">
-      <div className="wrap"><div className="content-2col">
-        <div className="reveal">
-          <div className="eyebrow">01 <span className="em">—</span> Koszt</div>
-          <h2 style={{fontFamily:"var(--display)",fontWeight:500,fontSize:"clamp(36px,4.8vw,64px)",lineHeight:1.02,letterSpacing:"-0.018em",margin:"18px 0 0",textWrap:"balance"}}>Paraliż decyzyjny<br/>kosztuje <span style={{fontStyle:"italic",fontWeight:400}}>pieniądze</span>.</h2>
-        </div>
-        <div className="reveal" data-delay="1">
-          <p style={{fontSize:"15.5px",lineHeight:1.7,color:"var(--text-muted)",margin:"0 0 16px",maxWidth:"52ch"}}>Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.</p>
-          <p style={{fontSize:"15.5px",lineHeight:1.7,color:"var(--text-muted)",margin:0,maxWidth:"52ch"}}>Program PQ dla zespołów to nie team building. To <strong style={{color:"var(--text)"}}>neurobiologiczna zmiana sposobu myślenia</strong> — u każdego uczestnika i w dynamice grupy.</p>
-        </div>
-      </div></div>
-    </section>
-
-    <section className="sec light" style={{paddingTop:0}}>
-      <div className="wrap">
-        <div className="eyebrow reveal">02 <span className="em">—</span> Formaty</div>
-        <h2 style={{fontFamily:"var(--display)",fontWeight:500,fontSize:"clamp(40px,5vw,72px)",lineHeight:1,letterSpacing:"-0.02em",margin:"18px 0 48px"}} className="reveal" data-delay="1">Dwa formaty.</h2>
-        <div className="formats-row reveal" data-delay="2">
-          <div className="format-col">
-            <div className="eyebrow">Format A</div>
-            <h3>Power Speech</h3>
-            <p>45–90 minut na scenie konferencyjnej lub dla Twojego zespołu. Energetyczne wystąpienie, które zmienia perspektywę. Brief 15 min, wycena 48h.</p>
-            <a href="#kontakt" className="link-text amber">Wycena indywidualna →</a>
-          </div>
-          <div className="format-col">
-            <div className="eyebrow">Format B</div>
-            <h3>Program Zespołowy</h3>
-            <p>6-tygodniowy program PQ dla zespołu (10–30 osób). Cotygodniowe sesje, aplikacja PQ, wsparcie coachingowe. Efekty po pierwszym tygodniu.</p>
-            <a href="#kontakt" className="link-text amber">Wycena indywidualna →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section className="dark sec-tight">
-      <div className="wrap">
-        <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Efektywność</div>
-        <h2 style={{fontFamily:"var(--display)",fontWeight:500,fontSize:"clamp(40px,5vw,72px)",lineHeight:1,letterSpacing:"-0.02em",margin:"18px 0 64px",color:"#fff"}} className="reveal" data-delay="1">ROI, który można zmierzyć.</h2>
-        <div className="roi-grid reveal" data-delay="2">
-          {roiStats.map((s,i)=>(<div className="roi-cell" key={i}><div className="roi-num">{s.num}</div><div className="roi-label" style={{whiteSpace:"pre-line"}}>{s.label}</div></div>))}
-        </div>
-        <p style={{textAlign:"center",fontFamily:"var(--mono)",fontSize:10,letterSpacing:"0.12em",color:"rgba(255,255,255,0.3)",textTransform:"uppercase",marginTop:32}}>Dane z badań Positive Intelligence Institute · próba 50 000+ uczestników</p>
-      </div>
-    </section>
-
-    <section className="sec light" id="kontakt">
-      <div className="wrap">
-        <div className="eyebrow reveal">04 <span className="em">—</span> Porozmawiajmy</div>
-        <h2 style={{fontFamily:"var(--display)",fontWeight:500,fontSize:"clamp(40px,5vw,72px)",lineHeight:1,letterSpacing:"-0.02em",margin:"18px 0 0"}} className="reveal" data-delay="1">Porozmawiajmy.</h2>
-        <div className="reveal" data-delay="2"><ContactForm /></div>
-      </div>
-    </section>
-  </main><Foot /></>);
-}
-ReactDOM.createRoot(document.getElementById("root")).render(<Page />);
 </script>
 </body>
 </html>
