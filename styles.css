@@ -22,7 +22,7 @@
 
   --display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
   --sans:    "Inter", system-ui, -apple-system, sans-serif;
-  --mono:    "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --mono:    "Manrope", "Inter", system-ui, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -745,7 +745,7 @@ section { position: relative; }
 
 /* ─── TESTIMONIALS ─── */
 .testi-head {
-  margin-bottom: 96px;
+  margin-bottom: 72px;
 }
 .testi-head h2 {
   font-family: var(--display);
@@ -756,30 +756,107 @@ section { position: relative; }
   letter-spacing: -0.025em;
   margin: 22px 0 0;
 }
-.testi-grid {
+
+/* New: video + text layout */
+.testi-main {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 64px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 72px;
+  align-items: start;
 }
-@media (max-width: 980px) { .testi-grid { grid-template-columns: 1fr; gap: 56px; } }
+@media (max-width: 980px) { .testi-main { grid-template-columns: 1fr; gap: 56px; } }
+
+.testi-video-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  cursor: pointer;
+}
+.testi-video-thumb {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.testi-video-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+}
+.testi-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px; height: 64px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  color: #fff;
+  transition: background .25s, border-color .25s;
+  z-index: 2;
+}
+.testi-play svg { width: 18px; height: 18px; margin-left: 2px; }
+.testi-video-wrap:hover .testi-play { background: var(--accent-deep); border-color: var(--accent-deep); }
+.testi-video-label {
+  position: absolute;
+  bottom: 20px; left: 20px;
+  z-index: 2;
+}
+.testi-video-name {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  font-weight: 500;
+}
+.testi-video-role {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+}
+.testi-video-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.55;
+  color: rgba(255,255,255,0.75);
+  margin: 28px 0 0;
+  text-wrap: pretty;
+}
+
+.testi-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 8px;
+}
 .testi-cell {
-  padding-top: 32px;
-  border-top: 1px solid rgba(255,255,255,0.12);
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+.testi-cell:first-child { padding-top: 0; }
 .testi-quote {
   font-family: var(--display);
   font-style: italic;
   font-weight: 400;
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.55;
   color: rgba(255,255,255,0.88);
-  margin: 0 0 32px;
+  margin: 0 0 24px;
   text-wrap: pretty;
 }
 .testi-attr {
   font-family: var(--mono);
   font-size: 10px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent-light);
   line-height: 1.7;
@@ -1044,16 +1121,19 @@ footer.foot {
   text-transform: uppercase;
   flex-wrap: wrap; gap: 16px;
 }
-.foot-bot .social { display: flex; gap: 12px; }
-.foot-bot .social a {
-  width: 32px; height: 32px;
-  border: 1px solid rgba(255,255,255,0.14);
-  display: grid; place-items: center;
+.foot-credit {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.28);
+  text-transform: uppercase;
+}
+.foot-credit a {
   color: rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
   transition: color .2s, border-color .2s;
 }
-.foot-bot .social a:hover { color: var(--accent-light); border-color: var(--accent-light); }
-.foot-bot .social svg { width: 13px; height: 13px; }
+.foot-credit a:hover { color: var(--accent-light); border-color: var(--accent-light); }
 
 /* ─── Subpage specific ─── */
 .content-2col {
