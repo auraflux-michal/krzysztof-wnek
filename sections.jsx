@@ -1,0 +1,462 @@
+// sections.jsx — Krzysztof Wnęk homepage sections
+
+// ── HERO ─────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section className="hero" id="top">
+      <div className="hero-bg" aria-hidden="true" />
+      <div className="hero-inner">
+        <div className="hero-text">
+          <div className="hero-eyebrow">
+            <span className="line" />
+            <span>Mówca &nbsp;·&nbsp; Mentor &nbsp;·&nbsp; Coach PQ</span>
+          </div>
+          <h1 className="display">
+            Wymieniasz <br/>
+            <span className="it">sukces</span> <br/>
+            na stres.
+          </h1>
+          <p className="hero-sub">
+            Pomagam liderom odzyskać radość — bez rezygnacji ze sprawczości.
+          </p>
+          <div className="hero-ctas">
+            <a href="#test" className="btn btn-teal">
+              Weź bezpłatny test sabotażystów
+              <span className="arrow">→</span>
+            </a>
+            <a href="#video" className="hero-listen">
+              <span>Poznaj moją historię</span>
+              <span className="down" style={{ width: 12, height: 12, display: "inline-block" }}><Ic.Down /></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="hero-edge">
+        <span className="pulse" />
+        Portret · Krzysztof Wnęk · Pozytywna Inteligencja
+      </div>
+    </section>
+  );
+}
+
+// ── AUTHORITY ────────────────────────────────────────────────────
+function Authority() {
+  const items = [
+    { n: "200+", l: "Absolwentów programu" },
+    { n: "43",   l: "Odcinków na YouTube" },
+    { n: "WSB",  l: "Wykładowca" },
+    { n: "PQ",   l: "Certyfikowany coach" },
+  ];
+  return (
+    <section className="authority">
+      <div className="wrap">
+        <div className="authority-row">
+          {items.map((it, i) => (
+            <div className="auth-cell reveal" data-delay={i} key={i}>
+              <div className="auth-num">{it.n}</div>
+              <div className="auth-label">{it.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── PROBLEM ──────────────────────────────────────────────────────
+function Problem() {
+  const cards = [
+    "Osiągnąłeś to, czego chciałeś. Radość nie przyszła.",
+    "Praca przeszła do domu. Dom — do pracy.",
+    "Osiągasz coraz więcej. Nadal nie dość.",
+    "Rodzina jest ostatnią pozycją na liście.",
+  ];
+  return (
+    <section className="sec light">
+      <div className="wrap">
+        <div className="problem-head reveal">
+          <div>
+            <div className="eyebrow">01 <span className="em">—</span> Problem</div>
+            <h2 className="display">
+              Czy <span className="it">rozpoznajesz</span> siebie?
+            </h2>
+          </div>
+        </div>
+        <div className="problem-rule reveal" />
+        <div className="problem-grid">
+          {cards.map((c, i) => (
+            <div className="problem-card reveal" data-delay={i} key={i}>
+              <div className="num">0{i + 1}</div>
+              <p>{c}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── TRANSFORMATION ───────────────────────────────────────────────
+function Transformation() {
+  const before = [
+    "Stres i reaktywność",
+    "Późne noce, wczesne pobudki",
+    "Zaniedbane relacje",
+    "„Kiedy wystarczy?"",
+  ];
+  const after = [
+    "Spokój pod presją",
+    "Głęboka praca, prawdziwy odpoczynek",
+    "Obecność w domu i w pracy",
+    "Radość jako codzienny standard",
+  ];
+  return (
+    <section className="sec dark">
+      <div className="wrap-narrow">
+        <div className="trans-grid">
+          <div className="trans-col before reveal">
+            <h3>Przed</h3>
+            <ul>{before.map((t, i) => <li key={i}>{t}</li>)}</ul>
+          </div>
+          <div className="trans-col after reveal" data-delay="1">
+            <h3>Po</h3>
+            <ul>{after.map((t, i) => <li key={i}>{t}</li>)}</ul>
+          </div>
+        </div>
+        <div className="trans-cta reveal">
+          <a href="#test" className="btn btn-outline-light">
+            Sprawdź, czy to dla Ciebie
+            <span className="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── VIDEO ────────────────────────────────────────────────────────
+function Video() {
+  return (
+    <section className="sec dark" id="video">
+      <div className="wrap-narrow">
+        <div className="video-eyebrow reveal">
+          <div className="eyebrow on-dark">02 <span className="em">—</span> Przeżyjmy 2 minuty</div>
+        </div>
+        <h2 className="video-headline reveal" data-delay="1">
+          <span className="it">„2 minuty.</span><br/>
+          Zdecyduj sam."
+        </h2>
+        <div className="video-wrap reveal" data-delay="2">
+          <img
+            className="video-thumb"
+            src="assets/video-placeholder.png"
+            alt="Krzysztof Wnęk — obejrzyj"
+          />
+          <div className="video-overlay" />
+          <div className="video-meta">
+            <span className="rec">REC</span>
+            <span>2:14</span>
+            <span>1080p</span>
+          </div>
+          <a
+            href="https://www.youtube.com/@PozytywnaInteligencja"
+            target="_blank"
+            rel="noreferrer"
+            className="video-play"
+          >
+            <Ic.Play />
+            Odtwórz
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── SABOTEURS ────────────────────────────────────────────────────
+function Saboteurs() {
+  const steps = [
+    { n: "I",   t: "Szybki test",          d: "5 min · online · 100% prywatnie" },
+    { n: "II",  t: "Otrzymasz wyniki",     d: "Spersonalizowany profil sabotażystów na mail" },
+    { n: "III", t: "Umów bezpłatną sesję", d: "30-minutowe omówienie wyników na żywo" },
+  ];
+  return (
+    <section className="sec light sabo" id="test">
+      <div className="wrap">
+        <div className="sabo-grid">
+          <div className="reveal">
+            <div className="eyebrow">03 <span className="em">—</span> Punkt wejścia</div>
+            <h2>
+              Zanim zawalczysz — <br/>
+              poznaj swojego <span className="it">wroga</span>.
+            </h2>
+            <p className="desc">
+              Test Sabotażystów — opracowany przez <strong>Shirzada Chamine</strong> na Harvardzie.
+              Identyfikuje wewnętrzne głosy, które blokują Twoje osiągnięcia, relacje i spokój.
+              Bezpłatny. 5 minut.
+            </p>
+            <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-dark">
+              Weź bezpłatny test
+              <span className="arrow">→</span>
+            </a>
+            <p className="note">Zewnętrzna platforma PQ · Wyniki dostaniesz na e-mail</p>
+          </div>
+          <div className="sabo-steps reveal" data-delay="2">
+            {steps.map((s, i) => (
+              <div className="sabo-step" key={i}>
+                <div className="n">{s.n}</div>
+                <div>
+                  <div className="t">{s.t}</div>
+                  <div className="d">{s.d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── ABOUT ────────────────────────────────────────────────────────
+function About() {
+  return (
+    <section className="sec light" id="o-mnie">
+      <div className="wrap">
+        <div className="about-grid">
+          <div className="about-portrait reveal" aria-label="Portret — Krzysztof Wnęk" />
+          <div className="about-body reveal" data-delay="1">
+            <div className="eyebrow">04 <span className="em">—</span> Kim jest ten człowiek</div>
+            <div className="about-quote">
+              „Nie prowadzę warsztatów. <br/>
+              Rozpalę Cię. <br/>
+              Potem dam Ci narzędzia, <br/>
+              żebyś płonął dalej."
+            </div>
+            <p className="about-bio">
+              <strong>Krzysztof Wnęk</strong> to certyfikowany coach PQ, wykładowca WSB — mówca konferencyjny,
+              który pracował z ponad 200 liderami, menedżerami i przedsiębiorcami. Łączy energię prelekcji
+              ze sceny z coachingiem wydajności — używając języka godności, nie psychologii.
+            </p>
+            <p className="about-bio">
+              Pracuje z ludźmi, którzy osiągnęli wszystko czego chcieli — i odkryli, że to nie wystarcza.
+            </p>
+            <div className="about-cta">
+              <a href="o-mnie.html" className="link-text">
+                Przeczytaj pełną historię <Ic.Arr />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── TESTIMONIALS ─────────────────────────────────────────────────
+function Testimonials() {
+  const items = [
+    {
+      q: "Po programie PQ przestałem reagować — zacząłem odpowiadać. Różnica jest większa, niż oglądałem.",
+      name: "Marek A.",
+      role: "VP of Engineering",
+    },
+    {
+      q: "Krzysztof daje narzędzia, które faktycznie działają. Nie motywację na chwilę — zmianę zachowań.",
+      name: "Piotr N.",
+      role: "CEO, branża fintech",
+    },
+    {
+      q: "Odkryłam, że mój najczęstszy głos wcale nie mój głowie. Teraz wiem, jak z nim rozmawiać.",
+      name: "Agnieszka T.",
+      role: "Dyrektor operacyjna",
+    },
+  ];
+  return (
+    <section className="sec dark">
+      <div className="wrap">
+        <div className="testi-head reveal">
+          <div className="eyebrow on-dark">05 <span className="em">—</span> Co mówią</div>
+          <h2>Dowody.</h2>
+        </div>
+        <div className="testi-grid">
+          {items.map((t, i) => (
+            <div className="testi-cell reveal" data-delay={i} key={i}>
+              <p className="testi-quote">„{t.q}"</p>
+              <div className="testi-attr">
+                {t.name}
+                <span className="role">{t.role}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── PATHS ────────────────────────────────────────────────────────
+function Paths() {
+  const paths = [
+    {
+      tag: ["Program PQ", "Wyższa klasa"],
+      title: "8-tygodniowy System",
+      desc: "Pełna metodologia PQ. Najgłębsza, najtrwalsza zmiana — w grupie pod okiem coacha.",
+      price: "4 000 — 5 000 PLN",
+      priceSub: "lub 12 × 300 PLN",
+      cta: "Dowiedz się więcej",
+      href: "dla-ciebie.html",
+    },
+    {
+      tag: ["Coaching 1:1", "Indywidualny"],
+      title: "Minimum 5 sesji",
+      desc: "Praca jeden na jeden z coachingiem — metodologia PQ dopasowana do Twojej sytuacji.",
+      price: "Do ustalenia",
+      priceSub: "Konstrukt indywidualny",
+      cta: "Zapytaj o sesję",
+      href: "umow-rozmowe.html",
+    },
+    {
+      tag: ["Wystąpi", "B2B · Zespoły"],
+      title: "Przemówienia i Warsztaty",
+      desc: "Dla konferencji i zespołów korporacyjnych. Odporność decyzyjna, wydajność pod presją.",
+      price: "Wycena indywidualna",
+      priceSub: "Brief 15 min — wycena 48h",
+      cta: "Zapytaj",
+      href: "dla-firm.html",
+    },
+  ];
+  return (
+    <section className="sec light">
+      <div className="wrap">
+        <div className="paths-head reveal">
+          <div className="eyebrow">06 <span className="em">—</span> Jak możemy współpracować</div>
+          <h2>Trzy ścieżki.</h2>
+          <p>Wszystkie drogi prowadzą do tego samego miejsca — jasności, energii i obecności.</p>
+        </div>
+        <div className="paths-grid">
+          {paths.map((p, i) => (
+            <div className="path reveal" data-delay={i} key={i}>
+              <div className="tag">
+                {p.tag[0]}<span className="em">·</span>{p.tag[1]}
+              </div>
+              <div className="title">{p.title}</div>
+              <p className="desc">{p.desc}</p>
+              <div className="price">
+                {p.price}
+                <span className="price-sub">{p.priceSub}</span>
+              </div>
+              <div className="path-cta">
+                <a href={p.href} className="link-text">
+                  {p.cta} <Ic.Arr />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── YOUTUBE ──────────────────────────────────────────────────────
+const YT_CHANNEL_ID = "UC49dTdbJNVs5NmYVdEGGrXw";
+const YT_CHANNEL_URL = "https://www.youtube.com/@PozytywnaInteligencja";
+const YT_FALLBACK = [
+  { t: "Jak sabotażyści niszczą Twoją decyzję — i co z tym zrobić", id: null, n: "NAJNOWSZE" },
+  { t: "Pozytywna Inteligencja: poznaj wrogów w swojej głowie",      id: null, n: "POPULARNE" },
+  { t: "Dlaczego sukces nie daje Ci szczęścia",                       id: null, n: "POLECANE" },
+];
+
+function YT() {
+  const [eps, setEps] = React.useState(YT_FALLBACK);
+
+  React.useEffect(() => {
+    const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
+      `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`
+    )}`;
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        if (!data || !Array.isArray(data.items) || !data.items.length) return;
+        const top = data.items.slice(0, 3).map((it, i) => {
+          const id = (it.guid || "").split(":").pop();
+          return {
+            t: it.title,
+            id,
+            href: it.link,
+            thumb: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+            n: i === 0 ? "NAJNOWSZE" : `ODC. ${i + 1}`,
+            date: it.pubDate ? new Date(it.pubDate).toLocaleDateString("pl-PL", { month: "short", year: "numeric" }).toUpperCase() : "",
+          };
+        });
+        setEps(top);
+      })
+      .catch(() => {});
+  }, []);
+
+  return (
+    <section className="sec dark" id="youtube">
+      <div className="wrap">
+        <div className="yt-head reveal">
+          <div className="eyebrow on-dark">07 <span className="em">—</span> YouTube</div>
+          <h2>Bezpłatnie. Na YouTube.</h2>
+        </div>
+        <div className="yt-grid">
+          {eps.map((e, i) => (
+            <a href={e.href || YT_CHANNEL_URL} target="_blank" rel="noreferrer" className="yt-card reveal" data-delay={i} key={i}>
+              <div className="yt-thumb">
+                {e.thumb ? (
+                  <img src={e.thumb} alt={e.t} loading="lazy"
+                       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                ) : (
+                  <div className="ph"><div className="ph-corner">{e.n}</div></div>
+                )}
+                <div className="play-mini"><Ic.Play /></div>
+              </div>
+              <div className="yt-meta">{e.date ? `${e.n} · ${e.date}` : e.n}</div>
+              <div className="yt-title">{e.t}</div>
+            </a>
+          ))}
+        </div>
+        <div className="yt-foot reveal">
+          <a href={YT_CHANNEL_URL} target="_blank" rel="noreferrer" className="btn btn-outline-light">
+            Subskrybuj kanał
+            <span className="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── FINAL CTA ────────────────────────────────────────────────────
+function Finale() {
+  return (
+    <section className="light finale" id="umow">
+      <div className="watermark" aria-hidden="true">Zmiana</div>
+      <div className="finale-inner">
+        <div className="eyebrow reveal">08 <span className="em">—</span> Decyzja</div>
+        <h2 className="reveal" data-delay="1">
+          Gotowy na rozmowę,<br/>
+          która <span className="it">zmienia wszystko</span>.
+        </h2>
+        <div className="finale-ctas reveal" data-delay="2">
+          <a href="umow-rozmowe.html" className="btn btn-teal">
+            Zarezerwuj rozmowę
+            <span className="arrow">→</span>
+          </a>
+          <a href="#test" className="btn btn-outline-dark">
+            Weź test sabotażystów
+            <span className="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, {
+  Hero, Authority, Problem, Transformation,
+  Video, Saboteurs, About, Testimonials, Paths, YT, Finale,
+});

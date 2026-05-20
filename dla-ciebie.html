@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dla Ciebie — Krzysztof Wnęk</title>
+<meta name="description" content="Program Positive Intelligence dla liderów i menedżerów. 8-tygodniowy system, który zmienia sposób myślenia na poziomie neurologicznym." />
+<meta property="og:title" content="Dla Ciebie — Krzysztof Wnęk" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel">
+
+const faqItems = [
+  {
+    q: "Czy muszę znać angielski?",
+    a: "Program PQ jest prowadzony przez platformę po angielsku — ale materiały są w pełni zrozumiałe nawet przy podstawowej znajomości języka. Ja pracuję z Tobą po polsku przez całe 8 tygodni."
+  },
+  {
+    q: "Ile czasu zajmuje program tygodniowo?",
+    a: "Około 1 godziny dziennie — 15 minut ćwiczeń mentalnych (aplikacja) + dostęp do treści wideo + cotygodniowe sesje grupowe. To nie jest kurs — to codzienność."
+  },
+  {
+    q: "Czy to jest coaching?",
+    a: "To coś więcej. Program PQ łączy neurobiologię, pozytywną psychologię i coaching. Budujesz dosłownie nowe ścieżki neuronalne. Efekty są mierzalne i trwałe."
+  },
+  {
+    q: "Dla kogo to jest program?",
+    a: "Dla liderów, menedżerów i przedsiębiorców, którzy osiągnęli sukces — ale odkryli, że coś im umyka. Radość, spokój, obecność. Program nie jest dla wszystkich. Umów rozmowę — sprawdzimy razem."
+  },
+  {
+    q: "Czy mogę płacić ratalnie?",
+    a: "Tak. Opcja ratalna: 12 × 300 PLN. Pełna cena: 4 000 — 5 000 PLN. Szczegóły na rozmowie Discovery."
+  },
+];
+
+function FaqItem({ q, a }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="faq-item">
+      <div className="faq-q" onClick={() => setOpen(!open)}>
+        {q}
+        <span className="plus">{open ? "−" : "+"}</span>
+      </div>
+      {open && <div className="faq-a">{a}</div>}
+    </div>
+  );
+}
+
+function PageDlaCiebie() {
+  useReveal();
+  return (
+    <>
+      <Nav />
+      <main>
+        {/* HERO */}
+        <section className="sub-hero dark">
+          <div className="sub-hero-inner">
+            <div className="eyebrow on-dark reveal">Dla Ciebie <span className="em">—</span> Program PQ</div>
+            <h1 className="reveal" data-delay="1">
+              Zapewniasz <br/>
+              wszystkim. <br/>
+              Kto zapewnia <br/>
+              <span className="it">Tobie?</span>
+            </h1>
+            <p className="lead reveal" data-delay="2">
+              8-tygodniowy program PQ dla liderów i menedżerów, którzy chcą osiągać na najwyższym poziomie — bez wypalania.
+            </p>
+          </div>
+        </section>
+
+        {/* CO TO JEST */}
+        <section className="sec light">
+          <div className="wrap">
+            <div className="content-2col">
+              <div className="reveal">
+                <div className="eyebrow">01 <span className="em">—</span> Co to jest</div>
+                <h2 className="content-body" style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(36px,4.8vw,68px)", lineHeight: 1.02, letterSpacing: "-0.018em", margin: "18px 0 32px", textWrap: "balance" }}>
+                  Positive Intelligence <br/>
+                  to nie <span style={{ fontStyle: "italic", fontWeight: 400 }}>pozytywne myślenie</span>.
+                </h2>
+              </div>
+              <div className="content-body reveal" data-delay="1">
+                <p>
+                  Opracowany przez Shirzada Chamine na Stanfordzie — Positive Intelligence to naukowo udowodniony system, który uczy Twój mózg „działania z Sage" — mądrej części umysłu, która odpowiada spokojnie zamiast reagować impulsywnie.
+                </p>
+                <p>
+                  Zamiast walczyć ze sobą — uczysz się <strong>rozpoznawać sabotażystów</strong> (wewnętrzne głosy blokujące Twoje wyniki) i aktywować Sage — program, który działa na poziomie neurologicznym. Dlatego efekty są trwałe.
+                </p>
+                <p>
+                  Pracowałem z ponad 200 liderami. Widzę tę różnicę u każdego z nich — mentalnie, i w wynikach.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TRZY KROKI */}
+        <section className="sec light" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="eyebrow reveal">02 <span className="em">—</span> Proces</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5vw,72px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "18px 0 0", textWrap: "balance" }} className="reveal" data-delay="1">
+              Trzy kroki.
+            </h2>
+            <div className="steps-row reveal" data-delay="2">
+              <div className="step-col">
+                <div className="num">01</div>
+                <div className="title">Zrób test</div>
+                <div className="desc">Poznaj swoich sabotażystów — wewnętrzne głosy, które sabotują Twoje wyniki i relacje. Test bezpłatny, 5 minut.</div>
+              </div>
+              <div className="step-col">
+                <div className="num">02</div>
+                <div className="title">Dołącz do programu</div>
+                <div className="desc">8 tygodni intensywnej pracy z aplikacją PQ, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku.</div>
+              </div>
+              <div className="step-col">
+                <div className="num">03</div>
+                <div className="title">Transformuj</div>
+                <div className="desc">Budujesz nowe ścieżki neuronalne. Spokój pod presją. Decyzje z jasności. Radość jako standard — nie nagroda.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PROGRAM + CENA */}
+        <section className="dark sec-tight">
+          <div className="wrap">
+            <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Inwestycja</div>
+            <div className="price-block reveal" data-delay="1">
+              <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 8 }}>Program PQ · 8 tygodni</div>
+              <div className="price-display" style={{ color: "#fff" }}>4 000 — 5 000 PLN</div>
+              <div className="price-sub" style={{ color: "rgba(255,255,255,0.45)" }}>lub 12 × 300 PLN · opcja ratalna</div>
+              <div className="btn-row">
+                <a href="umow-rozmowe.html" className="btn btn-teal">
+                  Zarezerwuj rozmowę Discovery
+                  <span className="arrow">→</span>
+                </a>
+                <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-outline-light">
+                  Najpierw zrób bezpłatny test
+                  <span className="arrow">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="sec light">
+          <div className="wrap">
+            <div className="eyebrow reveal">04 <span className="em">—</span> Pytania</div>
+            <h2 style={{ fontFamily: "var(--display)", fontStyle: "italic", fontWeight: 400, fontSize: "clamp(48px,6vw,88px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "18px 0 64px", textWrap: "balance" }} className="reveal" data-delay="1">
+              FAQ.
+            </h2>
+            <div className="faq reveal" data-delay="2">
+              {faqItems.map((item, i) => <FaqItem key={i} {...item} />)}
+            </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="dark sec-tight">
+          <div className="wrap" style={{ textAlign: "center" }}>
+            <div className="eyebrow on-dark reveal">Gotowy?</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5.5vw,80px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "24px auto 48px", maxWidth: "16ch", textWrap: "balance", color: "#fff" }} className="reveal" data-delay="1">
+              Zacznij od <span style={{ fontStyle: "italic", fontWeight: 400 }}>rozmowy</span>.
+            </h2>
+            <div className="reveal" data-delay="2">
+              <a href="umow-rozmowe.html" className="btn btn-teal">
+                Umów bezpłatną rozmowę Discovery
+                <span className="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Foot />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<PageDlaCiebie />);
+</script>
+</body>
+</html>

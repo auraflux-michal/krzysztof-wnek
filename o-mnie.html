@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>O Mnie — Krzysztof Wnęk</title>
+<meta name="description" content="Poznaj historię Krzysztofa Wnęka — mówcy, mentora i coacha PQ. To nie historia sukcesu. To historia przebudzenia." />
+<meta property="og:title" content="O Mnie — Krzysztof Wnęk" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel">
+
+const timeline = [
+  { year: "2017", title: "Pierwsze wystąpienie publiczne", desc: "Wszedłem na scenę drżąc. Wyszedłem wiedząc, że to jest moje miejsce." },
+  { year: "2019", title: "Odkrycie Positive Intelligence", desc: "Shirzad Chamine, Harvard, neurobiologia. Coś, co zmieniło sposób, w jaki rozumiem siebie i innych." },
+  { year: "2021", title: "Certyfikacja PQ Coach", desc: "Oficjalny certyfikat Positive Intelligence. Jeden z nielicznych certyfikowanych coachów PQ w Polsce." },
+  { year: "2022", title: "Wykładowca WSB", desc: "Dołączyłem do grona wykładowców Wyższej Szkoły Biznesu. Temat: przywództwo i odporność mentalna." },
+  { year: "2023", title: "200+ absolwentów programu", desc: "Ponad 200 liderów, menedżerów i przedsiębiorców przeszło przez program PQ. Każda historia inna. Jeden kierunek — jasność." },
+  { year: "2024+", title: "Teraz", desc: "Prowadzę programy, wygłaszam prelekcje i pracuję indywidualnie z ludźmi, którzy osiągnęli wszystko — i odkryli, że czegoś brakuje." },
+];
+
+const values = [
+  { label: "Wartość 01", title: "Wiara", desc: "W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Sage — mądrą część umysłu." },
+  { label: "Wartość 02", title: "Odwaga", desc: "Mówić prawdę. Zwłaszcza tę, której nikt inny nie powie. Nawet jeśli to boli." },
+  { label: "Wartość 03", title: "Relacje", desc: "Głęboka praca jest możliwa tylko z zaufania. Buduję je powoli — i trzymam." },
+  { label: "Wartość 04", title: "Misja", desc: "Żaden sukces nie ma wartości, jeśli człowiek płaci za niego utratą siebie. To zmieniam." },
+];
+
+function PageOMnie() {
+  useReveal();
+  return (
+    <>
+      <Nav />
+      <main>
+        {/* HERO */}
+        <section className="sub-hero dark">
+          <div className="sub-hero-inner">
+            <div className="eyebrow on-dark reveal">O Mnie <span className="em">—</span> Historia</div>
+            <h1 className="reveal" data-delay="1">
+              To nie historia <br/>
+              sukcesu. <br/>
+              To historia <br/>
+              <span className="it">przebudzenia.</span>
+            </h1>
+          </div>
+        </section>
+
+        {/* BIO */}
+        <section className="sec light">
+          <div className="wrap">
+            <div className="content-2col">
+              <div className="reveal">
+                <div
+                  style={{
+                    aspectRatio: "4/5",
+                    backgroundImage: "url('assets/krzysztof-wnek.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center top",
+                    width: "100%",
+                  }}
+                  aria-label="Portret — Krzysztof Wnęk"
+                />
+              </div>
+              <div className="reveal" data-delay="1">
+                <div className="eyebrow">01 <span className="em">—</span> Kim jestem</div>
+                <div style={{ fontFamily: "var(--display)", fontStyle: "italic", fontWeight: 400, fontSize: "clamp(26px,3.2vw,40px)", lineHeight: 1.18, color: "var(--text)", letterSpacing: "-0.005em", margin: "22px 0 36px", textWrap: "pretty" }}>
+                  „Nie prowadzę warsztatów.<br/>
+                  Rozpalę Cię.<br/>
+                  Potem dam Ci narzędzia,<br/>
+                  żebyś płonął dalej."
+                </div>
+                <p style={{ fontSize: "15.5px", lineHeight: 1.7, color: "var(--text-muted)", margin: "0 0 16px", maxWidth: "54ch" }}>
+                  <strong style={{ color: "var(--text)", fontWeight: 500 }}>Krzysztof Wnęk</strong> to certyfikowany coach PQ, wykładowca WSB i mówca konferencyjny, który przez ostatnie lata pracował z ponad 200 liderami, menedżerami i przedsiębiorcami w Polsce.
+                </p>
+                <p style={{ fontSize: "15.5px", lineHeight: 1.7, color: "var(--text-muted)", margin: "0 0 16px", maxWidth: "54ch" }}>
+                  Łączy energię prelekcji ze sceny z precyzją coacha PQ — używając języka godności, nie psychologii. Pracuje z ludźmi, którzy osiągnęli wszystko, czego chcieli — i odkryli, że to nie wystarcza.
+                </p>
+                <p style={{ fontSize: "15.5px", lineHeight: 1.7, color: "var(--text-muted)", margin: "0 0 16px", maxWidth: "54ch" }}>
+                  Nie jest guru. Jest człowiekiem, który sam przeszedł przez to przebudzenie — i wie, jak przeprowadzić przez nie innych.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TIMELINE */}
+        <section className="sec light" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="eyebrow reveal">02 <span className="em">—</span> Oś czasu</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5vw,72px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "18px 0 64px", textWrap: "balance" }} className="reveal" data-delay="1">
+              Skąd przyszedłem.
+            </h2>
+            <div className="timeline reveal" data-delay="2">
+              {timeline.map((item, i) => (
+                <div className="tl-item" key={i}>
+                  <div className="year">{item.year}</div>
+                  <div className="tl-body">
+                    <div className="title">{item.title}</div>
+                    <div className="desc">{item.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* KODEKS RYCERZA */}
+        <section className="dark sec-tight">
+          <div className="wrap">
+            <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Wartości</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5vw,72px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "18px 0 64px", textWrap: "balance", color: "#fff" }} className="reveal" data-delay="1">
+              Kodeks rycerza.
+            </h2>
+            <div className="values-grid reveal" data-delay="2">
+              {values.map((v, i) => (
+                <div className="value-cell" key={i}>
+                  <div className="label">{v.label}</div>
+                  <div className="title">{v.title}</div>
+                  <div className="desc">{v.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PHOTO GALLERY */}
+        <section className="sec dark" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="photo-grid reveal">
+              <div className="photo-slot" style={{ background: "var(--ink-3)" }}>
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8 }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase" }}>Scena · Konferencja</div>
+                </div>
+              </div>
+              <div className="photo-slot" style={{ background: "var(--ink-2)" }}>
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8 }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase" }}>Studio WSB</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="sec light">
+          <div className="wrap" style={{ textAlign: "center" }}>
+            <div className="eyebrow reveal">Gotowy?</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5.5vw,80px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "24px auto 48px", maxWidth: "16ch", textWrap: "balance", color: "var(--text)" }} className="reveal" data-delay="1">
+              Gotowy na <span style={{ fontStyle: "italic", fontWeight: 400 }}>tę rozmowę</span>?
+            </h2>
+            <div className="reveal" data-delay="2" style={{ display: "inline-flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
+              <a href="umow-rozmowe.html" className="btn btn-teal">
+                Umów bezpłatną rozmowę
+                <span className="arrow">→</span>
+              </a>
+              <a href="dla-ciebie.html" className="btn btn-outline-dark">
+                Zobacz program
+                <span className="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Foot />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<PageOMnie />);
+</script>
+</body>
+</html>

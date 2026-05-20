@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Umów Rozmowę — Krzysztof Wnęk</title>
+<meta name="description" content="Zarezerwuj bezpłatną 30-minutową rozmowę Discovery z Krzysztofem Wnękiem. Zero zobowiązań — mapa Twojej sytuacji i Twoich blokaży." />
+<meta property="og:title" content="Umów Rozmowę — Krzysztof Wnęk" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel">
+
+const discoveryCols = [
+  {
+    label: "Twoja sytuacja",
+    text: "Mapujemy, gdzie jesteś — zawodowo, osobowo, energetycznie. Bez oceniania."
+  },
+  {
+    label: "Twoi sabotażyści",
+    text: "Jeśli zrobiłeś test, razem omówimy Twoje wyniki i wskażemy, gdzie najbardziej wpływają na Twoje życie."
+  },
+  {
+    label: "Twoja decyzja",
+    text: "Jasna rekomendacja — program, coaching lub nic z tego. Mówię wprost."
+  },
+];
+
+function PageUmow() {
+  useReveal();
+  return (
+    <>
+      <Nav />
+      <main>
+        {/* HEADER */}
+        <section className="dark" style={{ paddingTop: "clamp(120px,16vw,200px)", paddingBottom: "clamp(64px,8vw,96px)" }}>
+          <div className="wrap">
+            <div className="eyebrow on-dark reveal">Rozmowa Discovery</div>
+            <h1 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(52px,7.2vw,112px)", lineHeight: 0.98, letterSpacing: "-0.02em", margin: "24px 0 24px", color: "#fff", textWrap: "balance" }} className="reveal" data-delay="1">
+              30 minut.<br/>
+              <span style={{ fontStyle: "italic", fontWeight: 400 }}>Zero zobowiązań.</span>
+            </h1>
+            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", lineHeight: 1.65, maxWidth: "46ch", margin: 0 }} className="reveal" data-delay="2">
+              To nie jest rozmowa sprzedażowa. To 30-minutowa mapa tego, gdzie jesteś i gdzie są Twoje blokady.
+            </p>
+          </div>
+        </section>
+
+        {/* DISCOVERY COLS */}
+        <section className="sec light">
+          <div className="wrap">
+            <div className="disc-cols reveal">
+              {discoveryCols.map((col, i) => (
+                <div className="disc-col" key={i}>
+                  <div className="eyebrow">{col.label}</div>
+                  <p>{col.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CALENDAR */}
+        <section className="sec light" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="cal-wrap reveal">
+              <div className="cal-label">
+                <div style={{ fontSize: 12, marginBottom: 6 }}>Widget kalendarza</div>
+                <div>Tu trafi widget rezerwacji Zencal</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* NOT READY */}
+        <section className="sec light not-ready">
+          <div className="wrap">
+            <div className="label reveal">Jeszcze nie gotowy na rozmowę?</div>
+            <div className="reveal" data-delay="1">
+              <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-outline-dark">
+                Najpierw zrób bezpłatny test sabotażystów
+                <span className="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Foot />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<PageUmow />);
+</script>
+</body>
+</html>

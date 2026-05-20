@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dla Firm — Krzysztof Wnęk</title>
+<meta name="description" content="Power Speech i programy zespołowe dla firm. Odporność decyzyjna, wydajność pod presją, mierzalne wyniki ROI." />
+<meta property="og:title" content="Dla Firm — Krzysztof Wnęk" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel">
+
+const roiStats = [
+  { num: "↑ 37%", label: "Poprawa wydajności\npod presją" },
+  { num: "↑ 54%", label: "Lepsza komunikacja\nw zespołach" },
+  { num: "↑ 31%", label: "Jakość podejmowania\ndecyzji" },
+  { num: "↑ 3×", label: "Zaangażowanie\npo programie" },
+];
+
+function ContactForm() {
+  const [sent, setSent] = React.useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSent(true);
+  };
+  if (sent) {
+    return (
+      <div style={{ paddingTop: 48 }}>
+        <p style={{ fontFamily: "var(--display)", fontSize: 24, fontStyle: "italic", color: "var(--text)" }}>
+          Dziękuję. Odezwę się w ciągu 24 godzin.
+        </p>
+      </div>
+    );
+  }
+  return (
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <div className="field">
+        <label>Imię i nazwisko</label>
+        <input type="text" placeholder="Jan Kowalski" required />
+      </div>
+      <div className="field">
+        <label>Email</label>
+        <input type="email" placeholder="jan@firma.pl" required />
+      </div>
+      <div className="field">
+        <label>Firma</label>
+        <input type="text" placeholder="Nazwa firmy" />
+      </div>
+      <div className="field">
+        <label>Wiadomość</label>
+        <textarea placeholder="Opisz krótko, czego szukasz..." rows={4} />
+      </div>
+      <button type="submit" className="btn btn-teal" style={{ marginTop: 8 }}>
+        Wyślij zapytanie
+        <span className="arrow">→</span>
+      </button>
+    </form>
+  );
+}
+
+function PageDlaFirm() {
+  useReveal();
+  return (
+    <>
+      <Nav />
+      <main>
+        {/* HERO */}
+        <section className="sub-hero dark">
+          <div className="sub-hero-inner">
+            <div className="eyebrow on-dark reveal">Dla Firm <span className="em">—</span> B2B</div>
+            <h1 className="reveal" data-delay="1">
+              Decyzje<br/>
+              podejmowane<br/>
+              pod presją<br/>
+              wyznaczają <span className="it">sufit</span><br/>
+              Twojego zespołu.
+            </h1>
+            <p className="lead reveal" data-delay="2">
+              Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet gdy stawki są wysokie.
+            </p>
+          </div>
+        </section>
+
+        {/* PARALIŻ DECYZYJNY */}
+        <section className="sec light">
+          <div className="wrap">
+            <div className="content-2col">
+              <div className="reveal">
+                <div className="eyebrow">01 <span className="em">—</span> Koszt</div>
+                <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(36px,4.8vw,64px)", lineHeight: 1.02, letterSpacing: "-0.018em", margin: "18px 0 0", textWrap: "balance" }}>
+                  Paraliż decyzyjny<br/>
+                  kosztuje <span style={{ fontStyle: "italic", fontWeight: 400 }}>pieniądze</span>.
+                </h2>
+              </div>
+              <div className="reveal" data-delay="1">
+                <p style={{ fontSize: "15.5px", lineHeight: 1.7, color: "var(--text-muted)", margin: "0 0 16px", maxWidth: "52ch" }}>
+                  Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.
+                </p>
+                <p style={{ fontSize: "15.5px", lineHeight: 1.7, color: "var(--text-muted)", margin: "0 0 16px", maxWidth: "52ch" }}>
+                  Program PQ dla zespołów to nie team building. To <strong style={{ color: "var(--text)" }}>neurobiologiczna zmiana sposobu myślenia</strong> — u każdego uczestnika i w dynamice grupy. Efekty mierzalne po 6 tygodniach.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* DWA FORMATY */}
+        <section className="sec light" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="eyebrow reveal">02 <span className="em">—</span> Formaty</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5vw,72px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "18px 0 48px", textWrap: "balance" }} className="reveal" data-delay="1">
+              Dwa formaty.
+            </h2>
+            <div className="formats-row reveal" data-delay="2">
+              <div className="format-col">
+                <div className="eyebrow">Format A</div>
+                <h3>Power Speech</h3>
+                <p>
+                  45–90 minut na scenie konferencyjnej lub dla Twojego zespołu. Energetyczne wystąpienie, które zmienia perspektywę. Temat dobieramy do grupy — nie do slajdów. Brief 15 min, wycena 48h.
+                </p>
+                <a href="#kontakt" className="link-text amber">
+                  Wycena indywidualna →
+                </a>
+              </div>
+              <div className="format-col">
+                <div className="eyebrow">Format B</div>
+                <h3>Program Zespołowy</h3>
+                <p>
+                  6-tygodniowy program PQ dla zespołu (10–30 osób). Cotygodniowe sesje, aplikacja PQ, wsparcie coachingowe. Pracujemy razem — team i lider. Efekty po pierwszym tygodniu. Transformacja po szóstym.
+                </p>
+                <a href="#kontakt" className="link-text amber">
+                  Wycena indywidualna →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ROI */}
+        <section className="dark sec-tight">
+          <div className="wrap">
+            <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Efektywność</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5vw,72px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "18px 0 64px", textWrap: "balance", color: "#fff" }} className="reveal" data-delay="1">
+              ROI, który można zmierzyć.
+            </h2>
+            <div className="roi-grid reveal" data-delay="2">
+              {roiStats.map((s, i) => (
+                <div className="roi-cell" key={i}>
+                  <div className="roi-num">{s.num}</div>
+                  <div className="roi-label" style={{ whiteSpace: "pre-line" }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+            <p style={{ textAlign: "center", fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.12em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", marginTop: 32 }}>
+              Dane z badań Positive Intelligence Institute · próba 50 000+ uczestników
+            </p>
+          </div>
+        </section>
+
+        {/* KONTAKT */}
+        <section className="sec light" id="kontakt">
+          <div className="wrap">
+            <div className="eyebrow reveal">04 <span className="em">—</span> Porozmawiajmy</div>
+            <h2 style={{ fontFamily: "var(--display)", fontWeight: 500, fontSize: "clamp(40px,5vw,72px)", lineHeight: 1, letterSpacing: "-0.02em", margin: "18px 0 0", textWrap: "balance" }} className="reveal" data-delay="1">
+              Porozmawiajmy.
+            </h2>
+            <div className="reveal" data-delay="2">
+              <ContactForm />
+            </div>
+          </div>
+        </section>
+      </main>
+      <Foot />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<PageDlaFirm />);
+</script>
+</body>
+</html>
