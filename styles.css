@@ -610,7 +610,8 @@ section { position: relative; }
   transition: background .25s, border-color .25s;
   z-index: 2;
 }
-.video-wrap:hover .video-play { background: var(--accent-deep); border-color: var(--accent-deep); }
+.video-wrap:hover .video-play,
+#video-trigger:hover .video-play { background: var(--accent-deep); border-color: var(--accent-deep); }
 .video-play svg { width: 12px; height: 12px; }
 .video-meta {
   position: absolute;
