@@ -870,6 +870,7 @@ section { position: relative; }
   padding: 32px 0 0;
   text-align: center;
   max-width: 60ch;
+  margin: 0 auto;
 }
 .testi-slide-caption .testi-slide-name {
   font-family: var(--mono);
