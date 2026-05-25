@@ -409,37 +409,82 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="sec dark">
+<section class="sec dark" id="testimonials">
   <div class="wrap">
     <div class="testi-head reveal">
       <div class="eyebrow on-dark">05 <span class="em">—</span> Dlaczego warto</div>
       <h2>Dowody.</h2>
     </div>
-    <div class="testi-main reveal" data-delay="1">
-      <div class="testi-video-col">
-        <div class="testi-video-wrap">
-          <img src="assets/video-placeholder.png" alt="Opinia wideo" class="testi-video-thumb" />
+  </div>
+
+  <div class="wrap testi-carousel-wrap">
+    <div class="testi-carousel" id="testi-carousel">
+
+      <div class="testi-slide active">
+        <div class="testi-slide-video">
+          <img src="assets/video-placeholder.png" alt="Marta K." />
           <div class="testi-video-overlay"></div>
-          <a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer" class="testi-play">
+          <button class="testi-play" data-yt="ZASTAP_ID_VIDEO_1" aria-label="Odtwórz opinię Marty K.">
             <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2v12l10-6z"/></svg>
-          </a>
-          <div class="testi-video-label">
-            <div class="testi-video-name">Marta K.</div>
-            <div class="testi-video-role">VP Inżynierii</div>
+          </button>
+        </div>
+        <div class="testi-slide-body">
+          <p class="testi-slide-quote">„Po 15 latach w korporacji myślałam, że wypalenie to po prostu część umowy. Krzysztof pokazał mi, że tak nie musi być — i dał narzędzia, które naprawdę działają pod presją."</p>
+          <div class="testi-slide-person">
+            <div class="testi-slide-name">Marta K.</div>
+            <div class="testi-slide-role">VP Inżynierii</div>
           </div>
         </div>
-        <p class="testi-video-quote">„Po 15 latach w korporacji myślałam, że wypalenie to po prostu część umowy. Krzysztof pokazał mi, że tak nie musi być — i dał narzędzia, które naprawdę działają pod presją."</p>
       </div>
-      <div class="testi-text-col">
-        <div class="testi-cell">
-          <p class="testi-quote">„Przyszedłem po produktywność. Zostałem, bo po raz pierwszy mogłem być obecny z dziećmi bez telefonu w dłoni. To warte więcej niż jakikolwiek KPI."</p>
-          <div class="testi-attr">Tomasz R.<span class="role">CEO, startup technologiczny</span></div>
+
+      <div class="testi-slide">
+        <div class="testi-slide-video">
+          <img src="assets/video-placeholder.png" alt="Tomasz R." />
+          <div class="testi-video-overlay"></div>
+          <button class="testi-play" data-yt="ZASTAP_ID_VIDEO_2" aria-label="Odtwórz opinię Tomasza R.">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2v12l10-6z"/></svg>
+          </button>
         </div>
-        <div class="testi-cell">
-          <p class="testi-quote">„To nie jest terapia. To nie jest coaching-lite. To najtrudniejsza i najbardziej wartościowa praca, jaką wykonałam nad sobą — i widzę różnicę w każdym spotkaniu."</p>
-          <div class="testi-attr">Anna P.<span class="role">Dyrektor zarządzający</span></div>
+        <div class="testi-slide-body">
+          <p class="testi-slide-quote">„Przyszedłem po produktywność. Zostałem, bo po raz pierwszy mogłem być obecny z dziećmi bez telefonu w dłoni. To warte więcej niż jakikolwiek KPI."</p>
+          <div class="testi-slide-person">
+            <div class="testi-slide-name">Tomasz R.</div>
+            <div class="testi-slide-role">CEO, startup technologiczny</div>
+          </div>
         </div>
       </div>
+
+      <div class="testi-slide">
+        <div class="testi-slide-video">
+          <img src="assets/video-placeholder.png" alt="Anna P." />
+          <div class="testi-video-overlay"></div>
+          <button class="testi-play" data-yt="ZASTAP_ID_VIDEO_3" aria-label="Odtwórz opinię Anny P.">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2v12l10-6z"/></svg>
+          </button>
+        </div>
+        <div class="testi-slide-body">
+          <p class="testi-slide-quote">„To nie jest terapia. To nie jest coaching-lite. To najtrudniejsza i najbardziej wartościowa praca, jaką wykonałam nad sobą — i widzę różnicę w każdym spotkaniu."</p>
+          <div class="testi-slide-person">
+            <div class="testi-slide-name">Anna P.</div>
+            <div class="testi-slide-role">Dyrektor Zarządzający</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="testi-carousel-nav">
+      <button class="testi-arrow" id="testi-prev" aria-label="Poprzedni">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="testi-dots" id="testi-dots">
+        <button class="testi-dot active" data-index="0" aria-label="Slajd 1"></button>
+        <button class="testi-dot" data-index="1" aria-label="Slajd 2"></button>
+        <button class="testi-dot" data-index="2" aria-label="Slajd 3"></button>
+      </div>
+      <button class="testi-arrow" id="testi-next" aria-label="Następny">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -667,6 +712,55 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
           '<div class="yt-title">' + it.title + '</div></a>';
       }).join('');
     }).catch(() => {});
+})();
+
+// Testimonials carousel
+(function() {
+  var slides = document.querySelectorAll('.testi-slide');
+  var dots   = document.querySelectorAll('.testi-dot');
+  var current = 0;
+  var timer;
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+  function startTimer() { clearInterval(timer); timer = setInterval(next, 7000); }
+
+  document.getElementById('testi-next').addEventListener('click', function() { next(); startTimer(); });
+  document.getElementById('testi-prev').addEventListener('click', function() { prev(); startTimer(); });
+  dots.forEach(function(d) {
+    d.addEventListener('click', function() { goTo(+d.dataset.index); startTimer(); });
+  });
+
+  // Play button opens video modal
+  document.querySelectorAll('.testi-play[data-yt]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.dataset.yt;
+      if (!id || id.startsWith('ZASTAP')) return;
+      var iframe = document.getElementById('yt-modal-iframe');
+      var modal  = document.getElementById('video-modal');
+      if (!iframe || !modal) return;
+      iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  var carousel = document.getElementById('testi-carousel');
+  carousel.addEventListener('mouseenter', function() { clearInterval(timer); });
+  carousel.addEventListener('mouseleave', startTimer);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') { prev(); startTimer(); }
+    if (e.key === 'ArrowRight') { next(); startTimer(); }
+  });
+
+  startTimer();
 })();
 
 // Finale form — basic feedback (ConvertKit handles redirect/confirmation)
