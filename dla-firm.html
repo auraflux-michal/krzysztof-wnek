@@ -14,7 +14,7 @@
 
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a class="nav-brand" href="index.html"><div class="mono-kw">KW</div><div class="nav-brand-name">Krzysztof Wnęk<span class="small">Mówca · Mentor</span></div></a>
+    <a class="nav-brand" href="index.html"><div class="mono-kw">KW</div><div class="nav-brand-name">Krzysztof Wnęk</div></a>
     <div class="nav-links"><a href="dla-ciebie.html">Dla Ciebie</a><a href="dla-firm.html">Dla Firm</a><a href="o-mnie.html">O Mnie</a><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a></div>
     <div class="nav-cta-wrap"><a href="umow-rozmowe.html" class="btn btn-teal" style="padding:12px 20px">Umów rozmowę <span class="arrow">→</span></a><button class="nav-burger" aria-label="Menu"><span></span></button></div>
   </div>
@@ -23,7 +23,7 @@
 <main>
 
 <section class="sub-hero dark">
-  <div class="sub-hero-inner">
+  <div class="sub-hero-inner" style="max-width:900px;margin:0 auto">
     <div class="eyebrow on-dark reveal">Dla Firm <span class="em">—</span> B2B</div>
     <h1 class="reveal" data-delay="1">Siła zespołu tkwi<br>w różnorodności<br>oraz <span class="it">inteligencji</span><br>pozytywnej.</h1>
     <p class="lead reveal" data-delay="2">Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet w bardzo dynamicznych warunkach.</p>
@@ -45,7 +45,7 @@
   </div>
 </section>
 
-<section class="sec light" style="padding-top:0">
+<section class="sec" style="padding-top:clamp(80px,9vw,120px);background:var(--paper)">
   <div class="wrap">
     <div class="eyebrow reveal">02 <span class="em">—</span> Formaty</div>
     <h2 style="font-family:var(--display);font-weight:500;font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-0.02em;margin:18px 0 48px" class="reveal" data-delay="1">Dwa formaty.</h2>
@@ -76,22 +76,24 @@
       <div class="roi-cell"><div class="roi-num">↑ 31%</div><div class="roi-label">Jakość podejmowania<br>decyzji</div></div>
       <div class="roi-cell"><div class="roi-num">↑ 3×</div><div class="roi-label">Zaangażowanie<br>po programie</div></div>
     </div>
-    <p style="text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:32px">Dane z badań Positive Intelligence® · próba 50 000+ uczestników</p>
+    <p style="text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:rgba(255,255,255,0.3);margin-top:32px">Dane z badań Positive Intelligence® · próba 50 000+ uczestników</p>
   </div>
 </section>
 
 <section class="sec light" id="kontakt">
   <div class="wrap">
-    <div class="eyebrow reveal">04 <span class="em">—</span> Porozmawiajmy</div>
+    <div style="max-width:700px">
+    <div class="eyebrow reveal">04 <span class="em">—</span> Skontaktuj się</div>
     <h2 style="font-family:var(--display);font-weight:500;font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-0.02em;margin:18px 0 0" class="reveal" data-delay="1">Porozmawiajmy.</h2>
     <form class="contact-form reveal" data-delay="2" id="contact-form" onsubmit="submitForm(event)">
       <div class="field"><label>Imię i nazwisko</label><input type="text" placeholder="Jan Kowalski" required /></div>
       <div class="field"><label>Email</label><input type="email" placeholder="jan@firma.pl" required /></div>
       <div class="field"><label>Firma</label><input type="text" placeholder="Nazwa firmy" /></div>
       <div class="field"><label>Wiadomość</label><textarea placeholder="Opisz krótko, czego szukasz..." rows="4"></textarea></div>
-      <button type="submit" class="btn btn-teal" style="margin-top:8px">Wyślij zapytanie <span class="arrow">→</span></button>
+      <button type="submit" class="btn btn-teal" style="margin-top:8px">Wyślij zapytanie</button>
     </form>
     <div id="form-success" style="display:none;padding-top:48px;font-family:var(--display);font-size:24px;font-style:italic;color:var(--text)">Dziękuję. Odezwę się w ciągu 24 godzin.</div>
+    </div>
   </div>
 </section>
 

@@ -140,9 +140,7 @@
   max-width: 800px;
   margin: 0 auto;
   flex-wrap: wrap;
-  justify-content: center;
-  border-bottom: 1px solid var(--rule-light);
-  padding-bottom: 40px;
+  justify-content: flex-start;
 }
 .finale-form-field {
   flex: 1;
@@ -150,14 +148,6 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-}
-.finale-form-field label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 10px;
 }
 .finale-form-field input {
   background: transparent;
@@ -211,6 +201,13 @@
   margin: 32px 0 0;
   text-align: center;
 }
+.finale-lead {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(18px, 1.8vw, 22px);
+  color: var(--text-muted);
+  margin: 16px 0 0;
+}
 @media (max-width: 640px) {
   .finale-form-row {
     flex-direction: column;
@@ -231,7 +228,7 @@
   <div class="nav-inner">
     <a class="nav-brand" href="index.html">
       <div class="mono-kw">KW</div>
-      <div class="nav-brand-name">Krzysztof Wnęk<span class="small">Mówca · Mentor</span></div>
+      <div class="nav-brand-name">Krzysztof Wnęk</div>
     </a>
     <div class="nav-links">
       <a href="dla-ciebie.html">Dla Ciebie</a>
@@ -252,7 +249,7 @@
     <div class="nav-mobile-top">
       <a class="nav-brand" href="index.html" style="display:flex;align-items:center;gap:14px">
         <div class="mono-kw">KW</div>
-        <div class="nav-brand-name">Krzysztof Wnęk<span class="small">Mówca · Mentor</span></div>
+        <div class="nav-brand-name">Krzysztof Wnęk</div>
       </a>
       <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Zamknij menu">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 2l12 12M14 2L2 14" stroke-linecap="round"/></svg>
@@ -357,9 +354,9 @@
 <section class="sec dark" id="video">
   <div class="wrap-narrow">
     <div class="video-eyebrow reveal">
-      <div class="eyebrow on-dark">02 <span class="em">—</span> Przeżyjmy 2 minuty</div>
+      <div class="eyebrow on-dark">02 <span class="em">—</span> Zobacz sam</div>
     </div>
-    <h2 class="video-headline reveal" data-delay="1"><span class="it">„2 minuty.</span><br>Zdecyduj sam."</h2>
+    <h2 class="video-headline reveal" data-delay="1">Jak Program PQ<sup>®</sup><br><span class="it">może Ci pomóc?</span></h2>
     <div class="video-wrap reveal" data-delay="2" id="video-trigger" role="button" tabindex="0" aria-label="Odtwórz film" style="cursor:pointer">
       <img class="video-thumb" src="assets/video-placeholder.png" alt="Krzysztof Wnęk — obejrzyj" />
       <div class="video-overlay"></div>
@@ -379,7 +376,7 @@
       <div class="reveal">
         <div class="eyebrow">03 <span class="em">—</span> Pierwszy krok zmiany</div>
         <h2>Zanim zaczniesz walczyć — <br>poznaj <span class="it">wroga</span>.</h2>
-        <p class="desc">Test Sabotażystów Mentalnych opracowany przez <strong>Shirzada Chamine'a</strong> wykładowcę Stanford University. Identyfikuje Twoje przekonania i nawyki, które sabotują Twoją efektywność, relacje i spokój. Bezpłatny. 5 minut.</p>
+        <p class="desc">Test Sabotażystów Mentalnych opracowany przez <strong>Shirzada Chamine'a</strong> wykładowcę Stanford University. Identyfikuje Twoje przekonania i nawyki, które sabotują Twoją efektywność, relacje i spokój.</p>
         <a href="#umow" class="btn btn-dark">Odbierz bezpłatny test</a>
         <p class="note">Zapisz się niżej · Wyniki dostaniesz na e-mail</p>
       </div>
@@ -428,12 +425,10 @@
             <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2v12l10-6z"/></svg>
           </button>
         </div>
-        <div class="testi-slide-body">
-          <p class="testi-slide-quote">„Po 15 latach w korporacji myślałam, że wypalenie to po prostu część umowy. Krzysztof pokazał mi, że tak nie musi być — i dał narzędzia, które naprawdę działają pod presją."</p>
-          <div class="testi-slide-person">
-            <div class="testi-slide-name">Marta K.</div>
-            <div class="testi-slide-role">VP Inżynierii</div>
-          </div>
+        <div class="testi-slide-caption">
+          <div class="testi-slide-name">Marta K.</div>
+          <div class="testi-slide-role">VP Inżynierii</div>
+          <p class="testi-slide-quote">„Po 15 latach w korporacji myślałam, że wypalenie to po prostu część umowy. Krzysztof pokazał mi, że tak nie musi być."</p>
         </div>
       </div>
 
@@ -445,12 +440,10 @@
             <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2v12l10-6z"/></svg>
           </button>
         </div>
-        <div class="testi-slide-body">
+        <div class="testi-slide-caption">
+          <div class="testi-slide-name">Tomasz R.</div>
+          <div class="testi-slide-role">CEO, startup technologiczny</div>
           <p class="testi-slide-quote">„Przyszedłem po produktywność. Zostałem, bo po raz pierwszy mogłem być obecny z dziećmi bez telefonu w dłoni. To warte więcej niż jakikolwiek KPI."</p>
-          <div class="testi-slide-person">
-            <div class="testi-slide-name">Tomasz R.</div>
-            <div class="testi-slide-role">CEO, startup technologiczny</div>
-          </div>
         </div>
       </div>
 
@@ -462,12 +455,10 @@
             <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2v12l10-6z"/></svg>
           </button>
         </div>
-        <div class="testi-slide-body">
+        <div class="testi-slide-caption">
+          <div class="testi-slide-name">Anna P.</div>
+          <div class="testi-slide-role">Dyrektor Zarządzający</div>
           <p class="testi-slide-quote">„To nie jest terapia. To nie jest coaching-lite. To najtrudniejsza i najbardziej wartościowa praca, jaką wykonałam nad sobą — i widzę różnicę w każdym spotkaniu."</p>
-          <div class="testi-slide-person">
-            <div class="testi-slide-name">Anna P.</div>
-            <div class="testi-slide-role">Dyrektor Zarządzający</div>
-          </div>
         </div>
       </div>
 
@@ -499,24 +490,24 @@
     </div>
     <div class="paths-grid">
       <div class="path reveal" data-delay="0">
-        <div class="tag">Program PQ<span class="em">·</span>Wyższa klasa</div>
-        <div class="title">8-tygodniowy System</div>
-        <p class="desc">Pełna metodologia PQ. Najgłębsza, najtrwalsza zmiana — w grupie pod okiem coacha.</p>
+        <div class="tag">Program PQ<span class="em">·</span>Premium</div>
+        <div class="title">7-tygodniowy program</div>
+        <p class="desc">Dla osób znających angielski. Pełna metodologia PQ. Najgłębsza, najbardziej trwała transformacja.</p>
         <div class="price">4 000 — 5 000 PLN<span class="price-sub">lub 12 × 300 PLN</span></div>
         <div class="path-cta"><a href="dla-ciebie.html" class="link-text">Dowiedz się więcej →</a></div>
       </div>
       <div class="path reveal" data-delay="1">
         <div class="tag">Coaching 1:1<span class="em">·</span>Indywidualny</div>
         <div class="title">Minimum 5 sesji</div>
-        <p class="desc">Praca jeden na jeden z coachingiem — metodologia PQ dopasowana do Twojej sytuacji.</p>
-        <div class="price">Do ustalenia<span class="price-sub">Konstrukt indywidualny</span></div>
+        <p class="desc">Bez angielskiego lub po programie. Narzędzia proaktywnego coachingu + metodologia PQ dopasowana do Twojej sytuacji.</p>
+        <div class="price">Do ustalenia</div>
         <div class="path-cta"><a href="umow-rozmowe.html" class="link-text">Zapytaj o sesję →</a></div>
       </div>
       <div class="path reveal" data-delay="2">
-        <div class="tag">Wystąpi<span class="em">·</span>B2B · Zespoły</div>
+        <div class="tag">Prelekcje<span class="em">·</span>B2B · Zespoły</div>
         <div class="title">Przemówienia i Warsztaty</div>
-        <p class="desc">Dla konferencji i zespołów korporacyjnych. Odporność decyzyjna, wydajność pod presją.</p>
-        <div class="price">Wycena indywidualna<span class="price-sub">Brief 15 min — wycena 48h</span></div>
+        <p class="desc">Dla konferencji i zespołów korporacyjnych. Język biznesu — odporność decyzyjna, efektywność pod presją, mierzalne rezultaty.</p>
+        <div class="price">Wycena indywidualna</div>
         <div class="path-cta"><a href="dla-firm.html" class="link-text">Zapytaj →</a></div>
       </div>
     </div>
@@ -548,7 +539,7 @@
       </a>
     </div>
     <div class="yt-foot reveal">
-      <a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer" class="btn btn-outline-light">Subskrybuj kanał</a>
+      <a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer" class="btn btn-outline-light">Zobacz wszystkie</a>
     </div>
   </div>
 </section>
@@ -557,19 +548,18 @@
 <section class="light finale" id="umow">
   <div class="finale-inner">
     <div class="eyebrow reveal">08 <span class="em">—</span> Decyzja</div>
-    <h2 class="reveal" data-delay="1">Odbierz <span class="it">prezent</span> —<br>bezpłatny test<br>Sabotażystów.</h2>
+    <h2 class="reveal" data-delay="1">Gotowy na <span class="it">rozmowę</span>,<br>która zmienia wszystko?</h2>
+    <p class="finale-lead reveal" data-delay="2">Odbierz prezent — bezpłatny test Sabotażystów.</p>
     <!-- ConvertKit form — replace CONVERTKIT_FORM_ID with your actual form ID from app.convertkit.com -->
     <form class="finale-form reveal" data-delay="2" id="finale-subscribe-form"
           action="https://app.convertkit.com/forms/CONVERTKIT_FORM_ID/subscriptions"
           method="post">
       <div class="finale-form-row">
         <div class="finale-form-field">
-          <label for="ff-name">Imię</label>
-          <input id="ff-name" type="text" name="fields[first_name]" placeholder="Krzysztof" required autocomplete="given-name" />
+          <input id="ff-name" type="text" name="fields[first_name]" placeholder="Imię" required autocomplete="given-name" />
         </div>
         <div class="finale-form-field">
-          <label for="ff-email">Adres e-mail</label>
-          <input id="ff-email" type="email" name="email_address" placeholder="krzysztof@example.com" required autocomplete="email" />
+          <input id="ff-email" type="email" name="email_address" placeholder="Adres e-mail" required autocomplete="email" />
         </div>
         <button type="submit" class="btn-finale-submit">Wypełnij test</button>
       </div>
