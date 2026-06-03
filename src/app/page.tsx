@@ -1,15 +1,139 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import VideoTrigger from '@/components/VideoTrigger'
-import TestimonialsCarousel from '@/components/TestimonialsCarousel'
+import TestimonialsCarousel, { type Slide } from '@/components/TestimonialsCarousel'
 import YouTubeGrid from '@/components/YouTubeGrid'
 import FinaleForm from '@/components/FinaleForm'
+import { client } from '@/sanity/client'
 
 export const metadata: Metadata = {
   title: 'Krzysztof Wnęk — Mówca, Mentor, Coach PQ',
 }
 
-export default function HomePage() {
+/* ── Sanity types ── */
+
+interface AuthCell { num: string; label: string }
+interface SabStep  { num: string; title: string; desc: string }
+interface Path     { tag: string; title: string; desc: string; price: string; priceSub?: string; ctaLabel: string; ctaHref: string }
+
+interface HomepageData {
+  heroLine1?: string; heroLine2Italic?: string; heroLine3?: string
+  heroSub?: string; heroCtaText?: string; heroFreeTag?: string
+  authority?: AuthCell[]
+  problemHeading?: string; problemCards?: string[]
+  transBefore?: string[]; transAfter?: string[]
+  mainVideoId?: string; mainVideoDuration?: string
+  sabHeading?: string; sabDesc?: string; sabSteps?: SabStep[]
+  aboutQuote?: string; aboutBio1?: string; aboutBio2?: string
+  paths?: Path[]
+  finaleHeading?: string; finaleLead?: string; finaleNote?: string
+}
+
+interface Settings { convertkitFormId?: string }
+
+/* ── Fallback content ── */
+
+const F = {
+  heroLine1: 'Wymieniasz',
+  heroLine2Italic: 'stres',
+  heroLine3: 'na sukces?',
+  heroSub: 'Pomagam mężczyznom odzyskać radość i budować zdrowe relacje z bliskimi — bez rezygnowania z ambicji.',
+  heroCtaText: 'Poznaj swoich Sabotażystów',
+  heroFreeTag: 'darmowy test · 5 minut',
+  authority: [
+    { num: '500 tys', label: 'Absolwentów Positive Intelligence®' },
+    { num: '52',      label: 'Odcinków na YouTube' },
+    { num: 'WSB-NLU', label: 'Wykładowca' },
+    { num: 'PQ',      label: 'Positive Intelligence® Coach' },
+  ],
+  problemHeading: 'Czy to brzmi znajomo?',
+  problemCards: [
+    'Osiągnąłeś, co chciałeś. Radości nie ma.',
+    'Pracę zabierasz do domu. Dom „nosisz" w pracy.',
+    'Osiągasz coraz więcej. Spełnienia brak…',
+    'Obowiązki wypierają relacje. Chcesz, ale nie potrafisz.',
+  ],
+  transBefore: ['Przewlekły stres, reaktywność, rozdrażnienie', 'Późne noce, wczesne pobudki', 'Zaniedbane relacje', '„Będę szczęśliwy gdy…"'],
+  transAfter:  ['Spokój mimo presji', 'Głęboka praca, prawdziwy odpoczynek', 'Uważność w domu i w pracy', 'Radość „w standardzie" codzienności'],
+  mainVideoId: 'J_yUIu3ARmw',
+  mainVideoDuration: '2:14',
+  sabHeading: 'Zanim zaczniesz walczyć — poznaj wroga.',
+  sabDesc: 'Test Sabotażystów Mentalnych opracowany przez Shirzada Chamine\'a wykładowcę Stanford University. Identyfikuje Twoje przekonania i nawyki, które sabotują Twoją efektywność, relacje i spokój.',
+  sabSteps: [
+    { num: 'I',   title: 'Szybki test',          desc: '5 min · online · 100% prywatnie' },
+    { num: 'II',  title: 'Otrzymasz wyniki',      desc: 'Spersonalizowany profil sabotażystów na mail' },
+    { num: 'III', title: 'Umów bezpłatną sesję', desc: '30-minutowe omówienie wyników na żywo' },
+  ],
+  aboutQuote: '„Nie prowadzę warsztatów. Rozpalam ludzi. Potem daję im narzędzia, żeby płonęli dalej."',
+  aboutBio1: 'Trener fitnessu mentalnego i propagator Pozytywnej Inteligencji. Wspieram mężczyzn w budowaniu „antykruchości" — większego spokoju, odporności psychicznej i lepszych relacji, bez udawania twardziela w dynamicznych czasach.',
+  aboutBio2: 'Od ponad 20 lat zgłębiam mechanizmy lęku i napięcia, ucząc się, jak nie pozwolić im przejąć kontroli nad życiem. Prywatnie szczęśliwy mąż jednej żony i ojciec 3 synów.',
+  paths: [
+    { tag: 'Program PQ · Premium',      title: '7-tygodniowy program',       desc: 'Dla osób znających angielski. Pełna metodologia PQ. Najgłębsza, najbardziej trwała transformacja.', price: '4 000 — 5 000 PLN', priceSub: 'lub 12 × 300 PLN', ctaLabel: 'Dowiedz się więcej →', ctaHref: '/dla-ciebie' },
+    { tag: 'Coaching 1:1 · Indywidualny', title: 'Minimum 5 sesji',            desc: 'Bez angielskiego lub po programie. Narzędzia proaktywnego coachingu + metodologia PQ dopasowana do Twojej sytuacji.', price: 'Do ustalenia', ctaLabel: 'Zapytaj o sesję →', ctaHref: '/umow-rozmowe' },
+    { tag: 'Prelekcje · B2B · Zespoły', title: 'Przemówienia i Warsztaty',   desc: 'Dla konferencji i zespołów korporacyjnych. Język biznesu — odporność decyzyjna, efektywność pod presją, mierzalne rezultaty.', price: 'Wycena indywidualna', ctaLabel: 'Zapytaj →', ctaHref: '/dla-firm' },
+  ],
+  finaleHeading: 'Gotowy na rozmowę, która zmienia wszystko?',
+  finaleLead: 'Odbierz prezent — bezpłatny test Sabotażystów.',
+  finaleNote: 'Bezpłatne · Wyniki na Twój e-mail · Test opracowany przez Shirzada Chamine\'a ze Stanford',
+} satisfies Required<HomepageData>
+
+/* ── Data fetching ── */
+
+async function getPageData() {
+  const [hp, testimonials, settings] = await Promise.all([
+    client.fetch<HomepageData | null>(
+      `*[_type == "homepage"][0]`,
+      {},
+      { next: { revalidate: 60 } }
+    ).catch(() => null),
+    client.fetch<Slide[]>(
+      `*[_type == "testimonial"] | order(order asc) { name, role, quote, ytId }`,
+      {},
+      { next: { revalidate: 60 } }
+    ).catch(() => []),
+    client.fetch<Settings | null>(
+      `*[_type == "settings"][0] { convertkitFormId }`,
+      {},
+      { next: { revalidate: 60 } }
+    ).catch(() => null),
+  ])
+  return { hp, testimonials, settings }
+}
+
+/* ── Page ── */
+
+export default async function HomePage() {
+  const { hp, testimonials, settings } = await getPageData()
+
+  const h = {
+    heroLine1:       hp?.heroLine1       ?? F.heroLine1,
+    heroLine2Italic: hp?.heroLine2Italic ?? F.heroLine2Italic,
+    heroLine3:       hp?.heroLine3       ?? F.heroLine3,
+    heroSub:         hp?.heroSub         ?? F.heroSub,
+    heroCtaText:     hp?.heroCtaText     ?? F.heroCtaText,
+    heroFreeTag:     hp?.heroFreeTag     ?? F.heroFreeTag,
+    authority:       hp?.authority?.length ? hp.authority : F.authority,
+    problemHeading:  hp?.problemHeading  ?? F.problemHeading,
+    problemCards:    hp?.problemCards?.length ? hp.problemCards : F.problemCards,
+    transBefore:     hp?.transBefore?.length  ? hp.transBefore  : F.transBefore,
+    transAfter:      hp?.transAfter?.length   ? hp.transAfter   : F.transAfter,
+    mainVideoId:     hp?.mainVideoId     ?? F.mainVideoId,
+    mainVideoDuration: hp?.mainVideoDuration ?? F.mainVideoDuration,
+    sabHeading:      hp?.sabHeading      ?? F.sabHeading,
+    sabDesc:         hp?.sabDesc         ?? F.sabDesc,
+    sabSteps:        hp?.sabSteps?.length ? hp.sabSteps : F.sabSteps,
+    aboutQuote:      hp?.aboutQuote      ?? F.aboutQuote,
+    aboutBio1:       hp?.aboutBio1       ?? F.aboutBio1,
+    aboutBio2:       hp?.aboutBio2       ?? F.aboutBio2,
+    paths:           hp?.paths?.length   ? hp.paths   : F.paths,
+    finaleHeading:   hp?.finaleHeading   ?? F.finaleHeading,
+    finaleLead:      hp?.finaleLead      ?? F.finaleLead,
+    finaleNote:      hp?.finaleNote      ?? F.finaleNote,
+  }
+
+  const slides = testimonials.length > 0 ? testimonials : undefined
+  const formId = settings?.convertkitFormId
+
   return (
     <>
       {/* HERO */}
@@ -18,20 +142,18 @@ export default function HomePage() {
         <div className="hero-inner">
           <div className="hero-text">
             <h1 className="display">
-              Wymieniasz <br /><span className="it">stres</span> <br />na sukces?
+              {h.heroLine1} <br /><span className="it">{h.heroLine2Italic}</span> <br />{h.heroLine3}
             </h1>
-            <p className="hero-sub">
-              Pomagam mężczyznom odzyskać radość i budować zdrowe relacje z bliskimi — bez rezygnowania z ambicji.
-            </p>
+            <p className="hero-sub">{h.heroSub}</p>
             <div className="hero-ctas">
               <div className="hero-cta-group">
-                <a href="#umow" className="btn btn-teal">Poznaj swoich Sabotażystów</a>
+                <a href="#umow" className="btn btn-teal">{h.heroCtaText}</a>
                 <p className="hero-free-tag">
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
                     <circle cx="8" cy="8" r="7" />
                     <path d="M8 5v3.2l2.2 1.3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  darmowy test · 5 minut
+                  {h.heroFreeTag}
                 </p>
               </div>
             </div>
@@ -43,22 +165,12 @@ export default function HomePage() {
       <section className="authority">
         <div className="wrap">
           <div className="authority-row">
-            <div className="auth-cell reveal" data-delay="0">
-              <div className="auth-num">500 tys</div>
-              <div className="auth-label">Absolwentów Positive Intelligence®</div>
-            </div>
-            <div className="auth-cell reveal" data-delay="1">
-              <div className="auth-num">52</div>
-              <div className="auth-label">Odcinków na YouTube</div>
-            </div>
-            <div className="auth-cell reveal" data-delay="2">
-              <div className="auth-num">WSB-NLU</div>
-              <div className="auth-label">Wykładowca</div>
-            </div>
-            <div className="auth-cell reveal" data-delay="3">
-              <div className="auth-num">PQ</div>
-              <div className="auth-label">Positive Intelligence® Coach</div>
-            </div>
+            {h.authority.map((cell, i) => (
+              <div key={i} className="auth-cell reveal" data-delay={String(i)}>
+                <div className="auth-num">{cell.num}</div>
+                <div className="auth-label">{cell.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -69,27 +181,21 @@ export default function HomePage() {
           <div className="problem-head reveal">
             <div>
               <div className="eyebrow">01 <span className="em">—</span> Wyzwanie</div>
-              <h2 className="display">Czy to <span className="it">brzmi</span> znajomo?</h2>
+              <h2 className="display">
+                {h.problemHeading.includes('brzmi')
+                  ? <>Czy to <span className="it">brzmi</span> znajomo?</>
+                  : h.problemHeading}
+              </h2>
             </div>
           </div>
           <div className="problem-rule reveal" />
           <div className="problem-grid">
-            <div className="problem-card reveal" data-delay="0">
-              <div className="num">01</div>
-              <p>Osiągnąłeś, co chciałeś. Radości nie ma.</p>
-            </div>
-            <div className="problem-card reveal" data-delay="1">
-              <div className="num">02</div>
-              <p>Pracę zabierasz do domu. Dom „nosisz" w pracy.</p>
-            </div>
-            <div className="problem-card reveal" data-delay="2">
-              <div className="num">03</div>
-              <p>Osiągasz coraz więcej. Spełnienia brak…</p>
-            </div>
-            <div className="problem-card reveal" data-delay="3">
-              <div className="num">04</div>
-              <p>Obowiązki wypierają relacje. Chcesz, ale nie potrafisz.</p>
-            </div>
+            {h.problemCards.map((text, i) => (
+              <div key={i} className="problem-card reveal" data-delay={String(i)}>
+                <div className="num">0{i + 1}</div>
+                <p>{text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -100,27 +206,15 @@ export default function HomePage() {
           <div className="trans-grid">
             <div className="trans-col before reveal">
               <h3>Przed</h3>
-              <ul>
-                <li>Przewlekły stres, reaktywność, rozdrażnienie</li>
-                <li>Późne noce, wczesne pobudki</li>
-                <li>Zaniedbane relacje</li>
-                <li>„Będę szczęśliwy gdy…"</li>
-              </ul>
+              <ul>{h.transBefore.map((item, i) => <li key={i}>{item}</li>)}</ul>
             </div>
             <div className="trans-col after reveal" data-delay="1">
               <h3>Po</h3>
-              <ul>
-                <li>Spokój mimo presji</li>
-                <li>Głęboka praca, prawdziwy odpoczynek</li>
-                <li>Uważność w domu i w pracy</li>
-                <li>Radość „w standardzie" codzienności</li>
-              </ul>
+              <ul>{h.transAfter.map((item, i) => <li key={i}>{item}</li>)}</ul>
             </div>
           </div>
           <div className="trans-cta reveal">
-            <Link href="/dla-ciebie" className="btn btn-outline-light">
-              Sprawdź, czy to dla Ciebie
-            </Link>
+            <Link href="/dla-ciebie" className="btn btn-outline-light">Sprawdź, czy to dla Ciebie</Link>
           </div>
         </div>
       </section>
@@ -135,7 +229,7 @@ export default function HomePage() {
             <span className="nowrap">Jak Program PQ<sup>®</sup></span><br />
             <span className="it">może Ci pomóc?</span>
           </h2>
-          <VideoTrigger />
+          <VideoTrigger videoId={h.mainVideoId} duration={h.mainVideoDuration} />
         </div>
       </section>
 
@@ -146,39 +240,24 @@ export default function HomePage() {
             <div className="reveal">
               <div className="eyebrow">03 <span className="em">—</span> Pierwszy krok zmiany</div>
               <h2>
-                Zanim zaczniesz walczyć — <br />poznaj <span className="it">wroga</span>.
+                {h.sabHeading.includes('wroga')
+                  ? <>Zanim zaczniesz walczyć — <br />poznaj <span className="it">wroga</span>.</>
+                  : h.sabHeading}
               </h2>
-              <p className="desc">
-                Test Sabotażystów Mentalnych opracowany przez{' '}
-                <strong>Shirzada Chamine&apos;a</strong> wykładowcę Stanford University.
-                Identyfikuje Twoje przekonania i nawyki, które sabotują Twoją efektywność,
-                relacje i spokój.
-              </p>
+              <p className="desc">{h.sabDesc}</p>
               <a href="#umow" className="btn btn-dark">Odbierz bezpłatny test</a>
               <p className="note">Zapisz się niżej · Wyniki dostaniesz na e-mail</p>
             </div>
             <div className="sabo-steps reveal" data-delay="2">
-              <div className="sabo-step">
-                <div className="n">I</div>
-                <div>
-                  <div className="t">Szybki test</div>
-                  <div className="d">5 min · online · 100% prywatnie</div>
+              {h.sabSteps.map((step, i) => (
+                <div key={i} className="sabo-step">
+                  <div className="n">{step.num}</div>
+                  <div>
+                    <div className="t">{step.title}</div>
+                    <div className="d">{step.desc}</div>
+                  </div>
                 </div>
-              </div>
-              <div className="sabo-step">
-                <div className="n">II</div>
-                <div>
-                  <div className="t">Otrzymasz wyniki</div>
-                  <div className="d">Spersonalizowany profil sabotażystów na mail</div>
-                </div>
-              </div>
-              <div className="sabo-step">
-                <div className="n">III</div>
-                <div>
-                  <div className="t">Umów bezpłatną sesję</div>
-                  <div className="d">30-minutowe omówienie wyników na żywo</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -191,18 +270,9 @@ export default function HomePage() {
             <div className="about-portrait reveal" aria-label="Portret — Krzysztof Wnęk" />
             <div className="about-body reveal" data-delay="1">
               <div className="eyebrow">04 <span className="em">—</span> Kim jestem</div>
-              <div className="about-quote">
-                „Nie prowadzę warsztatów. Rozpalam ludzi. Potem daję im narzędzia, żeby płonęli dalej."
-              </div>
-              <p className="about-bio">
-                Trener fitnessu mentalnego i propagator Pozytywnej Inteligencji. Wspieram mężczyzn
-                w budowaniu „antykruchości" — większego spokoju, odporności psychicznej i lepszych
-                relacji, bez udawania twardziela w dynamicznych czasach.
-              </p>
-              <p className="about-bio">
-                Od ponad 20 lat zgłębiam mechanizmy lęku i napięcia, ucząc się, jak nie pozwolić
-                im przejąć kontroli nad życiem. Prywatnie szczęśliwy mąż jednej żony i ojciec 3 synów.
-              </p>
+              <div className="about-quote">{h.aboutQuote}</div>
+              <p className="about-bio">{h.aboutBio1}</p>
+              <p className="about-bio">{h.aboutBio2}</p>
               <div className="about-cta">
                 <Link href="/o-mnie" className="link-text">Przeczytaj pełną historię →</Link>
               </div>
@@ -219,7 +289,7 @@ export default function HomePage() {
             <h2>Dowody.</h2>
           </div>
         </div>
-        <TestimonialsCarousel />
+        <TestimonialsCarousel slides={slides} />
       </section>
 
       {/* PATHS */}
@@ -231,42 +301,20 @@ export default function HomePage() {
             <p>Wszystkie drogi prowadzą do tego samego miejsca — jasności, energii i obecności.</p>
           </div>
           <div className="paths-grid">
-            <div className="path reveal" data-delay="0">
-              <div className="tag">Program PQ<span className="em">·</span>Premium</div>
-              <div className="title">7-tygodniowy program</div>
-              <p className="desc">
-                Dla osób znających angielski. Pełna metodologia PQ. Najgłębsza, najbardziej trwała transformacja.
-              </p>
-              <div className="price">
-                4 000 — 5 000 PLN
-                <span className="price-sub">lub 12 × 300 PLN</span>
+            {h.paths.map((path, i) => (
+              <div key={i} className="path reveal" data-delay={String(i)}>
+                <div className="tag">{path.tag}</div>
+                <div className="title">{path.title}</div>
+                <p className="desc">{path.desc}</p>
+                <div className="price">
+                  {path.price}
+                  {path.priceSub && <span className="price-sub">{path.priceSub}</span>}
+                </div>
+                <div className="path-cta">
+                  <Link href={path.ctaHref} className="link-text">{path.ctaLabel}</Link>
+                </div>
               </div>
-              <div className="path-cta">
-                <Link href="/dla-ciebie" className="link-text">Dowiedz się więcej →</Link>
-              </div>
-            </div>
-            <div className="path reveal" data-delay="1">
-              <div className="tag">Coaching 1:1<span className="em">·</span>Indywidualny</div>
-              <div className="title">Minimum 5 sesji</div>
-              <p className="desc">
-                Bez angielskiego lub po programie. Narzędzia proaktywnego coachingu + metodologia PQ dopasowana do Twojej sytuacji.
-              </p>
-              <div className="price">Do ustalenia</div>
-              <div className="path-cta">
-                <Link href="/umow-rozmowe" className="link-text">Zapytaj o sesję →</Link>
-              </div>
-            </div>
-            <div className="path reveal" data-delay="2">
-              <div className="tag">Prelekcje<span className="em">·</span>B2B · Zespoły</div>
-              <div className="title">Przemówienia i Warsztaty</div>
-              <p className="desc">
-                Dla konferencji i zespołów korporacyjnych. Język biznesu — odporność decyzyjna, efektywność pod presją, mierzalne rezultaty.
-              </p>
-              <div className="price">Wycena indywidualna</div>
-              <div className="path-cta">
-                <Link href="/dla-firm" className="link-text">Zapytaj →</Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -280,12 +328,7 @@ export default function HomePage() {
           </div>
           <YouTubeGrid />
           <div className="yt-foot reveal">
-            <a
-              href="https://www.youtube.com/@PozytywnaInteligencja"
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-outline-light"
-            >
+            <a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer" className="btn btn-outline-light">
               Zobacz wszystkie
             </a>
           </div>
@@ -297,13 +340,13 @@ export default function HomePage() {
         <div className="finale-inner">
           <div className="eyebrow reveal">08 <span className="em">—</span> Decyzja</div>
           <h2 className="reveal" data-delay="1">
-            Gotowy na <span className="it">rozmowę</span>,<br />która zmienia wszystko?
+            {h.finaleHeading.includes('rozmowę')
+              ? <>Gotowy na <span className="it">rozmowę</span>,<br />która zmienia wszystko?</>
+              : h.finaleHeading}
           </h2>
-          <p className="finale-lead reveal" data-delay="2">Odbierz prezent — bezpłatny test Sabotażystów.</p>
-          <FinaleForm />
-          <p className="finale-note reveal" data-delay="3">
-            Bezpłatne · Wyniki na Twój e-mail · Test opracowany przez Shirzada Chamine&apos;a ze Stanford
-          </p>
+          <p className="finale-lead reveal" data-delay="2">{h.finaleLead}</p>
+          <FinaleForm formId={formId} />
+          <p className="finale-note reveal" data-delay="3">{h.finaleNote}</p>
         </div>
       </section>
     </>

@@ -1,24 +1,71 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import ContactForm from '@/components/ContactForm'
+import { client } from '@/sanity/client'
 
 export const metadata: Metadata = {
   title: 'Dla Firm — Krzysztof Wnęk',
   description: 'Power Speech i programy zespołowe dla firm. Odporność decyzyjna, wydajność pod presją, mierzalne wyniki ROI.',
 }
 
-export default function DlaFirmPage() {
+interface Format { label: string; title: string; desc: string; ctaLabel: string }
+interface RoiStat { num: string; label: string }
+
+interface PageData {
+  heroH1?: string; heroLead?: string
+  costHeading?: string; costP1?: string; costP2?: string
+  formats?: Format[]
+  roiStats?: RoiStat[]; roiSource?: string
+}
+
+const F = {
+  heroH1: 'Siła zespołu tkwi\nw różnorodności\noraz inteligencji\npozytywnej.',
+  heroLead: 'Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet w bardzo dynamicznych warunkach.',
+  costHeading: 'Najdroższe błędy w firmie zaczynają się w głowie.',
+  costP1: 'Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.',
+  costP2: 'Program PQ dla zespołów to nie team building. To zmiana sposobu myślenia — u każdego uczestnika i w dynamice grupy. Nowa kultura skuteczności działania.',
+  formats: [
+    { label: 'Format A', title: 'Power Speech', desc: '45–90 minut na scenie konferencyjnej lub dla Twojego zespołu. Inspirujące wystąpienie, które zmienia perspektywę i daje nowe możliwości wzrostu potencjału zespołu. Brief 15 min, wycena 48h.', ctaLabel: 'Wycena indywidualna →' },
+    { label: 'Format B', title: 'Program Zespołowy', desc: '7-tygodniowy program PQ dla zespołu (10–30 osób). Cotygodniowe sesje, aplikacja PQ, wsparcie coachingowe. Efekty po pierwszym tygodniu.', ctaLabel: 'Wycena indywidualna →' },
+  ],
+  roiStats: [
+    { num: '↑ 37%', label: 'Poprawa wydajności\npod presją' },
+    { num: '↑ 54%', label: 'Lepsza komunikacja\nw zespołach' },
+    { num: '↑ 31%', label: 'Jakość podejmowania\ndecyzji' },
+    { num: '↑ 3×',  label: 'Zaangażowanie\npo programie' },
+  ],
+  roiSource: 'Dane z badań Positive Intelligence® · próba 50 000+ uczestników',
+} satisfies Required<PageData>
+
+export default async function DlaFirmPage() {
+  const raw = await client.fetch<PageData | null>(
+    `*[_type == "pageDlaFirm"][0]`, {}, { next: { revalidate: 60 } }
+  ).catch(() => null)
+
+  const d = {
+    heroLines:   (raw?.heroH1      ?? F.heroH1).split('\n'),
+    heroLead:    raw?.heroLead     ?? F.heroLead,
+    costHeading: raw?.costHeading  ?? F.costHeading,
+    costP1:      raw?.costP1       ?? F.costP1,
+    costP2:      raw?.costP2       ?? F.costP2,
+    formats:     raw?.formats?.length  ? raw.formats  : F.formats,
+    roiStats:    raw?.roiStats?.length ? raw.roiStats : F.roiStats,
+    roiSource:   raw?.roiSource    ?? F.roiSource,
+  }
+
   return (
     <>
       <section className="sub-hero dark">
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="eyebrow on-dark reveal">Dla Firm <span className="em">—</span> B2B</div>
           <h1 className="reveal" data-delay="1">
-            Siła zespołu tkwi<br />w różnorodności<br />oraz <span className="it">inteligencji</span><br />pozytywnej.
+            {d.heroLines.map((line, i) => (
+              <span key={i}>
+                {i === 2 ? <span className="it">{line}</span> : line}
+                {i < d.heroLines.length - 1 && <br />}
+              </span>
+            ))}
           </h1>
-          <p className="lead reveal" data-delay="2">
-            Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet w bardzo dynamicznych warunkach.
-          </p>
+          <p className="lead reveal" data-delay="2">{d.heroLead}</p>
         </div>
       </section>
 
@@ -28,16 +75,13 @@ export default function DlaFirmPage() {
             <div className="reveal">
               <div className="eyebrow">01 <span className="em">—</span> Koszt</div>
               <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(36px,4.8vw,64px)', lineHeight: 1.02, letterSpacing: '-0.018em', margin: '18px 0 0', textWrap: 'balance' } as React.CSSProperties}>
-                Najdroższe błędy<br />w firmie zaczynają się<br />w <em>głowie</em>.
+                {d.costHeading}
               </h2>
             </div>
             <div className="reveal" data-delay="1">
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '52ch' }}>
-                Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.
-              </p>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0, maxWidth: '52ch' }}>
-                Program PQ dla zespołów to nie team building. To <strong>zmiana sposobu myślenia</strong> — u każdego uczestnika i w dynamice grupy. Nowa kultura skuteczności działania.
-              </p>
+              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '52ch' }}>{d.costP1}</p>
+              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0, maxWidth: '52ch' }}
+                dangerouslySetInnerHTML={{ __html: d.costP2.replace('zmiana sposobu myślenia', '<strong>zmiana sposobu myślenia</strong>') }} />
             </div>
           </div>
         </div>
@@ -50,18 +94,14 @@ export default function DlaFirmPage() {
             Dwa formaty.
           </h2>
           <div className="formats-row reveal" data-delay="2">
-            <div className="format-col">
-              <div className="eyebrow">Format A</div>
-              <h3>Power Speech</h3>
-              <p>45–90 minut na scenie konferencyjnej lub dla Twojego zespołu. Inspirujące wystąpienie, które zmienia perspektywę i daje nowe możliwości wzrostu potencjału zespołu. Brief 15 min, wycena 48h.</p>
-              <a href="#kontakt" className="link-text amber">Wycena indywidualna →</a>
-            </div>
-            <div className="format-col">
-              <div className="eyebrow">Format B</div>
-              <h3>Program Zespołowy</h3>
-              <p>7-tygodniowy program PQ dla zespołu (10–30 osób). Cotygodniowe sesje, aplikacja PQ, wsparcie coachingowe. Efekty po pierwszym tygodniu.</p>
-              <a href="#kontakt" className="link-text amber">Wycena indywidualna →</a>
-            </div>
+            {d.formats.map((fmt, i) => (
+              <div key={i} className="format-col">
+                <div className="eyebrow">{fmt.label}</div>
+                <h3>{fmt.title}</h3>
+                <p>{fmt.desc}</p>
+                <a href="#kontakt" className="link-text amber">{fmt.ctaLabel}</a>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -73,25 +113,15 @@ export default function DlaFirmPage() {
             ROI, który można zmierzyć.
           </h2>
           <div className="roi-grid reveal" data-delay="2">
-            <div className="roi-cell">
-              <div className="roi-num">↑ 37%</div>
-              <div className="roi-label">Poprawa wydajności<br />pod presją</div>
-            </div>
-            <div className="roi-cell">
-              <div className="roi-num">↑ 54%</div>
-              <div className="roi-label">Lepsza komunikacja<br />w zespołach</div>
-            </div>
-            <div className="roi-cell">
-              <div className="roi-num">↑ 31%</div>
-              <div className="roi-label">Jakość podejmowania<br />decyzji</div>
-            </div>
-            <div className="roi-cell">
-              <div className="roi-num">↑ 3×</div>
-              <div className="roi-label">Zaangażowanie<br />po programie</div>
-            </div>
+            {d.roiStats.map((stat, i) => (
+              <div key={i} className="roi-cell">
+                <div className="roi-num">{stat.num}</div>
+                <div className="roi-label" style={{ whiteSpace: 'pre-line' }}>{stat.label}</div>
+              </div>
+            ))}
           </div>
           <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.3)', marginTop: '32px' }}>
-            Dane z badań Positive Intelligence® · próba 50 000+ uczestników
+            {d.roiSource}
           </p>
         </div>
       </section>

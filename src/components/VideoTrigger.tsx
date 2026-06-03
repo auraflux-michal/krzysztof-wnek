@@ -1,10 +1,8 @@
 'use client'
 
-const VIDEO_ID = 'J_yUIu3ARmw'
-
-export default function VideoTrigger() {
+export default function VideoTrigger({ videoId = 'J_yUIu3ARmw', duration = '2:14' }: { videoId?: string; duration?: string }) {
   function open() {
-    window.dispatchEvent(new CustomEvent('open-video', { detail: VIDEO_ID }))
+    window.dispatchEvent(new CustomEvent('open-video', { detail: videoId }))
   }
 
   return (
@@ -24,7 +22,7 @@ export default function VideoTrigger() {
       <div className="video-overlay" />
       <div className="video-meta">
         <span className="rec">REC</span>
-        <span>2:14</span>
+        <span>{duration}</span>
         <span>1080p</span>
       </div>
       <div className="video-play">

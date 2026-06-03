@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-export default function FinaleForm() {
+export default function FinaleForm({ formId }: { formId?: string }) {
   const [submitted, setSubmitted] = useState(false)
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function FinaleForm() {
           className="finale-form reveal"
           data-delay="2"
           id="finale-subscribe-form"
-          action="https://app.convertkit.com/forms/CONVERTKIT_FORM_ID/subscriptions"
+          action={`https://app.convertkit.com/forms/${formId ?? 'CONVERTKIT_FORM_ID'}/subscriptions`}
           method="post"
         >
           <div className="finale-form-row">

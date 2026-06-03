@@ -3,7 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
-const slides = [
+export interface Slide {
+  name: string
+  role: string
+  quote: string
+  ytId?: string
+}
+
+const FALLBACK_SLIDES: Slide[] = [
   {
     name: 'Marta K.',
     role: 'VP Inżynierii',
@@ -24,7 +31,7 @@ const slides = [
   },
 ]
 
-export default function TestimonialsCarousel() {
+export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { slides?: Slide[] }) {
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
@@ -81,7 +88,7 @@ export default function TestimonialsCarousel() {
               <div className="testi-video-overlay" />
               <button
                 className="testi-play"
-                onClick={() => handlePlay(slide.ytId)}
+                onClick={() => handlePlay(slide.ytId ?? '')}
                 aria-label={`Odtwórz opinię ${slide.name}`}
               >
                 <svg viewBox="0 0 16 16" fill="currentColor">
