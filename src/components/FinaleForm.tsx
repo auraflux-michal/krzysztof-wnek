@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function FinaleForm({ formId: _formId }: { formId?: string }) {
+export default function FinaleForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'done'>('idle')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

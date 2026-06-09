@@ -28,14 +28,23 @@ const manrope = Manrope({
   display: 'swap',
 })
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://pozytywnainteligencja.pl'
+
 export const metadata: Metadata = {
-  title: 'Krzysztof Wnęk — Mówca, Mentor, Coach PQ',
-  description: 'Pomagam liderom odzyskać radość — bez rezygnacji ze sprawczości. Program PQ, coaching 1:1, prelekcje dla firm.',
-  openGraph: {
-    title: 'Krzysztof Wnęk — Mówca, Mentor, Coach PQ',
-    description: 'Pomagam liderom odzyskać radość — bez rezygnacji ze sprawczości.',
-    type: 'website',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor | Positive Intelligence®',
+    template: '%s | Krzysztof Wnęk',
   },
+  description: 'Pomagam liderom i menedżerom odzyskać radość i efektywność. Certyfikowany Coach Positive Intelligence® (Stanford). Program PQ, coaching 1:1, prelekcje dla firm.',
+  openGraph: {
+    siteName: 'Krzysztof Wnęk',
+    locale: 'pl_PL',
+    type: 'website',
+    images: [{ url: '/hero.jpg', width: 1200, height: 630, alt: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor' }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/hero.jpg'] },
+  alternates: { canonical: SITE_URL },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

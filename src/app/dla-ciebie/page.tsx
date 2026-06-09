@@ -1,11 +1,19 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import FaqAccordion from '@/components/FaqAccordion'
+import JsonLd from '@/components/JsonLd'
 import { client } from '@/sanity/client'
 
 export const metadata: Metadata = {
-  title: 'Dla Ciebie — Krzysztof Wnęk',
-  description: 'Program Positive Intelligence dla liderów i menedżerów. 7-tygodniowy system, który zmienia sposób myślenia na poziomie neurologicznym.',
+  title: 'Program PQ — 7-tygodniowy Trening Mentalny',
+  description: 'Positive Intelligence® to nie pozytywne myślenie. Naukowo udowodniony program dla liderów, który buduje trwałe ścieżki neuronalne. Certyfikowany przez Shirzada Chamine (Stanford). Mierzalna zmiana w 7 tygodniach.',
+  openGraph: {
+    title: 'Program PQ — 7-tygodniowy Trening Mentalny | Krzysztof Wnęk',
+    description: 'Naukowo udowodniony system Positive Intelligence® dla liderów. Buduje trwałe ścieżki neuronalne. Mierzalna zmiana w 7 tygodniach.',
+    url: '/dla-ciebie',
+    images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — Coach PQ' }],
+  },
+  alternates: { canonical: '/dla-ciebie' },
 }
 
 interface Step { num: string; title: string; desc: string }
@@ -45,6 +53,35 @@ const F = {
   ],
 } satisfies Required<PageData>
 
+const COURSE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'Program Positive Intelligence® — 7-tygodniowy trening mentalny',
+  description: '7-tygodniowy program PQ dla liderów i menedżerów. Metodologia Positive Intelligence® opracowana przez Shirzada Chamine na Stanford University. Buduje trwałe ścieżki neuronalne dla spokoju, odporności i efektywności.',
+  url: 'https://pozytywnainteligencja.pl/dla-ciebie',
+  provider: {
+    '@type': 'Person',
+    name: 'Krzysztof Wnęk',
+    url: 'https://pozytywnainteligencja.pl',
+    '@id': 'https://pozytywnainteligencja.pl/#person',
+  },
+  isBasedOn: {
+    '@type': 'CreativeWork',
+    name: 'Positive Intelligence® by Shirzada Chamine',
+    url: 'https://www.positiveintelligence.com',
+  },
+  educationalLevel: 'Professional',
+  inLanguage: 'pl',
+  timeRequired: 'P7W',
+  teaches: ['Positive Intelligence', 'Saboteur Recognition', 'Sage Activation', 'Mental Fitness', 'Leadership Resilience'],
+  hasCourseInstance: {
+    '@type': 'CourseInstance',
+    courseMode: 'blended',
+    inLanguage: 'pl',
+    courseWorkload: 'PT15M/day',
+  },
+}
+
 export default async function DlaCiebiePage() {
   const raw = await client.fetch<PageData | null>(
     `*[_type == "pageDlaCiebie"][0]`, {}, { next: { revalidate: 60 } }
@@ -63,8 +100,20 @@ export default async function DlaCiebiePage() {
     faq:           raw?.faq?.length  ? raw.faq   : F.faq,
   }
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  }
+
   return (
     <>
+      <JsonLd schema={COURSE_SCHEMA} />
+      <JsonLd schema={faqSchema} />
       <section className="sub-hero dark">
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="eyebrow on-dark reveal">Dla Ciebie <span className="em">—</span> Program PQ</div>

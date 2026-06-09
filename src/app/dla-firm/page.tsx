@@ -3,8 +3,15 @@ import ContactForm from '@/components/ContactForm'
 import { client } from '@/sanity/client'
 
 export const metadata: Metadata = {
-  title: 'Dla Firm — Krzysztof Wnęk',
-  description: 'Power Speech i programy zespołowe dla firm. Odporność decyzyjna, wydajność pod presją, mierzalne wyniki ROI.',
+  title: 'Coaching B2B i Power Speech dla Firm',
+  description: 'Power Speech (45–90 min) i 7-tygodniowe programy PQ dla zespołów. Odporność decyzyjna, wydajność pod presją, mierzalne ROI. Metodologia Positive Intelligence® dla kadry zarządzającej.',
+  openGraph: {
+    title: 'Coaching B2B i Power Speech dla Firm | Krzysztof Wnęk',
+    description: 'Power Speech i programy PQ dla zespołów. Mierzalny ROI: ↑37% wydajności, ↑54% komunikacji. Wycena 48h.',
+    url: '/dla-firm',
+    images: [{ url: '/hero.jpg', width: 1200, height: 630, alt: 'Krzysztof Wnęk — Prelekcje i Coaching B2B' }],
+  },
+  alternates: { canonical: '/dla-firm' },
 }
 
 interface Format { label: string; title: string; desc: string; ctaLabel: string }

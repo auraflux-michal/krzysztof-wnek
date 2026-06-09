@@ -4,10 +4,19 @@ import VideoTrigger from '@/components/VideoTrigger'
 import TestimonialsCarousel, { type Slide } from '@/components/TestimonialsCarousel'
 import YouTubeGrid from '@/components/YouTubeGrid'
 import FinaleForm from '@/components/FinaleForm'
+import JsonLd from '@/components/JsonLd'
 import { client } from '@/sanity/client'
 
 export const metadata: Metadata = {
-  title: 'Krzysztof Wnęk — Mówca, Mentor, Coach PQ',
+  title: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor | Positive Intelligence®',
+  description: 'Pomagam liderom i menedżerom odzyskać radość i efektywność bez wypalenia. Certyfikowany Coach Positive Intelligence® (Stanford). 7-tygodniowy program PQ, coaching 1:1, prelekcje dla firm.',
+  openGraph: {
+    title: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor',
+    description: 'Pomagam liderom odzyskać radość i efektywność. Certyfikowany Coach Positive Intelligence® (Stanford).',
+    url: '/',
+    images: [{ url: '/hero.jpg', width: 1200, height: 630, alt: 'Krzysztof Wnęk — Coach PQ' }],
+  },
+  alternates: { canonical: '/' },
 }
 
 /* ── Sanity types ── */
@@ -28,8 +37,6 @@ interface HomepageData {
   paths?: Path[]
   finaleHeading?: string; finaleLead?: string; finaleNote?: string
 }
-
-interface Settings { convertkitFormId?: string }
 
 /* ── Fallback content ── */
 
@@ -80,30 +87,72 @@ const F = {
 /* ── Data fetching ── */
 
 async function getPageData() {
-  const [hp, testimonials, settings] = await Promise.all([
-    client.fetch<HomepageData | null>(
-      `*[_type == "homepage"][0]`,
-      {},
-      { next: { revalidate: 60 } }
-    ).catch(() => null),
-    client.fetch<Slide[]>(
-      `*[_type == "testimonial"] | order(order asc) { name, role, quote, vimeoId }`,
-      {},
-      { next: { revalidate: 60 } }
-    ).catch(() => []),
-    client.fetch<Settings | null>(
-      `*[_type == "settings"][0] { convertkitFormId }`,
-      {},
-      { next: { revalidate: 60 } }
-    ).catch(() => null),
+  const [hp, testimonials] = await Promise.all([
+    client.fetch<HomepageData | null>(`*[_type == "homepage"][0]`, {}, { next: { revalidate: 60 } }).catch(() => null),
+    client.fetch<Slide[]>(`*[_type == "testimonial"] | order(order asc) { name, role, quote, vimeoId }`, {}, { next: { revalidate: 60 } }).catch(() => []),
   ])
-  return { hp, testimonials, settings }
+  return { hp, testimonials }
 }
 
 /* ── Page ── */
 
+const PERSON_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://pozytywnainteligencja.pl/#person',
+      name: 'Krzysztof Wnęk',
+      jobTitle: 'Coach Positive Intelligence®, Mówca, Mentor',
+      description: 'Certyfikowany Coach Positive Intelligence® (PQ), wykładowca WSB-NLU, mówca konferencyjny. Pomaga liderom i menedżerom odzyskać radość, spokój i efektywność.',
+      url: 'https://pozytywnainteligencja.pl',
+      image: 'https://pozytywnainteligencja.pl/krzysztof-wnek.jpg',
+      sameAs: [
+        'https://www.linkedin.com/in/krzysztofwnek',
+        'https://www.youtube.com/@PozytywnaInteligencja',
+      ],
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'Certified Positive Intelligence Coach (PQ)',
+        credentialCategory: 'Professional Certification',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Positive Intelligence, Inc.',
+          url: 'https://www.positiveintelligence.com',
+          description: 'Program stworzony przez Shirzada Chamine, wykładowcę Stanford University',
+        },
+      },
+      memberOf: {
+        '@type': 'Organization',
+        name: 'Wyższa Szkoła Biznesu – National-Louis University',
+        url: 'https://wsb.edu.pl',
+      },
+      knowsAbout: ['Positive Intelligence', 'Mental Fitness', 'Leadership Coaching', 'PQ Coaching', 'Mindfulness'],
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://pozytywnainteligencja.pl/#service',
+      name: 'Positive Intelligence Coaching — Krzysztof Wnęk',
+      description: 'Program PQ (7-tygodniowy trening mentalny), coaching 1:1 i prelekcje B2B dla liderów, menedżerów i firm. Metodologia Positive Intelligence® opracowana przez Shirzada Chamine ze Stanford.',
+      url: 'https://pozytywnainteligencja.pl',
+      provider: { '@id': 'https://pozytywnainteligencja.pl/#person' },
+      serviceType: ['Mental Fitness Coaching', 'Executive Coaching', 'Keynote Speaking'],
+      areaServed: { '@type': 'Country', name: 'Poland' },
+      inLanguage: 'pl',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://pozytywnainteligencja.pl/#website',
+      url: 'https://pozytywnainteligencja.pl',
+      name: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor',
+      inLanguage: 'pl',
+      publisher: { '@id': 'https://pozytywnainteligencja.pl/#person' },
+    },
+  ],
+}
+
 export default async function HomePage() {
-  const { hp, testimonials, settings } = await getPageData()
+  const { hp, testimonials } = await getPageData()
 
   const h = {
     heroLine1:       hp?.heroLine1       ?? F.heroLine1,
@@ -132,10 +181,10 @@ export default async function HomePage() {
   }
 
   const slides = testimonials.length > 0 ? testimonials : undefined
-  const formId = settings?.convertkitFormId
 
   return (
     <>
+      <JsonLd schema={PERSON_SCHEMA} />
       {/* HERO */}
       <section className="hero" id="top">
         <div className="hero-bg" aria-hidden="true" />
@@ -341,7 +390,7 @@ export default async function HomePage() {
               : h.finaleHeading}
           </h2>
           <p className="finale-lead reveal" data-delay="2">{h.finaleLead}</p>
-          <FinaleForm formId={formId} />
+          <FinaleForm />
           <p className="finale-note reveal" data-delay="3">{h.finaleNote}</p>
         </div>
       </section>

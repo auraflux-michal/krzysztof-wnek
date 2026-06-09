@@ -894,13 +894,6 @@ section { position: relative; }
   transform: translate(-50%, -50%) scale(1.08);
 }
 
-.testi-slide-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 40px;
-  padding: 8px 0;
-}
 .testi-slide-quote {
   font-family: var(--display);
   font-style: italic;
@@ -910,10 +903,6 @@ section { position: relative; }
   color: rgba(255,255,255,0.88);
   margin: 0;
   text-wrap: pretty;
-}
-.testi-slide-person {
-  border-top: 1px solid rgba(255,255,255,0.12);
-  padding-top: 24px;
 }
 .testi-slide-name {
   font-family: var(--mono);

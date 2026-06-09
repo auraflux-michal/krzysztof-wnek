@@ -1,19 +1,62 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 import { client } from '@/sanity/client'
 
 export const metadata: Metadata = {
-  title: 'O Mnie — Krzysztof Wnęk',
-  description: 'Poznaj historię Krzysztofa Wnęka. To nie historia sukcesu. To historia przebudzenia.',
+  title: 'O Mnie — Certyfikowany Coach PQ',
+  description: 'Krzysztof Wnęk — certyfikowany Coach Positive Intelligence® (Stanford), wykładowca WSB-NLU, mówca konferencyjny. Ponad 200 absolwentów programu PQ w Polsce.',
+  openGraph: {
+    title: 'O Mnie — Krzysztof Wnęk | Certyfikowany Coach PQ',
+    description: 'Coach PQ certyfikowany przez Positive Intelligence (Stanford), wykładowca WSB-NLU, mówca konferencyjny. Ponad 200 absolwentów programu PQ.',
+    url: '/o-mnie',
+    images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — portret' }],
+  },
+  alternates: { canonical: '/o-mnie' },
 }
 
-interface TlItem    { year: string; title: string; desc: string }
+const PERSON_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://pozytywnainteligencja.pl/#person',
+  name: 'Krzysztof Wnęk',
+  jobTitle: 'Coach Positive Intelligence®, Mówca, Mentor',
+  description: 'Certyfikowany Coach Positive Intelligence® (PQ), wykładowca WSB-NLU, mówca konferencyjny z ponad 25-letnim doświadczeniem.',
+  url: 'https://pozytywnainteligencja.pl/o-mnie',
+  image: 'https://pozytywnainteligencja.pl/krzysztof-wnek.jpg',
+  sameAs: [
+    'https://www.linkedin.com/in/krzysztofwnek',
+    'https://www.youtube.com/@PozytywnaInteligencja',
+  ],
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    name: 'Certified Positive Intelligence Coach (PQ)',
+    credentialCategory: 'Professional Certification',
+    recognizedBy: {
+      '@type': 'Organization',
+      name: 'Positive Intelligence, Inc.',
+      url: 'https://www.positiveintelligence.com',
+      description: 'Program opracowany przez Shirzada Chamine, wykładowcę Stanford University',
+    },
+  },
+  memberOf: {
+    '@type': 'Organization',
+    name: 'Wyższa Szkoła Biznesu – National-Louis University',
+    url: 'https://wsb.edu.pl',
+    roleName: 'Wykładowca',
+  },
+  alumniOf: {
+    '@type': 'Organization',
+    name: 'Positive Intelligence, Inc.',
+    url: 'https://www.positiveintelligence.com',
+  },
+}
+
 interface ValueCell { label: string; title: string; desc: string }
 
 interface PageData {
   heroH1?: string
   bioQuote?: string; bioP1?: string; bioP2?: string
-  timeline?: TlItem[]
   values?: ValueCell[]
 }
 
@@ -22,14 +65,6 @@ const F = {
   bioQuote: '„Nie prowadzę warsztatów.\nDam Ci ogień.\nPotem dam Ci też narzędzia,\nżebyś płonął dalej."',
   bioP1: 'Krzysztof Wnęk to inspirator, coach PQ, wykładowca WSB i mówca konferencyjny, który od ponad 25 lat pracuje w dynamicznych środowiskach projektowych z wieloma liderami w Polsce.',
   bioP2: 'Łączy energię prelekcji ze sceny z uważnością coacha PQ rozmów indywidualnych. Interesuje go praktyka, a nie teoria w myśl przekonania, że „skuteczność jest miarą prawdy".',
-  timeline: [
-    { year: '2017',  title: 'Pierwsze wystąpienie publiczne',   desc: 'Wszedłem na scenę drżąc. Wyszedłem wiedząc, że to jest moje miejsce.' },
-    { year: '2019',  title: 'Odkrycie Positive Intelligence®',  desc: 'Shirzad Chamine, Harvard, neurobiologia. Coś, co zmieniło sposób, w jaki rozumiem siebie i innych.' },
-    { year: '2021',  title: 'Certyfikacja PQ Coach',            desc: 'Oficjalny certyfikat Positive Intelligence®. Jeden z nielicznych certyfikowanych coachów PQ w Polsce.' },
-    { year: '2022',  title: 'Wykładowca WSB',                   desc: 'Dołączyłem do grona wykładowców Wyższej Szkoły Biznesu. Temat: przywództwo i odporność mentalna.' },
-    { year: '2023',  title: '200+ absolwentów programu',        desc: 'Ponad 200 liderów, menedżerów i przedsiębiorców przeszło przez program PQ.' },
-    { year: '2024+', title: 'Teraz',                            desc: 'Prowadzę programy, wygłaszam prelekcje i pracuję indywidualnie z ludźmi, którzy osiągnęli wszystko — i odkryli, że czegoś brakuje.' },
-  ],
   values: [
     { label: 'Wiara',           title: 'Wiara',          desc: 'W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Mędrca.' },
     { label: 'Honor',           title: 'Mów co myślisz', desc: 'Rób, co mówisz. Bez skrótów.' },
@@ -49,12 +84,12 @@ export default async function OMniePage() {
     bioQuote:  raw?.bioQuote ?? F.bioQuote,
     bioP1:     raw?.bioP1    ?? F.bioP1,
     bioP2:     raw?.bioP2    ?? F.bioP2,
-    timeline:  raw?.timeline?.length ? raw.timeline : F.timeline,
-    values:    raw?.values?.length   ? raw.values   : F.values,
+    values:    raw?.values?.length ? raw.values : F.values,
   }
 
   return (
     <>
+      <JsonLd schema={PERSON_SCHEMA} />
       <section className="sub-hero dark">
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="eyebrow on-dark reveal">O Mnie</div>

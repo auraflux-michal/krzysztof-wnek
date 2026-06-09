@@ -29,8 +29,6 @@ export default function Footer() {
             <ul>
               <li><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a></li>
               <li><a href="https://www.linkedin.com/in/krzysztofwnek" target="_blank" rel="noreferrer">LinkedIn</a></li>
-              <li><a href="#">Facebook</a></li>
-              <li><a href="#">Instagram</a></li>
             </ul>
           </div>
         </div>
