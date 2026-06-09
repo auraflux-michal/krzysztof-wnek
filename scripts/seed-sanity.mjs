@@ -39,31 +39,49 @@ const docs = [
 
   /* ── TESTIMONIALS ── */
   {
-    _id: 'testimonial-marta-k',
+    _id: 'testimonial-pawel-bereska',
     _type: 'testimonial',
     order: 1,
-    name: 'Marta K.',
-    role: 'VP Inżynierii',
-    quote: '„Po 15 latach w korporacji myślałam, że wypalenie to po prostu część umowy. Krzysztof pokazał mi, że tak nie musi być."',
-    ytId: 'ZASTAP_ID_VIDEO_1',
+    name: 'Paweł Bereska',
+    role: 'Przedsiębiorca, AZYMUT.clothing',
+    quote: '„Łatwiej mi zrozumieć konflikty w domu i w pracy. Dodatkowo łatwiej panuję nad lękami."',
+    vimeoId: '1199662481',
   },
   {
-    _id: 'testimonial-tomasz-r',
+    _id: 'testimonial-michal-caba',
     _type: 'testimonial',
     order: 2,
-    name: 'Tomasz R.',
-    role: 'CEO, startup technologiczny',
-    quote: '„Przyszedłem po produktywność. Zostałem, bo po raz pierwszy mogłem być obecny z dziećmi bez telefonu w dłoni. To warte więcej niż jakikolwiek KPI."',
-    ytId: 'ZASTAP_ID_VIDEO_2',
+    name: 'Michał Caba',
+    role: 'Przedsiębiorca, Auraflux',
+    quote: '„Udział w programie pomógł mi być bardziej skupionym w codziennym życiu, w tym co robię. Praca z Krzysztofem, jego umiejętność zadawania dobrych, konkretnych pytań i uważność były bardzo pomocne."',
+    vimeoId: '1199662483',
   },
   {
-    _id: 'testimonial-anna-p',
+    _id: 'testimonial-marek-rybiec',
     _type: 'testimonial',
     order: 3,
-    name: 'Anna P.',
-    role: 'Dyrektor Zarządzający',
-    quote: '„To nie jest terapia. To nie jest coaching-lite. To najtrudniejsza i najbardziej wartościowa praca, jaką wykonałam nad sobą — i widzę różnicę w każdym spotkaniu."',
-    ytId: 'ZASTAP_ID_VIDEO_3',
+    name: 'Marek Rybiec',
+    role: '',
+    quote: '„Krzyśka znam 20 lat. Jest to niesamowity człowiek, niesamowity obserwator i fantastyczny prowadzący."',
+    vimeoId: '1199662482',
+  },
+  {
+    _id: 'testimonial-pawel-marciniec',
+    _type: 'testimonial',
+    order: 4,
+    name: 'Paweł Marciniec',
+    role: '',
+    quote: '„Wydłużył mi się „krótki lont" — jest mi się łatwiej opanować. Jestem spokojniejszy i bardziej skupiony na zadaniach."',
+    vimeoId: '1199662539',
+  },
+  {
+    _id: 'testimonial-marcin-szambelan',
+    _type: 'testimonial',
+    order: 5,
+    name: 'Marcin Szambelan',
+    role: '',
+    quote: '„W wyniku stosowania poznanych technik w trakcie programu domownicy mi mówili: „Tata, jaka zmiana! Zupełnie inaczej reagujesz niż dotychczas." (…) Polecam i ufam, że ty również zmienisz swoje życie na lepsze."',
+    vimeoId: '1199662480',
   },
 
   /* ── HOMEPAGE ── */
@@ -215,7 +233,7 @@ const docs = [
   },
 ]
 
-console.log(`🌱 Seedowanie ${docs.length} dokumentów do Sanity (projekt: khvta4ou)...\n`)
+console.log(`\n🌱 Seedowanie ${docs.length} dokumentów do Sanity (projekt: khvta4ou)...\n`)
 
 const tx = client.transaction()
 for (const doc of docs) {

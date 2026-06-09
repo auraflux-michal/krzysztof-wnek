@@ -9,8 +9,15 @@ export default function VideoModal() {
 
   useEffect(() => {
     const handler = (e: Event) => {
-      const id = (e as CustomEvent<string>).detail
-      setVideoId(id)
+      const detail = (e as CustomEvent<string>).detail
+      let src = ''
+      if (detail.startsWith('vimeo:')) {
+        const id = detail.slice(6)
+        src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`
+      } else {
+        src = `https://www.youtube.com/embed/${detail}?autoplay=1&rel=0`
+      }
+      setVideoId(src)
       setOpen(true)
       document.body.style.overflow = 'hidden'
     }
@@ -46,7 +53,7 @@ export default function VideoModal() {
         <div className="video-modal-embed">
           <iframe
             ref={iframeRef}
-            src={open && videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0` : ''}
+            src={open ? videoId : ''}
             frameBorder="0"
             allowFullScreen
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

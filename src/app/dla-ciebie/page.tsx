@@ -119,14 +119,8 @@ export default async function DlaCiebiePage() {
 
       <section className="dark sec-tight">
         <div className="wrap" style={{ textAlign: 'center' }}>
-          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Inwestycja</div>
-          <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', margin: '32px 0 8px' }} className="reveal" data-delay="1">
-            {d.priceLabel}
-          </div>
-          <div style={{ fontFamily: 'var(--display)', fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(28px,3.5vw,48px)', lineHeight: 1.1, letterSpacing: '-0.01em', color: 'rgba(255,255,255,0.6)', margin: '0 0 48px' }} className="reveal" data-delay="1">
-            {d.priceText}
-          </div>
-          <div className="reveal" data-delay="2" style={{ display: 'inline-flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Zacznij</div>
+          <div className="reveal" data-delay="2" style={{ display: 'inline-flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '32px' }}>
             <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-teal">Zrób bezpłatny test</a>
           </div>
         </div>

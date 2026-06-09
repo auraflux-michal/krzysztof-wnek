@@ -87,7 +87,7 @@ async function getPageData() {
       { next: { revalidate: 60 } }
     ).catch(() => null),
     client.fetch<Slide[]>(
-      `*[_type == "testimonial"] | order(order asc) { name, role, quote, ytId }`,
+      `*[_type == "testimonial"] | order(order asc) { name, role, quote, vimeoId }`,
       {},
       { next: { revalidate: 60 } }
     ).catch(() => []),
@@ -306,10 +306,6 @@ export default async function HomePage() {
                 <div className="tag">{path.tag}</div>
                 <div className="title">{path.title}</div>
                 <p className="desc">{path.desc}</p>
-                <div className="price">
-                  {path.price}
-                  {path.priceSub && <span className="price-sub">{path.priceSub}</span>}
-                </div>
                 <div className="path-cta">
                   <Link href={path.ctaHref} className="link-text">{path.ctaLabel}</Link>
                 </div>

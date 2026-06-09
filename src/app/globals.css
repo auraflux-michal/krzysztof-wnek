@@ -7,8 +7,8 @@
   --paper:      #FFFFFF;
 
   --text:       #131313;
-  --text-muted: #6E6E6E;
-  --text-dim:   #9A9A9A;
+  --text-muted: #484848;
+  --text-dim:   #6E6E6E;
   --text-light: rgba(255,255,255,0.78);
   --text-light-muted: rgba(255,255,255,0.5);
 
@@ -389,8 +389,8 @@ section { position: relative; }
 }
 .hero h1 .it { font-style: italic; font-weight: 400; }
 .hero-sub {
-  font-size: 15px;
-  color: rgba(255,255,255,0.62);
+  font-size: 18px;
+  color: rgba(255,255,255,0.92);
   line-height: 1.6;
   max-width: 42ch;
   margin: 0 0 40px;
@@ -439,7 +439,7 @@ section { position: relative; }
 .sub-hero h1 .it { font-style: italic; font-weight: 400; }
 .sub-hero .lead {
   font-size: 16px;
-  color: rgba(255,255,255,0.62);
+  color: rgba(255,255,255,0.85);
   line-height: 1.65;
   max-width: 50ch;
   margin: 0;

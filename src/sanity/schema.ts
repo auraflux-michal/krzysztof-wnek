@@ -61,7 +61,7 @@ const testimonial = defineType({
     defineField({ name: 'name', title: 'Imię i nazwisko', type: 'string' }),
     defineField({ name: 'role', title: 'Stanowisko', type: 'string' }),
     defineField({ name: 'quote', title: 'Cytat', type: 'text' }),
-    defineField({ name: 'ytId', title: 'YouTube Video ID (opcjonalne)', type: 'string' }),
+    defineField({ name: 'vimeoId', title: 'Vimeo Video ID', type: 'string' }),
     defineField({ name: 'order', title: 'Kolejność', type: 'number' }),
   ],
   preview: { select: { title: 'name', subtitle: 'role' } },

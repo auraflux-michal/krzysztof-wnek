@@ -1,40 +1,50 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 
 export interface Slide {
   name: string
   role: string
   quote: string
-  ytId?: string
+  vimeoId?: string
 }
 
 const FALLBACK_SLIDES: Slide[] = [
   {
-    name: 'Marta K.',
-    role: 'VP Inżynierii',
-    quote: '„Po 15 latach w korporacji myślałam, że wypalenie to po prostu część umowy. Krzysztof pokazał mi, że tak nie musi być."',
-    ytId: 'ZASTAP_ID_VIDEO_1',
+    name: 'Paweł Bereska',
+    role: 'Przedsiębiorca, AZYMUT.clothing',
+    quote: '„Łatwiej mi zrozumieć konflikty w domu i w pracy. Dodatkowo łatwiej panuję nad lękami."',
+    vimeoId: '1199662481',
   },
   {
-    name: 'Tomasz R.',
-    role: 'CEO, startup technologiczny',
-    quote: '„Przyszedłem po produktywność. Zostałem, bo po raz pierwszy mogłem być obecny z dziećmi bez telefonu w dłoni. To warte więcej niż jakikolwiek KPI."',
-    ytId: 'ZASTAP_ID_VIDEO_2',
+    name: 'Michał Caba',
+    role: 'Przedsiębiorca, Auraflux',
+    quote: '„Udział w programie pomógł mi być bardziej skupionym w codziennym życiu, w tym co robię. Praca z Krzysztofem, jego umiejętność zadawania dobrych, konkretnych pytań i uważność były bardzo pomocne."',
+    vimeoId: '1199662483',
   },
   {
-    name: 'Anna P.',
-    role: 'Dyrektor Zarządzający',
-    quote: '„To nie jest terapia. To nie jest coaching-lite. To najtrudniejsza i najbardziej wartościowa praca, jaką wykonałam nad sobą — i widzę różnicę w każdym spotkaniu."',
-    ytId: 'ZASTAP_ID_VIDEO_3',
+    name: 'Marek Rybiec',
+    role: '',
+    quote: '„Krzyśka znam 20 lat. Jest to niesamowity człowiek, niesamowity obserwator i fantastyczny prowadzący."',
+    vimeoId: '1199662482',
+  },
+  {
+    name: 'Paweł Marciniec',
+    role: '',
+    quote: '„Wydłużył mi się „krótki lont" — jest mi się łatwiej opanować. Jestem spokojniejszy i bardziej skupiony na zadaniach."',
+    vimeoId: '1199662539',
+  },
+  {
+    name: 'Marcin Szambelan',
+    role: '',
+    quote: '„W wyniku stosowania poznanych technik w trakcie programu domownicy mi mówili: „Tata, jaka zmiana! Zupełnie inaczej reagujesz niż dotychczas." (…) Polecam i ufam, że ty również zmienisz swoje życie na lepsze."',
+    vimeoId: '1199662480',
   },
 ]
 
 export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { slides?: Slide[] }) {
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const carouselRef = useRef<HTMLDivElement>(null)
 
   function startTimer() {
     if (timerRef.current) clearInterval(timerRef.current)
@@ -53,9 +63,9 @@ export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { sli
     startTimer()
   }
 
-  function handlePlay(ytId: string) {
-    if (!ytId || ytId.startsWith('ZASTAP')) return
-    window.dispatchEvent(new CustomEvent('open-video', { detail: ytId }))
+  function handlePlay(vimeoId: string) {
+    if (!vimeoId) return
+    window.dispatchEvent(new CustomEvent('open-video', { detail: `vimeo:${vimeoId}` }))
   }
 
   useEffect(() => {
@@ -71,24 +81,22 @@ export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { sli
     <div className="wrap testi-carousel-wrap">
       <div
         className="testi-carousel"
-        ref={carouselRef}
         onMouseEnter={() => { if (timerRef.current) clearInterval(timerRef.current) }}
         onMouseLeave={startTimer}
       >
         {slides.map((slide, i) => (
           <div key={i} className={`testi-slide${i === current ? ' active' : ''}`}>
             <div className="testi-slide-video">
-              <Image
-                src="/video-placeholder.png"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={slide.vimeoId ? `https://vumbnail.com/${slide.vimeoId}.jpg` : '/video-placeholder.png'}
                 alt={slide.name}
-                fill
-                style={{ objectFit: 'cover' }}
-                sizes="780px"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'absolute', inset: 0 }}
               />
               <div className="testi-video-overlay" />
               <button
                 className="testi-play"
-                onClick={() => handlePlay(slide.ytId ?? '')}
+                onClick={() => handlePlay(slide.vimeoId ?? '')}
                 aria-label={`Odtwórz opinię ${slide.name}`}
               >
                 <svg viewBox="0 0 16 16" fill="currentColor">
@@ -98,7 +106,7 @@ export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { sli
             </div>
             <div className="testi-slide-caption">
               <div className="testi-slide-name">{slide.name}</div>
-              <div className="testi-slide-role">{slide.role}</div>
+              {slide.role && <div className="testi-slide-role">{slide.role}</div>}
               <p className="testi-slide-quote">{slide.quote}</p>
             </div>
           </div>

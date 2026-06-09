@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { client } from '@/sanity/client'
+import ZencalCalendar from '@/components/ZencalCalendar'
 
 export const metadata: Metadata = {
   title: 'Umów Rozmowę — Krzysztof Wnęk',
@@ -51,7 +52,7 @@ export default async function UmowRozmowePage() {
           <h1 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(52px,7.2vw,112px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: '24px 0 24px', color: '#fff', textWrap: 'balance' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.heroH1Line1}<br /><span style={{ fontStyle: 'italic', fontWeight: 400 }}>{d.heroH1Line2}</span>
           </h1>
-          <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.65, maxWidth: '46ch', margin: 0 }} className="reveal" data-delay="2">
+          <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65, maxWidth: '46ch', margin: 0 }} className="reveal" data-delay="2">
             {d.heroDesc}
           </p>
         </div>
@@ -72,21 +73,15 @@ export default async function UmowRozmowePage() {
 
       <section className="sec" style={{ paddingTop: 0, background: 'var(--paper)' }}>
         <div className="wrap">
-          <div className="reveal" style={{ maxWidth: '900px', margin: '0 auto', padding: 'clamp(40px,6vw,80px) 0' }}>
-            <div style={{ width: '100%', minHeight: '480px', border: '1px solid var(--rule-light)', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px', background: 'var(--surface)', padding: 'clamp(40px,6vw,80px) 24px', textAlign: 'center' }}>
-              <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-dim)' }}>
-                Rezerwacja · Discovery Session
-              </div>
-              <p style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontSize: 'clamp(28px,3.5vw,48px)', lineHeight: 1.1, letterSpacing: '-0.01em', color: 'var(--text)', margin: 0 }}>
-                Kalendarz wkrótce dostępny.
-              </p>
-              <p style={{ fontSize: '15px', color: 'var(--text-muted)', maxWidth: '40ch', margin: 0, lineHeight: 1.6 }}>
-                {d.contactPlaceholder}
-              </p>
-              <a href={`mailto:${d.contactEmail}`} className="btn btn-teal" style={{ marginTop: '8px' }}>
-                {d.contactCtaText}
+          <div style={{ maxWidth: '900px', margin: '0 auto', padding: 'clamp(40px,6vw,80px) 0' }}>
+            <ZencalCalendar />
+            <p style={{ textAlign: 'center', fontSize: '14px', color: 'var(--text-dim)', marginTop: '32px', lineHeight: 1.6 }}>
+              Wolisz napisać?{' '}
+              <a href={`mailto:${d.contactEmail}`} style={{ color: 'var(--accent-deep)', textDecoration: 'underline' }}>
+                {d.contactEmail}
               </a>
-            </div>
+              {' '}— odpowiem w ciągu 24h.
+            </p>
           </div>
         </div>
       </section>
