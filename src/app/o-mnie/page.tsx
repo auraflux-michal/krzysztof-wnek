@@ -87,26 +87,6 @@ export default async function OMniePage() {
         </div>
       </section>
 
-      <section className="sec light" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="eyebrow reveal">02 <span className="em">—</span> Oś czasu</div>
-          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px' } as React.CSSProperties} className="reveal" data-delay="1">
-            Skąd przyszedłem.
-          </h2>
-          <div className="timeline reveal" data-delay="2">
-            {d.timeline.map((item, i) => (
-              <div key={i} className="tl-item">
-                <div className="year">{item.year}</div>
-                <div className="tl-body">
-                  <div className="title">{item.title}</div>
-                  <div className="desc">{item.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="dark sec-tight">
         <div className="wrap">
           <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Wartości</div>

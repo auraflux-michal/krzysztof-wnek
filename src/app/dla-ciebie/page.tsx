@@ -119,8 +119,14 @@ export default async function DlaCiebiePage() {
 
       <section className="dark sec-tight">
         <div className="wrap" style={{ textAlign: 'center' }}>
-          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Zacznij</div>
-          <div className="reveal" data-delay="2" style={{ display: 'inline-flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '32px' }}>
+          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Pierwszy krok</div>
+          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5.5vw,80px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px auto 16px', maxWidth: '16ch', textWrap: 'balance', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
+            Zacznij od <em>testu</em>.
+          </h2>
+          <p style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: '0 0 40px' }} className="reveal" data-delay="2">
+            5 minut · bezpłatnie · wyniki na e-mail
+          </p>
+          <div className="reveal" data-delay="3">
             <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-teal">Zrób bezpłatny test</a>
           </div>
         </div>
