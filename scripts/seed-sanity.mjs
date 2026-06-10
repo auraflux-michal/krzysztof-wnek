@@ -32,7 +32,7 @@ const docs = [
     convertkitFormId: '',
     youtubeUrl: 'https://www.youtube.com/@PozytywnaInteligencja',
     youtubeChannelId: 'UC49dTdbJNVs5NmYVdEGGrXw',
-    linkedinUrl: 'https://www.linkedin.com/in/krzysztofwnek',
+    linkedinUrl: 'https://www.linkedin.com/in/krzysztof-wnek/',
     facebookUrl: '',
     instagramUrl: '',
   },

@@ -97,7 +97,7 @@ export default async function UmowRozmowePage() {
         <div className="wrap">
           <div className="label reveal">Nadal się wahasz?</div>
           <div className="reveal" data-delay="1">
-            <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-outline-light">
+            <a href="/#umow" className="btn btn-outline-light">
               Najpierw zrób bezpłatny test sabotażystów <span className="arrow">→</span>
             </a>
           </div>

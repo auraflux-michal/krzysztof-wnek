@@ -176,7 +176,7 @@ export default async function DlaCiebiePage() {
             5 minut · bezpłatnie · wyniki na e-mail
           </p>
           <div className="reveal" data-delay="3">
-            <a href="https://www.positiveintelligence.com/saboteurs/" target="_blank" rel="noreferrer" className="btn btn-teal">Zrób bezpłatny test</a>
+            <a href="/#umow" className="btn btn-teal">Zrób bezpłatny test</a>
           </div>
         </div>
       </section>

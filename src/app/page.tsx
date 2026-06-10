@@ -108,7 +108,7 @@ const PERSON_SCHEMA = {
       url: 'https://pozytywnainteligencja.pl',
       image: 'https://pozytywnainteligencja.pl/krzysztof-wnek.jpg',
       sameAs: [
-        'https://www.linkedin.com/in/krzysztofwnek',
+        'https://www.linkedin.com/in/krzysztof-wnek/',
         'https://www.youtube.com/@PozytywnaInteligencja',
       ],
       hasCredential: {
