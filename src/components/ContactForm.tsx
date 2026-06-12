@@ -32,17 +32,23 @@ export default function ContactForm() {
       })
       if (!res.ok) throw new Error('send failed')
 
-      // 2. Client: ConvertKit subscription — same as FinaleForm, works from browser
+      // 2. Client: ConvertKit subscription — same pattern as FinaleForm
       const kitParams = new URLSearchParams()
       kitParams.append('email_address', String(fd.get('email') ?? ''))
       kitParams.append('fields[imie_i_nazwisko]', String(fd.get('name') ?? ''))
       kitParams.append('fields[nazwa_firmy]', String(fd.get('company') ?? ''))
       kitParams.append('fields[wiadomosc]', String(fd.get('message') ?? ''))
-      fetch('https://app.kit.com/forms/9550792/subscriptions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: kitParams.toString(),
-      }).catch(() => {})
+      try {
+        const kitRes = await fetch('https://app.kit.com/forms/9550792/subscriptions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: kitParams.toString(),
+        })
+        const kitText = await kitRes.text()
+        console.log('[kit b2b] status:', kitRes.status, kitText.slice(0, 200))
+      } catch (err) {
+        console.error('[kit b2b] error:', err)
+      }
 
       setStatus('done')
     } catch {
