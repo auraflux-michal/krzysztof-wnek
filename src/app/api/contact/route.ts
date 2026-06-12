@@ -33,65 +33,32 @@ export async function POST(req: NextRequest) {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY)
-  const kitApiKey = process.env.CONVERTKIT_API_KEY
 
-  const [resendResult, kitResult] = await Promise.allSettled([
-    // TASK 1 — Resend email (to verified account email until domain is verified)
-    resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: process.env.RESEND_NOTIFY_EMAIL ?? 'czesc@auraflux.pl',
-      replyTo: email,
-      subject: `[Nowy Lead B2B] Zapytanie ofertowe od: ${company ?? '—'}`,
-      html: `
-        <h2 style="font-family:sans-serif;margin:0 0 24px">Nowe zapytanie B2B</h2>
-        <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse">
-          <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Imię i nazwisko</td><td style="padding:6px 0"><strong>${name ?? '—'}</strong></td></tr>
-          <tr><td style="padding:6px 16px 6px 0;color:#666">Email</td><td style="padding:6px 0"><a href="mailto:${email}">${email ?? '—'}</a></td></tr>
-          <tr><td style="padding:6px 16px 6px 0;color:#666">Firma</td><td style="padding:6px 0">${company ?? '—'}</td></tr>
-        </table>
-        <p style="font-family:sans-serif;font-size:15px;color:#666;margin:24px 0 8px">Wiadomość:</p>
-        <blockquote style="font-family:sans-serif;font-size:15px;border-left:3px solid #ccc;padding:12px 16px;margin:0;color:#333;background:#f9f9f9">
-          ${(message ?? '').replace(/\n/g, '<br/>')}
-        </blockquote>
-      `,
-    }),
+  const { data, error } = await resend.emails.send({
+    from: 'onboarding@resend.dev',
+    to: process.env.RESEND_NOTIFY_EMAIL ?? 'czesc@auraflux.pl',
+    replyTo: email,
+    subject: `[Nowy Lead B2B] Zapytanie ofertowe od: ${company ?? '—'}`,
+    html: `
+      <h2 style="font-family:sans-serif;margin:0 0 24px">Nowe zapytanie B2B</h2>
+      <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse">
+        <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Imię i nazwisko</td><td style="padding:6px 0"><strong>${name ?? '—'}</strong></td></tr>
+        <tr><td style="padding:6px 16px 6px 0;color:#666">Email</td><td style="padding:6px 0"><a href="mailto:${email}">${email ?? '—'}</a></td></tr>
+        <tr><td style="padding:6px 16px 6px 0;color:#666">Firma</td><td style="padding:6px 0">${company ?? '—'}</td></tr>
+      </table>
+      <p style="font-family:sans-serif;font-size:15px;color:#666;margin:24px 0 8px">Wiadomość:</p>
+      <blockquote style="font-family:sans-serif;font-size:15px;border-left:3px solid #ccc;padding:12px 16px;margin:0;color:#333;background:#f9f9f9">
+        ${(message ?? '').replace(/\n/g, '<br/>')}
+      </blockquote>
+    `,
+  })
 
-    // TASK 2 — ConvertKit v3 API (server-side, requires api_key)
-    kitApiKey
-      ? fetch(`https://api.convertkit.com/v3/forms/9550792/subscribe`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          body: JSON.stringify({
-            api_key: kitApiKey,
-            email,
-            fields: {
-              imie_i_nazwisko: name ?? '',
-              nazwa_firmy: company ?? '',
-              wiadomosc: message ?? '',
-            },
-          }),
-        })
-      : Promise.reject(new Error('CONVERTKIT_API_KEY not set')),
-  ])
-
-  if (resendResult.status === 'rejected') {
-    console.error('[contact] Resend error:', resendResult.reason)
-  } else if (resendResult.value.error) {
-    console.error('[contact] Resend API error:', JSON.stringify(resendResult.value.error))
+  if (error) {
+    console.error('[contact] Resend error:', JSON.stringify(error))
   } else {
-    console.log('[contact] Resend OK, id:', resendResult.value.data?.id)
+    console.log('[contact] Resend OK, id:', data?.id)
   }
 
-  if (kitResult.status === 'rejected') {
-    console.error('[contact] ConvertKit error:', kitResult.reason)
-  } else {
-    const kitText = await kitResult.value.text().catch(() => '')
-    if (!kitResult.value.ok) {
-      console.error('[contact] ConvertKit error:', kitResult.value.status, kitText)
-    } else {
-      console.log('[contact] ConvertKit OK:', kitResult.value.status, kitText.slice(0, 120))
-    }
-  }
-
+  // ConvertKit is handled client-side (browser fetch) — same as FinaleForm
   return NextResponse.json({ ok: true })
 }

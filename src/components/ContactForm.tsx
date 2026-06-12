@@ -17,19 +17,33 @@ export default function ContactForm() {
 
     setStatus('sending')
     try {
+      // 1. Server: Turnstile verification + Resend email notification
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name:                   fd.get('name'),
-          email:                  fd.get('email'),
-          company:                fd.get('company'),
-          message:                fd.get('message'),
-          b2b_honeypot:           fd.get('b2b_honeypot'),
+          name:                    fd.get('name'),
+          email:                   fd.get('email'),
+          company:                 fd.get('company'),
+          message:                 fd.get('message'),
+          b2b_honeypot:            fd.get('b2b_honeypot'),
           'cf-turnstile-response': turnstileToken ?? '',
         }),
       })
       if (!res.ok) throw new Error('send failed')
+
+      // 2. Client: ConvertKit subscription — same as FinaleForm, works from browser
+      const kitParams = new URLSearchParams()
+      kitParams.append('email_address', String(fd.get('email') ?? ''))
+      kitParams.append('fields[imie_i_nazwisko]', String(fd.get('name') ?? ''))
+      kitParams.append('fields[nazwa_firmy]', String(fd.get('company') ?? ''))
+      kitParams.append('fields[wiadomosc]', String(fd.get('message') ?? ''))
+      fetch('https://app.kit.com/forms/9550792/subscriptions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: kitParams.toString(),
+      }).catch(() => {})
+
       setStatus('done')
     } catch {
       setStatus('error')
