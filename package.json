@@ -10,10 +10,12 @@
     "seed": "node scripts/seed-sanity.mjs"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "^1.5.3",
     "next": "16.2.7",
     "next-sanity": "^9.12.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "resend": "^6.12.4",
     "sanity": "^5.28.0",
     "styled-components": "^6.1.18"
   },
