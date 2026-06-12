@@ -3,3 +3,5 @@ node_modules/
 *.log
 .vercel
 .next/
+.env.local
+.env*.local
