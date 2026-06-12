@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY)
 
   const { data, error } = await resend.emails.send({
-    from: 'onboarding@resend.dev',
+    from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
     to: process.env.RESEND_NOTIFY_EMAIL ?? 'czesc@auraflux.pl',
     replyTo: email,
     subject: `[Nowy Lead B2B] Zapytanie ofertowe od: ${company ?? '—'}`,
