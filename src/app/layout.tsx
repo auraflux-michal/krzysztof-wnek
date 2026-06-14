@@ -41,9 +41,8 @@ export const metadata: Metadata = {
     siteName: 'Krzysztof Wnęk',
     locale: 'pl_PL',
     type: 'website',
-    images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor' }],
   },
-  twitter: { card: 'summary_large_image', images: ['/krzysztof-wnek.jpg'] },
+  twitter: { card: 'summary_large_image' },
   alternates: { canonical: SITE_URL },
 }
 
