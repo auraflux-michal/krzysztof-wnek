@@ -58,12 +58,12 @@ const COURSE_SCHEMA = {
   '@type': 'Course',
   name: 'Program Positive Intelligence® — 7-tygodniowy trening mentalny',
   description: '7-tygodniowy program PQ dla liderów i menedżerów. Metodologia Positive Intelligence® opracowana przez Shirzada Chamine na Stanford University. Buduje trwałe ścieżki neuronalne dla spokoju, odporności i efektywności.',
-  url: 'https://pozytywnainteligencja.pl/dla-ciebie',
+  url: 'https://www.krzysztofwnek.pl/dla-ciebie',
   provider: {
     '@type': 'Person',
     name: 'Krzysztof Wnęk',
-    url: 'https://pozytywnainteligencja.pl',
-    '@id': 'https://pozytywnainteligencja.pl/#person',
+    url: 'https://www.krzysztofwnek.pl',
+    '@id': 'https://www.krzysztofwnek.pl/#person',
   },
   isBasedOn: {
     '@type': 'CreativeWork',

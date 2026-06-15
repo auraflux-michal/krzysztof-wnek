@@ -18,12 +18,12 @@ export const metadata: Metadata = {
 const PERSON_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': 'https://pozytywnainteligencja.pl/#person',
+  '@id': 'https://www.krzysztofwnek.pl/#person',
   name: 'Krzysztof Wnęk',
   jobTitle: 'Coach Positive Intelligence®, Mówca, Mentor',
   description: 'Certyfikowany Coach Positive Intelligence® (PQ), wykładowca WSB-NLU, mówca konferencyjny z ponad 25-letnim doświadczeniem.',
-  url: 'https://pozytywnainteligencja.pl/o-mnie',
-  image: 'https://pozytywnainteligencja.pl/krzysztof-wnek.jpg',
+  url: 'https://www.krzysztofwnek.pl/o-mnie',
+  image: 'https://www.krzysztofwnek.pl/krzysztof-wnek.jpg',
   sameAs: [
     'https://www.linkedin.com/in/krzysztof-wnek/',
     'https://www.youtube.com/@PozytywnaInteligencja',
