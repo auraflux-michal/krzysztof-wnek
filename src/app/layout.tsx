@@ -1,10 +1,5 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter, Manrope } from 'next/font/google'
-import './globals.css'
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
-import RevealObserver from '@/components/RevealObserver'
-import VideoModal from '@/components/VideoModal'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -50,13 +45,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl" className={`${cormorant.variable} ${inter.variable} ${manrope.variable}`}>
-      <body>
-        <Nav />
-        <main>{children}</main>
-        <Footer />
-        <VideoModal />
-        <RevealObserver />
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
