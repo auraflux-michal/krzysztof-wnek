@@ -53,36 +53,18 @@ const PERSON_SCHEMA = {
 }
 
 interface ValueCell { label: string; title: string; desc: string }
-interface Trial { title: string; desc: string }
 
 interface PageData {
   heroH1?: string
   bioQuote?: string; bioP1?: string; bioP2?: string
-  crackQuote?: string; crackBody?: string
-  trials?: Trial[]
-  awakenQuote?: string; awakenBody?: string
-  todayQuote?: string; todayBody?: string
-  coda?: string
   values?: ValueCell[]
 }
 
 const F = {
   heroH1: 'To nie historia \nsukcesu. \nTo historia \nprzebudzenia.',
-  bioQuote: '„Żyłem poprawnie, ale nie swoim życiem."',
-  bioP1: 'Jestem szczęśliwym mężem jednej żony od 25 lat i ojcem trzech synów — 22, 17 i 14 lat. Rodzina i wiara są dla mnie fundamentem. Ale nie zawsze żyłem w zgodzie ze sobą.',
-  bioP2: 'Przez prawie 10 lat pracowałem w prestiżowej korporacji finansowej. Dobre pieniądze, bezpieczeństwo, perspektywy. Z zewnątrz wszystko wyglądało dobrze. A jednak coraz częściej miałem wrażenie, że żyję poprawnie, ale nie swoim życiem.',
-  crackQuote: '„Co się ze mną dzieje?"',
-  crackBody: '22 lata temu mój organizm powiedział „dość". Upadłość dewelopera budującego nasze wymarzone mieszkanie. Zagrożona ciąża naszego pierwszego dziecka. Problemy zdrowotne żony. Presja „domowego żywiciela" i poczucie uwięzienia w złotych kajdanach korporacji — razem uruchomiły nerwicę lękową. Dalej próbowałem być silny. Pracować. Zarabiać. Nie zawieść rodziny. Nie szukałem wtedy wielkich życiowych lekcji — chciałem po prostu normalnie żyć.',
-  trials: [
-    { title: 'Odejście z bankowości', desc: 'Po latach w złotych kajdanach korporacji odszedłem z bezpiecznej pracy, by zacząć od nowa.' },
-    { title: 'Park technologiczny', desc: '7 lat tworzenia młodego zespołu i prowadzenia budowy parku technologicznego dla branży IT — od wizji do gotowego obiektu.' },
-    { title: 'Firma rodzinna', desc: 'Po niespodziewanej śmierci taty przejąłem rodzinną firmę budowlaną. 8 lat odpowiedzialności, pokory i lekcji, których nie da się przeczytać w żadnej książce.' },
-  ],
-  awakenQuote: '„Zostałem stworzony nie do budowania budynków. Do budowania ludzi."',
-  awakenBody: 'Przez ponad 20 lat uczyłem się, jak żyć z lękiem, nie pozwalając mu prowadzić mojego życia. Zrozumiałem, że przez większość życia bardziej spełniałem oczekiwania niż odkrywałem swoje powołanie. Kilka lat temu zdobyłem się na odwagę, żeby zacząć od nowa — odkryłem Positive Intelligence. Nie jako kolejną metodę rozwoju osobistego, ale jako praktyczne narzędzia do trenowania umysłu, budowania odporności psychicznej i większego pokoju w głowie.',
-  todayQuote: '„Nie jestem guru. Jestem człowiekiem, który nauczył się wracać."',
-  todayBody: 'Dziś pracuję z liderami, przedsiębiorcami i mężczyznami, którzy — tak jak ja kiedyś — niosą na barkach odpowiedzialność za rodzinę i innych ludzi. Wierzę, że dobre relacje są ważniejsze niż sukces, którego nie ma z kim świętować. I że szczęśliwe życie nie zaczyna się, gdy wszystko się ułoży — zaczyna się, gdy przestajemy odkładać życie na później.',
-  coda: 'Żyj. Tak naprawdę. Bo tu, na ziemi, masz tylko jedno życie.',
+  bioQuote: '„Nie prowadzę warsztatów.\nDam Ci ogień.\nPotem dam Ci też narzędzia,\nżebyś płonął dalej."',
+  bioP1: 'Krzysztof Wnęk to inspirator, coach PQ, wykładowca WSB i mówca konferencyjny, który od ponad 25 lat pracuje w dynamicznych środowiskach projektowych z wieloma liderami w Polsce.',
+  bioP2: 'Łączy energię prelekcji ze sceny z uważnością coacha PQ rozmów indywidualnych. Interesuje go praktyka, a nie teoria w myśl przekonania, że „skuteczność jest miarą prawdy".',
   values: [
     { label: 'Wiara',           title: 'Wiara',          desc: 'W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Mędrca.' },
     { label: 'Honor',           title: 'Mów co myślisz', desc: 'Rób, co mówisz. Bez skrótów.' },
@@ -101,16 +83,8 @@ export default async function OMniePage() {
     heroLines: (raw?.heroH1  ?? F.heroH1).split('\n'),
     bioQuote:  raw?.bioQuote ?? F.bioQuote,
     bioP1:     raw?.bioP1    ?? F.bioP1,
-    bioP2:       raw?.bioP2       ?? F.bioP2,
-    crackQuote:  raw?.crackQuote  ?? F.crackQuote,
-    crackBody:   raw?.crackBody   ?? F.crackBody,
-    trials:      raw?.trials?.length ? raw.trials : F.trials,
-    awakenQuote: raw?.awakenQuote ?? F.awakenQuote,
-    awakenBody:  raw?.awakenBody  ?? F.awakenBody,
-    todayQuote:  raw?.todayQuote  ?? F.todayQuote,
-    todayBody:   raw?.todayBody   ?? F.todayBody,
-    coda:        raw?.coda        ?? F.coda,
-    values:      raw?.values?.length ? raw.values : F.values,
+    bioP2:     raw?.bioP2    ?? F.bioP2,
+    values:    raw?.values?.length ? raw.values : F.values,
   }
 
   return (
@@ -132,83 +106,25 @@ export default async function OMniePage() {
 
       <section className="sec light">
         <div className="wrap">
-          <div className="kim-top">
-            <div className="reveal">
+          <div className="content-2col" style={{ alignItems: 'center' }}>
+            <div className="reveal" style={{ aspectRatio: '4/5', backgroundImage: 'url(/krzysztof-wnek.jpg)', backgroundSize: 'cover', backgroundPosition: 'center top', width: '100%' }} aria-label="Portret — Krzysztof Wnęk" />
+            <div className="reveal" data-delay="1">
               <div className="eyebrow">01 <span className="em">—</span> Kim jestem</div>
-              <div style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(26px,3.2vw,40px)', lineHeight: 1.18, color: 'var(--text)', letterSpacing: '-0.005em', margin: '22px 0 28px', textWrap: 'pretty', whiteSpace: 'pre-line' } as React.CSSProperties}>
+              <div style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(26px,3.2vw,40px)', lineHeight: 1.18, color: 'var(--text)', letterSpacing: '-0.005em', margin: '22px 0 36px', textWrap: 'pretty', whiteSpace: 'pre-line' } as React.CSSProperties}>
                 {d.bioQuote}
               </div>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0 }}>
+              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '54ch' }}>
                 <strong>Krzysztof Wnęk</strong> {d.bioP1.replace(/^Krzysztof Wnęk (to )?/, '')}
               </p>
-            </div>
-            <div className="kim-photo-single reveal" data-delay="1" style={{ backgroundImage: 'url(/krzysztof-wnek.jpg)' }} aria-label="Portret — Krzysztof Wnęk" />
-          </div>
-          <p className="kim-body-cols reveal" data-delay="2" style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)' } as React.CSSProperties}>{d.bioP2}</p>
-        </div>
-      </section>
-
-      <section className="sec-tight dark">
-        <div className="wrap-narrow">
-          <div className="eyebrow on-dark reveal">02 <span className="em">—</span> Pierwsze pęknięcie</div>
-          <div className="crack-quote reveal" data-delay="1">{d.crackQuote}</div>
-          <p className="crack-body reveal" data-delay="2">{d.crackBody}</p>
-        </div>
-      </section>
-
-      <section className="sec light">
-        <div className="wrap">
-          <div className="eyebrow reveal">03 <span className="em">—</span> Droga prób</div>
-          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 0', textWrap: 'balance' } as React.CSSProperties} className="reveal" data-delay="1">
-            Trzy rozdziały, które mnie ukształtowały.
-          </h2>
-          <div className="steps-row reveal" data-delay="2">
-            {d.trials.map((trial, i) => (
-              <div key={i} className="step-col">
-                <div className="num">{String(i + 1).padStart(2, '0')}</div>
-                <div className="title">{trial.title}</div>
-                <div className="desc">{trial.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec-tight light">
-        <div className="wrap">
-          <div className="story-row">
-            <div className="story-photo reveal" style={{ backgroundImage: 'url(/krzysztof-wnek.jpg)' }} aria-label="Portret — Krzysztof Wnęk" />
-            <div className="reveal" data-delay="1">
-              <div className="eyebrow">04 <span className="em">—</span> Przebudzenie</div>
-              <div className="story-quote">{d.awakenQuote}</div>
-              <p className="story-body">{d.awakenBody}</p>
+              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0, maxWidth: '54ch' }}>{d.bioP2}</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="sec-tight light" style={{ paddingTop: 0 }}>
+      <section className="dark sec-tight">
         <div className="wrap">
-          <div className="story-row reverse">
-            <div className="story-photo reveal" style={{ backgroundImage: 'url(/hero.jpg)' }} aria-label="Krzysztof Wnęk z książką Positive Intelligence" />
-            <div className="reveal" data-delay="1">
-              <div className="eyebrow">05 <span className="em">—</span> Dziś</div>
-              <div className="story-quote">{d.todayQuote}</div>
-              <p className="story-body">{d.todayBody}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec dark">
-        <div className="wrap" style={{ textAlign: 'center' }}>
-          <div className="coda-text reveal" data-delay="1">{d.coda}</div>
-        </div>
-      </section>
-
-      <section className="dark sec-tight" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="eyebrow on-dark reveal">06 <span className="em">—</span> Wartości</div>
+          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Wartości</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             Kodeks rycerza.
           </h2>
