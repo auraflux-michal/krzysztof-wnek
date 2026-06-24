@@ -89,7 +89,11 @@ const F = {
 async function getPageData() {
   const [hp, testimonials] = await Promise.all([
     client.fetch<HomepageData | null>(`*[_type == "homepage"][0]`, {}, { next: { revalidate: 60 } }).catch(() => null),
-    client.fetch<Slide[]>(`*[_type == "testimonial"] | order(order asc) { name, role, quote, vimeoId }`, {}, { next: { revalidate: 60 } }).catch(() => []),
+    client.fetch<Slide[]>(
+      `*[_type == "testimonial"] | order(order asc) { name, role, quote, vimeoId, "thumbnailUrl": thumbnail.asset->url }`,
+      {},
+      { next: { revalidate: 60 } }
+    ).catch(() => []),
   ])
   return { hp, testimonials }
 }

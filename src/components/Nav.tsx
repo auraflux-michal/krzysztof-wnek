@@ -48,6 +48,7 @@ export default function Nav() {
             <Link href="/dla-ciebie">Dla Ciebie</Link>
             <Link href="/dla-firm">Dla Firm</Link>
             <Link href="/o-mnie">O Mnie</Link>
+            <Link href="/#testimonials">Dowody</Link>
             <a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a>
           </div>
           <div className="nav-cta-wrap">
@@ -78,6 +79,7 @@ export default function Nav() {
             <Link href="/dla-ciebie" onClick={closeMenu}>Dla Ciebie</Link>
             <Link href="/dla-firm" onClick={closeMenu}>Dla Firm</Link>
             <Link href="/o-mnie" onClick={closeMenu}>O Mnie</Link>
+            <Link href="/#testimonials" onClick={closeMenu}>Dowody</Link>
             <a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer" onClick={closeMenu}>YouTube</a>
           </nav>
           <div className="nav-mobile-cta">

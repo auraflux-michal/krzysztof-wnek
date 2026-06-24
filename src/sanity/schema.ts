@@ -62,9 +62,15 @@ const testimonial = defineType({
     defineField({ name: 'role', title: 'Stanowisko', type: 'string' }),
     defineField({ name: 'quote', title: 'Cytat', type: 'text' }),
     defineField({ name: 'vimeoId', title: 'Vimeo Video ID', type: 'string' }),
+    defineField({
+      name: 'thumbnail',
+      title: 'Miniatura (jeśli puste, użyty zostanie automatyczny kadr z Vimeo)',
+      type: 'image',
+      options: { hotspot: true },
+    }),
     defineField({ name: 'order', title: 'Kolejność', type: 'number' }),
   ],
-  preview: { select: { title: 'name', subtitle: 'role' } },
+  preview: { select: { title: 'name', subtitle: 'role', media: 'thumbnail' } },
 })
 
 /* ── Homepage ── */

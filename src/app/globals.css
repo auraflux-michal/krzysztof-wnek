@@ -837,30 +837,40 @@ section { position: relative; }
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
-.testi-slide {
+.testi-page {
   grid-area: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.55s ease;
-  max-width: 780px;
-  margin: 0 auto;
   width: 100%;
 }
-.testi-slide.active {
+.testi-page.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-.testi-slide-video {
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .testi-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+.testi-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.testi-card-video {
   position: relative;
-  aspect-ratio: 16/9;
+  aspect-ratio: 4/3;
   overflow: hidden;
   background: #111;
 }
-.testi-slide-video img {
+.testi-card-video img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
@@ -875,7 +885,7 @@ section { position: relative; }
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 72px; height: 72px;
+  width: 56px; height: 56px;
   background: rgba(255,255,255,0.10);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -887,24 +897,17 @@ section { position: relative; }
   transition: background .25s, border-color .25s, transform .25s;
   z-index: 2;
 }
-.testi-play svg { width: 20px; height: 20px; margin-left: 3px; }
-.testi-slide-video:hover .testi-play {
+.testi-play svg { width: 16px; height: 16px; margin-left: 2px; }
+.testi-card-video:hover .testi-play {
   background: var(--accent-deep);
   border-color: var(--accent-deep);
   transform: translate(-50%, -50%) scale(1.08);
 }
 
-.testi-slide-quote {
-  font-family: var(--display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(19px, 1.8vw, 24px);
-  line-height: 1.55;
-  color: rgba(255,255,255,0.88);
-  margin: 0;
-  text-wrap: pretty;
+.testi-card-caption {
+  padding: 24px 0 0;
 }
-.testi-slide-name {
+.testi-card-name {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -912,46 +915,23 @@ section { position: relative; }
   color: var(--accent-light);
   font-weight: 500;
 }
-.testi-slide-role {
+.testi-card-role {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.42);
   margin-top: 6px;
+  margin-bottom: 16px;
 }
-
-.testi-slide-caption {
-  padding: 32px 0 0;
-  text-align: center;
-  max-width: 60ch;
-  margin: 0 auto;
-}
-.testi-slide-caption .testi-slide-name {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent-light);
-  font-weight: 500;
-}
-.testi-slide-caption .testi-slide-role {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.42);
-  margin-top: 6px;
-  margin-bottom: 20px;
-}
-.testi-slide-caption .testi-slide-quote {
+.testi-card-quote {
   font-family: var(--display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(17px, 1.6vw, 21px);
-  line-height: 1.55;
+  font-size: clamp(15px, 1.3vw, 17px);
+  line-height: 1.5;
   color: rgba(255,255,255,0.82);
-  margin: 0;
+  margin: 8px 0 0;
   text-wrap: pretty;
 }
 
@@ -1352,6 +1332,44 @@ footer.foot {
   align-items: start;
 }
 @media (max-width: 880px) { .content-2col { grid-template-columns: 1fr; gap: 48px; } }
+
+.kim-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 880px) { .kim-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.kim-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.kim-photo-main {
+  aspect-ratio: 4/5;
+  background-size: cover;
+  background-position: center top;
+  width: 100%;
+}
+.kim-photo-secondary {
+  aspect-ratio: 4/5;
+  background-size: cover;
+  background-position: center top;
+  width: 68%;
+  align-self: flex-end;
+  margin-top: -48px;
+}
+@media (max-width: 880px) {
+  .kim-photo-secondary { margin-top: 0; width: 55%; }
+}
+
+.kim-text-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+@media (max-width: 600px) { .kim-text-cols { grid-template-columns: 1fr; } }
 
 .steps-row {
   display: grid;

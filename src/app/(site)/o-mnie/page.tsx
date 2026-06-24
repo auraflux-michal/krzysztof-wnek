@@ -106,17 +106,22 @@ export default async function OMniePage() {
 
       <section className="sec light">
         <div className="wrap">
-          <div className="content-2col" style={{ alignItems: 'center' }}>
-            <div className="reveal" style={{ aspectRatio: '4/5', backgroundImage: 'url(/krzysztof-wnek.jpg)', backgroundSize: 'cover', backgroundPosition: 'center top', width: '100%' }} aria-label="Portret — Krzysztof Wnęk" />
+          <div className="kim-grid">
+            <div className="kim-photos reveal">
+              <div className="kim-photo-main" style={{ backgroundImage: 'url(/krzysztof-wnek.jpg)' }} aria-label="Portret — Krzysztof Wnęk" />
+              <div className="kim-photo-secondary" style={{ backgroundImage: 'url(/hero.jpg)' }} aria-label="Krzysztof Wnęk z książką Positive Intelligence" />
+            </div>
             <div className="reveal" data-delay="1">
               <div className="eyebrow">01 <span className="em">—</span> Kim jestem</div>
               <div style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(26px,3.2vw,40px)', lineHeight: 1.18, color: 'var(--text)', letterSpacing: '-0.005em', margin: '22px 0 36px', textWrap: 'pretty', whiteSpace: 'pre-line' } as React.CSSProperties}>
                 {d.bioQuote}
               </div>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '54ch' }}>
-                <strong>Krzysztof Wnęk</strong> {d.bioP1.replace(/^Krzysztof Wnęk (to )?/, '')}
-              </p>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0, maxWidth: '54ch' }}>{d.bioP2}</p>
+              <div className="kim-text-cols">
+                <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0 }}>
+                  <strong>Krzysztof Wnęk</strong> {d.bioP1.replace(/^Krzysztof Wnęk (to )?/, '')}
+                </p>
+                <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0 }}>{d.bioP2}</p>
+              </div>
             </div>
           </div>
         </div>

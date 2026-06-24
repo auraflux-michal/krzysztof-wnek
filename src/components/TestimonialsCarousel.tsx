@@ -7,6 +7,7 @@ export interface Slide {
   role: string
   quote: string
   vimeoId?: string
+  thumbnailUrl?: string
 }
 
 const FALLBACK_SLIDES: Slide[] = [
@@ -42,15 +43,25 @@ const FALLBACK_SLIDES: Slide[] = [
   },
 ]
 
+const PER_PAGE = 3
+
+function chunk<T>(items: T[], size: number): T[][] {
+  const pages: T[][] = []
+  for (let i = 0; i < items.length; i += size) pages.push(items.slice(i, i + size))
+  return pages
+}
+
 export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { slides?: Slide[] }) {
+  const pages = chunk(slides, PER_PAGE)
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   function startTimer() {
     if (timerRef.current) clearInterval(timerRef.current)
+    if (pages.length <= 1) return
     timerRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % slides.length)
-    }, 7000)
+      setCurrent((c) => (c + 1) % pages.length)
+    }, 8000)
   }
 
   useEffect(() => {
@@ -59,7 +70,7 @@ export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { sli
   }, [])
 
   function goTo(n: number) {
-    setCurrent((n + slides.length) % slides.length)
+    setCurrent((n + pages.length) % pages.length)
     startTimer()
   }
 
@@ -84,57 +95,64 @@ export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { sli
         onMouseEnter={() => { if (timerRef.current) clearInterval(timerRef.current) }}
         onMouseLeave={startTimer}
       >
-        {slides.map((slide, i) => (
-          <div key={i} className={`testi-slide${i === current ? ' active' : ''}`}>
-            <div className="testi-slide-video">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={slide.vimeoId ? `https://vumbnail.com/${slide.vimeoId}.jpg` : '/video-placeholder.png'}
-                alt={slide.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'absolute', inset: 0 }}
-              />
-              <div className="testi-video-overlay" />
-              <button
-                className="testi-play"
-                onClick={() => handlePlay(slide.vimeoId ?? '')}
-                aria-label={`Odtwórz opinię ${slide.name}`}
-              >
-                <svg viewBox="0 0 16 16" fill="currentColor">
-                  <path d="M4 2v12l10-6z" />
-                </svg>
-              </button>
-            </div>
-            <div className="testi-slide-caption">
-              <div className="testi-slide-name">{slide.name}</div>
-              {slide.role && <div className="testi-slide-role">{slide.role}</div>}
-              <p className="testi-slide-quote">{slide.quote}</p>
+        {pages.map((page, p) => (
+          <div key={p} className={`testi-page${p === current ? ' active' : ''}`}>
+            <div className="testi-grid">
+              {page.map((slide, i) => (
+                <div key={i} className="testi-card">
+                  <div className="testi-card-video">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={slide.thumbnailUrl || (slide.vimeoId ? `https://vumbnail.com/${slide.vimeoId}.jpg` : '/video-placeholder.png')}
+                      alt={slide.name}
+                    />
+                    <div className="testi-video-overlay" />
+                    <button
+                      className="testi-play"
+                      onClick={() => handlePlay(slide.vimeoId ?? '')}
+                      aria-label={`Odtwórz opinię ${slide.name}`}
+                    >
+                      <svg viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4 2v12l10-6z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="testi-card-caption">
+                    <div className="testi-card-name">{slide.name}</div>
+                    {slide.role && <div className="testi-card-role">{slide.role}</div>}
+                    <p className="testi-card-quote">{slide.quote}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="testi-carousel-nav">
-        <button className="testi-arrow" onClick={() => goTo(current - 1)} aria-label="Poprzedni">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 12H5M11 6l-6 6 6 6" />
-          </svg>
-        </button>
-        <div className="testi-dots">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              className={`testi-dot${i === current ? ' active' : ''}`}
-              onClick={() => goTo(i)}
-              aria-label={`Slajd ${i + 1}`}
-            />
-          ))}
+      {pages.length > 1 && (
+        <div className="testi-carousel-nav">
+          <button className="testi-arrow" onClick={() => goTo(current - 1)} aria-label="Poprzednie">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M11 6l-6 6 6 6" />
+            </svg>
+          </button>
+          <div className="testi-dots">
+            {pages.map((_, i) => (
+              <button
+                key={i}
+                className={`testi-dot${i === current ? ' active' : ''}`}
+                onClick={() => goTo(i)}
+                aria-label={`Strona ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button className="testi-arrow" onClick={() => goTo(current + 1)} aria-label="Następne">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
         </div>
-        <button className="testi-arrow" onClick={() => goTo(current + 1)} aria-label="Następny">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </button>
-      </div>
+      )}
     </div>
   )
 }
