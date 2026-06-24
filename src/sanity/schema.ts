@@ -304,6 +304,7 @@ const pageOMnie = defineType({
   groups: [
     { name: 'hero', title: '🦸 Hero' },
     { name: 'bio', title: '👤 Bio' },
+    { name: 'timeline', title: '📅 Oś czasu' },
     { name: 'values', title: '⚔️ Wartości' },
   ],
   fields: [
@@ -311,6 +312,23 @@ const pageOMnie = defineType({
     defineField({ name: 'bioQuote', title: 'Bio · cytat', type: 'text', group: 'bio' }),
     defineField({ name: 'bioP1', title: 'Bio · paragraf 1', type: 'text', group: 'bio' }),
     defineField({ name: 'bioP2', title: 'Bio · paragraf 2', type: 'text', group: 'bio' }),
+    defineField({
+      name: 'timeline',
+      title: 'Oś czasu',
+      type: 'array',
+      group: 'timeline',
+      of: [defineArrayMember({
+        type: 'object',
+        name: 'tlItem',
+        title: 'Wydarzenie',
+        fields: [
+          defineField({ name: 'year', title: 'Rok', type: 'string' }),
+          defineField({ name: 'title', title: 'Tytuł', type: 'string' }),
+          defineField({ name: 'desc', title: 'Opis', type: 'text' }),
+        ],
+        preview: { select: { title: 'title', subtitle: 'year' } },
+      })],
+    }),
     defineField({
       name: 'values',
       title: 'Wartości (kodeks rycerza)',

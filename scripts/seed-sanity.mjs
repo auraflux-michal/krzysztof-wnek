@@ -198,6 +198,14 @@ const docs = [
     bioQuote: '„Nie prowadzę warsztatów.\nDam Ci ogień.\nPotem dam Ci też narzędzia,\nżebyś płonął dalej."',
     bioP1: 'Krzysztof Wnęk to inspirator, coach PQ, wykładowca WSB i mówca konferencyjny, który od ponad 25 lat pracuje w dynamicznych środowiskach projektowych z wieloma liderami w Polsce.',
     bioP2: 'Łączy energię prelekcji ze sceny z uważnością coacha PQ rozmów indywidualnych. Interesuje go praktyka, a nie teoria w myśl przekonania, że „skuteczność jest miarą prawdy".',
+    timeline: [
+      { _key: 't1', year: '2017',  title: 'Pierwsze wystąpienie publiczne',  desc: 'Wszedłem na scenę drżąc. Wyszedłem wiedząc, że to jest moje miejsce.' },
+      { _key: 't2', year: '2019',  title: 'Odkrycie Positive Intelligence®', desc: 'Shirzad Chamine, Harvard, neurobiologia. Coś, co zmieniło sposób, w jaki rozumiem siebie i innych.' },
+      { _key: 't3', year: '2021',  title: 'Certyfikacja PQ Coach',           desc: 'Oficjalny certyfikat Positive Intelligence®. Jeden z nielicznych certyfikowanych coachów PQ w Polsce.' },
+      { _key: 't4', year: '2022',  title: 'Wykładowca WSB',                  desc: 'Dołączyłem do grona wykładowców Wyższej Szkoły Biznesu. Temat: przywództwo i odporność mentalna.' },
+      { _key: 't5', year: '2023',  title: '200+ absolwentów programu',       desc: 'Ponad 200 liderów, menedżerów i przedsiębiorców przeszło przez program PQ.' },
+      { _key: 't6', year: '2024+', title: 'Teraz',                           desc: 'Prowadzę programy, wygłaszam prelekcje i pracuję indywidualnie z ludźmi, którzy osiągnęli wszystko — i odkryli, że czegoś brakuje.' },
+    ],
     values: [
       { _key: 'v1', label: 'Wiara',           title: 'Wiara',          desc: 'W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Mędrca.' },
       { _key: 'v2', label: 'Honor',           title: 'Mów co myślisz', desc: 'Rób, co mówisz. Bez skrótów.' },
