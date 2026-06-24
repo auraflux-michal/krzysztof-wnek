@@ -1371,6 +1371,43 @@ footer.foot {
 }
 @media (max-width: 600px) { .kim-text-cols { grid-template-columns: 1fr; } }
 
+.story-row {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.story-row.reverse { grid-template-columns: 1fr 0.85fr; }
+.story-row.reverse .story-photo { order: 2; }
+@media (max-width: 880px) {
+  .story-row, .story-row.reverse { grid-template-columns: 1fr; gap: 32px; }
+  .story-row.reverse .story-photo { order: 0; }
+}
+.story-photo {
+  aspect-ratio: 4/5;
+  background-size: cover;
+  background-position: center top;
+  width: 100%;
+}
+.story-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.18;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  margin: 22px 0 24px;
+  text-wrap: pretty;
+}
+.story-body {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 46ch;
+}
+
 .steps-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

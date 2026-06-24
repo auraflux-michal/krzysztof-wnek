@@ -57,6 +57,8 @@ interface ValueCell { label: string; title: string; desc: string }
 interface PageData {
   heroH1?: string
   bioQuote?: string; bioP1?: string; bioP2?: string
+  ch2Quote?: string; ch2Body?: string
+  ch3Quote?: string; ch3Body?: string
   values?: ValueCell[]
 }
 
@@ -65,6 +67,10 @@ const F = {
   bioQuote: '„Nie prowadzę warsztatów.\nDam Ci ogień.\nPotem dam Ci też narzędzia,\nżebyś płonął dalej."',
   bioP1: 'Krzysztof Wnęk to inspirator, coach PQ, wykładowca WSB i mówca konferencyjny, który od ponad 25 lat pracuje w dynamicznych środowiskach projektowych z wieloma liderami w Polsce.',
   bioP2: 'Łączy energię prelekcji ze sceny z uważnością coacha PQ rozmów indywidualnych. Interesuje go praktyka, a nie teoria w myśl przekonania, że „skuteczność jest miarą prawdy".',
+  ch2Quote: 'Wszedłem na scenę drżąc.',
+  ch2Body: 'W 2017 roku wyszedłem na scenę po raz pierwszy — i zszedłem z niej wiedząc, że to jest moje miejsce. Dwa lata później odkryłem Positive Intelligence®: pracę Shirzada Chamine\'a, wykładowcy Stanford University, łączącą neurobiologię z praktyką realnej zmiany. To był moment, który zmienił sposób, w jaki rozumiem siebie i innych.',
+  ch3Quote: 'Skuteczność jest miarą prawdy.',
+  ch3Body: 'Dziś jest certyfikowanym coachem Positive Intelligence® — jednym z niewielu w Polsce — oraz wykładowcą WSB-NLU, ucząc przywództwa i odporności mentalnej. Przez program PQ przeprowadził już ponad 200 liderów, menedżerów i przedsiębiorców. Interesuje go praktyka, nie teoria.',
   values: [
     { label: 'Wiara',           title: 'Wiara',          desc: 'W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Mędrca.' },
     { label: 'Honor',           title: 'Mów co myślisz', desc: 'Rób, co mówisz. Bez skrótów.' },
@@ -84,6 +90,10 @@ export default async function OMniePage() {
     bioQuote:  raw?.bioQuote ?? F.bioQuote,
     bioP1:     raw?.bioP1    ?? F.bioP1,
     bioP2:     raw?.bioP2    ?? F.bioP2,
+    ch2Quote:  raw?.ch2Quote ?? F.ch2Quote,
+    ch2Body:   raw?.ch2Body  ?? F.ch2Body,
+    ch3Quote:  raw?.ch3Quote ?? F.ch3Quote,
+    ch3Body:   raw?.ch3Body  ?? F.ch3Body,
     values:    raw?.values?.length ? raw.values : F.values,
   }
 
@@ -127,9 +137,35 @@ export default async function OMniePage() {
         </div>
       </section>
 
+      <section className="sec-tight light">
+        <div className="wrap">
+          <div className="story-row">
+            <div className="story-photo reveal" style={{ backgroundImage: 'url(/hero.jpg)' }} aria-label="Krzysztof Wnęk z książką Positive Intelligence" />
+            <div className="reveal" data-delay="1">
+              <div className="eyebrow">02 <span className="em">—</span> Przebudzenie</div>
+              <div className="story-quote">{d.ch2Quote}</div>
+              <p className="story-body">{d.ch2Body}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec-tight light" style={{ paddingTop: 0 }}>
+        <div className="wrap">
+          <div className="story-row reverse">
+            <div className="story-photo reveal" style={{ backgroundImage: 'url(/krzysztof-wnek.jpg)' }} aria-label="Portret — Krzysztof Wnęk" />
+            <div className="reveal" data-delay="1">
+              <div className="eyebrow">03 <span className="em">—</span> Dziś</div>
+              <div className="story-quote">{d.ch3Quote}</div>
+              <p className="story-body">{d.ch3Body}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="dark sec-tight">
         <div className="wrap">
-          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Wartości</div>
+          <div className="eyebrow on-dark reveal">04 <span className="em">—</span> Wartości</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             Kodeks rycerza.
           </h2>
