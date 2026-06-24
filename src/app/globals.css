@@ -1408,6 +1408,37 @@ footer.foot {
   max-width: 46ch;
 }
 
+.crack-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.18;
+  color: #fff;
+  letter-spacing: -0.005em;
+  margin: 22px 0 28px;
+  text-wrap: pretty;
+}
+.crack-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-light-muted);
+  margin: 0;
+  max-width: 64ch;
+}
+
+.coda-text {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(32px, 4.5vw, 64px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  max-width: 18ch;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
 .steps-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
