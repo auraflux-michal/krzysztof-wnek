@@ -37,7 +37,7 @@ interface HomepageData {
   transBefore?: string[]; transAfter?: string[]
   mainVideoId?: string; mainVideoDuration?: string
   sabHeading?: string; sabDesc?: RichText; sabSteps?: SabStep[]
-  aboutQuote?: string; aboutBio1?: RichText; aboutBio2?: RichText
+  aboutQuote?: string; aboutBio1?: RichText
   paths?: Path[]
   finaleHeading?: string; finaleLead?: string; finaleNote?: string
 }
@@ -77,7 +77,6 @@ const F = {
   ],
   aboutQuote: '„Nie prowadzę warsztatów. Rozpalam ludzi. Potem daję im narzędzia, żeby płonęli dalej."',
   aboutBio1: 'Trener fitnessu mentalnego i propagator Pozytywnej Inteligencji. Wspieram mężczyzn w budowaniu „antykruchości" — większego spokoju, odporności psychicznej i lepszych relacji, bez udawania twardziela w dynamicznych czasach.',
-  aboutBio2: 'Od ponad 20 lat zgłębiam mechanizmy lęku i napięcia, ucząc się, jak nie pozwolić im przejąć kontroli nad życiem. Prywatnie szczęśliwy mąż jednej żony i ojciec 3 synów.',
   paths: [
     { tag: 'Program PQ · Premium',      title: '7-tygodniowy program',       desc: 'Dla osób znających angielski. Pełna metodologia PQ. Najgłębsza, najbardziej trwała transformacja.', price: '4 000 — 5 000 PLN', priceSub: 'lub 12 × 300 PLN', ctaLabel: 'Dowiedz się więcej →', ctaHref: '/dla-ciebie' },
     { tag: 'Coaching 1:1 · Indywidualny', title: 'Minimum 5 sesji',            desc: 'Bez angielskiego lub po programie. Narzędzia proaktywnego coachingu + metodologia PQ dopasowana do Twojej sytuacji.', price: 'Do ustalenia', ctaLabel: 'Zapytaj o sesję →', ctaHref: '/umow-rozmowe' },
@@ -181,7 +180,6 @@ export default async function HomePage() {
     sabSteps:        hp?.sabSteps?.length ? hp.sabSteps : F.sabSteps,
     aboutQuote:      hp?.aboutQuote      ?? F.aboutQuote,
     aboutBio1:       hp?.aboutBio1       ?? F.aboutBio1,
-    aboutBio2:       hp?.aboutBio2       ?? F.aboutBio2,
     paths:           hp?.paths?.length   ? hp.paths   : F.paths,
     finaleHeading:   hp?.finaleHeading   ?? F.finaleHeading,
     finaleLead:      hp?.finaleLead      ?? F.finaleLead,
@@ -333,7 +331,6 @@ export default async function HomePage() {
               <div className="eyebrow">04 <span className="em">—</span> Kim jestem</div>
               <div className="about-quote">{h.aboutQuote}</div>
               <PortableBlock value={h.aboutBio1} className="about-bio" />
-              <PortableBlock value={h.aboutBio2} className="about-bio" />
               <div className="about-cta">
                 <Link href="/o-mnie" className="link-text">Przeczytaj pełną historię →</Link>
               </div>

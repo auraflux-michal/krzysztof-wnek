@@ -148,7 +148,6 @@ const homepage = defineType({
     /* About */
     defineField({ name: 'aboutQuote', title: 'O mnie · cytat', type: 'text', group: 'about' }),
     defineField({ name: 'aboutBio1', title: 'O mnie · bio paragraf 1', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
-    defineField({ name: 'aboutBio2', title: 'O mnie · bio paragraf 2', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
 
     /* Paths */
     defineField({
