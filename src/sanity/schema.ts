@@ -310,8 +310,8 @@ const pageOMnie = defineType({
   fields: [
     defineField({ name: 'heroH1', title: 'Hero · H1', type: 'text', group: 'hero' }),
     defineField({ name: 'bioQuote', title: 'Bio · cytat', type: 'text', group: 'bio' }),
-    defineField({ name: 'bioP1', title: 'Bio · paragraf 1', type: 'text', group: 'bio' }),
-    defineField({ name: 'bioP2', title: 'Bio · paragraf 2', type: 'text', group: 'bio' }),
+    defineField({ name: 'bioP1', title: 'Bio · paragraf 1', type: 'array', group: 'bio', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'bioP2', title: 'Bio · paragraf 2', type: 'array', group: 'bio', of: [defineArrayMember({ type: 'block' })] }),
     defineField({
       name: 'timeline',
       title: 'Oś czasu',

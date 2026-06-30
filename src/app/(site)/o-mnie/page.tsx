@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
+import PortableBlock from '@/components/PortableBlock'
 import { client } from '@/sanity/client'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RichText = string | Record<string, any>[]
 
 export const metadata: Metadata = {
   title: 'O Mnie — Certyfikowany Coach PQ',
@@ -56,7 +60,7 @@ interface ValueCell { label: string; title: string; desc: string }
 
 interface PageData {
   heroH1?: string
-  bioQuote?: string; bioP1?: string; bioP2?: string
+  bioQuote?: string; bioP1?: RichText; bioP2?: RichText
   values?: ValueCell[]
 }
 
@@ -113,10 +117,8 @@ export default async function OMniePage() {
               <div style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(26px,3.2vw,40px)', lineHeight: 1.18, color: 'var(--text)', letterSpacing: '-0.005em', margin: '22px 0 36px', textWrap: 'pretty', whiteSpace: 'pre-line' } as React.CSSProperties}>
                 {d.bioQuote}
               </div>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '54ch' }}>
-                <strong>Krzysztof Wnęk</strong> {d.bioP1.replace(/^Krzysztof Wnęk (to )?/, '')}
-              </p>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0, maxWidth: '54ch' }}>{d.bioP2}</p>
+              <PortableBlock value={d.bioP1} className="dc-body-p" />
+              <PortableBlock value={d.bioP2} className="dc-body-p dc-body-p--last" />
             </div>
           </div>
         </div>
