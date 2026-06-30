@@ -151,9 +151,32 @@ export default async function DlaCiebiePage() {
         </div>
       </section>
 
-      <section className="sec" style={{ background: 'var(--paper)' }}>
+      <section className="sec dark">
         <div className="wrap">
-          <div className="eyebrow reveal">02 <span className="em">—</span> Proces</div>
+          <div className="eyebrow on-dark reveal">02 <span className="em">—</span> Jak możemy współpracować</div>
+          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
+            Dwa formaty.
+          </h2>
+          <div className="formats-row reveal" data-delay="2">
+            <div className="format-col">
+              <div className="eyebrow">Program PQ <span className="em">·</span> Premium</div>
+              <h3>7-tygodniowy<br />program PQ</h3>
+              <p>Dla osób znających angielski. Pełna metodologia PQ — aplikacja, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku. Najgłębsza i najbardziej trwała transformacja.</p>
+              <a href="#kroki" className="link-text amber">Jak to działa →</a>
+            </div>
+            <div className="format-col">
+              <div className="eyebrow">Coaching 1:1 <span className="em">·</span> Indywidualny</div>
+              <h3>Minimum<br />5 sesji</h3>
+              <p>Bez angielskiego lub po Programie®. Narzędzia proaktywnego coachingu i metodologia PQ dopasowana do Twojej sytuacji. Pracujemy we własnym tempie.</p>
+              <a href="/umow-rozmowe" className="link-text amber">Zapytaj o sesję →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" id="kroki" style={{ background: 'var(--paper)' }}>
+        <div className="wrap">
+          <div className="eyebrow reveal">03 <span className="em">—</span> Proces</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 0', textWrap: 'balance' } as React.CSSProperties} className="reveal" data-delay="1">
             Trzy kroki.
           </h2>
@@ -171,7 +194,7 @@ export default async function DlaCiebiePage() {
 
       <section className="dark sec-tight">
         <div className="wrap" style={{ textAlign: 'center' }}>
-          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Pierwszy krok</div>
+          <div className="eyebrow on-dark reveal">04 <span className="em">—</span> Pierwszy krok</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5.5vw,80px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px auto 16px', maxWidth: '16ch', textWrap: 'balance', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             Zacznij od <em>testu</em>.
           </h2>
@@ -187,7 +210,7 @@ export default async function DlaCiebiePage() {
       <section className="sec light">
         <div className="wrap">
           <div style={{ textAlign: 'center' }}>
-            <div className="eyebrow reveal">04 <span className="em">—</span> Pytania</div>
+            <div className="eyebrow reveal">05 <span className="em">—</span> Pytania</div>
             <h2 style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(48px,6vw,88px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px' } as React.CSSProperties} className="reveal" data-delay="1">FAQ</h2>
           </div>
           <FaqAccordion items={d.faq} />
