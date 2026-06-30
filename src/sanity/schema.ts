@@ -142,13 +142,13 @@ const homepage = defineType({
 
     /* Saboteurs */
     defineField({ name: 'sabHeading', title: 'Sabotażyści · nagłówek', type: 'string', group: 'saboteurs' }),
-    defineField({ name: 'sabDesc', title: 'Sabotażyści · opis', type: 'text', group: 'saboteurs' }),
+    defineField({ name: 'sabDesc', title: 'Sabotażyści · opis', type: 'array', group: 'saboteurs', of: [defineArrayMember({ type: 'block' })] }),
     defineField({ name: 'sabSteps', title: 'Sabotażyści · kroki', type: 'array', group: 'saboteurs', of: [sabStep] }),
 
     /* About */
     defineField({ name: 'aboutQuote', title: 'O mnie · cytat', type: 'text', group: 'about' }),
-    defineField({ name: 'aboutBio1', title: 'O mnie · bio paragraf 1', type: 'text', group: 'about' }),
-    defineField({ name: 'aboutBio2', title: 'O mnie · bio paragraf 2', type: 'text', group: 'about' }),
+    defineField({ name: 'aboutBio1', title: 'O mnie · bio paragraf 1', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'aboutBio2', title: 'O mnie · bio paragraf 2', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
 
     /* Paths */
     defineField({
@@ -198,9 +198,9 @@ const pageDlaCiebie = defineType({
     defineField({ name: 'heroH1', title: 'Hero · nagłówek H1 (4 linie, każda nową linią)', type: 'text', group: 'hero' }),
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'aboutHeading', title: 'Co to jest · nagłówek', type: 'string', group: 'about' }),
-    defineField({ name: 'aboutP1', title: 'Co to jest · paragraf 1', type: 'text', group: 'about' }),
-    defineField({ name: 'aboutP2', title: 'Co to jest · paragraf 2', type: 'text', group: 'about' }),
-    defineField({ name: 'aboutP3', title: 'Co to jest · paragraf 3', type: 'text', group: 'about' }),
+    defineField({ name: 'aboutP1', title: 'Co to jest · paragraf 1', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'aboutP2', title: 'Co to jest · paragraf 2', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'aboutP3', title: 'Co to jest · paragraf 3', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
     defineField({
       name: 'steps',
       title: 'Kroki (01, 02, 03)',
@@ -255,8 +255,8 @@ const pageDlaFirm = defineType({
     defineField({ name: 'heroH1', title: 'Hero · H1', type: 'text', group: 'hero' }),
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'costHeading', title: 'Koszt · nagłówek', type: 'string', group: 'cost' }),
-    defineField({ name: 'costP1', title: 'Koszt · paragraf 1', type: 'text', group: 'cost' }),
-    defineField({ name: 'costP2', title: 'Koszt · paragraf 2', type: 'text', group: 'cost' }),
+    defineField({ name: 'costP1', title: 'Koszt · paragraf 1', type: 'array', group: 'cost', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'costP2', title: 'Koszt · paragraf 2', type: 'array', group: 'cost', of: [defineArrayMember({ type: 'block' })] }),
     defineField({
       name: 'formats',
       title: 'Formaty (A i B)',

@@ -2,7 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import FaqAccordion from '@/components/FaqAccordion'
 import JsonLd from '@/components/JsonLd'
+import PortableBlock from '@/components/PortableBlock'
 import { client } from '@/sanity/client'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RichText = string | Record<string, any>[]
 
 export const metadata: Metadata = {
   title: 'Program PQ — 7-tygodniowy Trening Mentalny',
@@ -23,7 +27,7 @@ interface PageData {
   heroH1?: string
   heroLead?: string
   aboutHeading?: string
-  aboutP1?: string; aboutP2?: string; aboutP3?: string
+  aboutP1?: RichText; aboutP2?: RichText; aboutP3?: RichText
   steps?: Step[]
   priceLabel?: string; priceText?: string
   faq?: FaqItem[]
@@ -139,10 +143,9 @@ export default async function DlaCiebiePage() {
               </h2>
             </div>
             <div className="reveal" data-delay="1" style={{ paddingTop: '8px' }}>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '52ch' }}>{d.aboutP1}</p>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '52ch' }}
-                dangerouslySetInnerHTML={{ __html: d.aboutP2.replace('rozpoznawać sabotażystów', '<strong>rozpoznawać sabotażystów</strong>') }} />
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0, maxWidth: '52ch' }}>{d.aboutP3}</p>
+              <PortableBlock value={d.aboutP1} className="dc-body-p" />
+              <PortableBlock value={d.aboutP2} className="dc-body-p" />
+              <PortableBlock value={d.aboutP3} className="dc-body-p dc-body-p--last" />
             </div>
           </div>
         </div>

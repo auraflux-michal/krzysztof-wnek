@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
+import PortableBlock from '@/components/PortableBlock'
 import { client } from '@/sanity/client'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RichText = string | Record<string, any>[]
 
 export const metadata: Metadata = {
   title: 'Coaching B2B i Power Speech dla Firm',
@@ -19,7 +23,7 @@ interface RoiStat { num: string; label: string }
 
 interface PageData {
   heroH1?: string; heroLead?: string
-  costHeading?: string; costP1?: string; costP2?: string
+  costHeading?: string; costP1?: RichText; costP2?: RichText
   formats?: Format[]
   roiStats?: RoiStat[]; roiSource?: string
 }
@@ -86,9 +90,8 @@ export default async function DlaFirmPage() {
               </h2>
             </div>
             <div className="reveal" data-delay="1">
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: '0 0 16px', maxWidth: '52ch' }}>{d.costP1}</p>
-              <p style={{ fontSize: '15.5px', lineHeight: 1.7, color: 'var(--text-muted)', margin: 0, maxWidth: '52ch' }}
-                dangerouslySetInnerHTML={{ __html: d.costP2.replace('zmiana sposobu myślenia', '<strong>zmiana sposobu myślenia</strong>') }} />
+              <PortableBlock value={d.costP1} className="dc-body-p" />
+              <PortableBlock value={d.costP2} className="dc-body-p dc-body-p--last" />
             </div>
           </div>
         </div>

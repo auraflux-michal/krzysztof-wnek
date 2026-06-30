@@ -5,7 +5,11 @@ import TestimonialsCarousel, { type Slide } from '@/components/TestimonialsCarou
 import YouTubeGrid from '@/components/YouTubeGrid'
 import FinaleForm from '@/components/FinaleForm'
 import JsonLd from '@/components/JsonLd'
+import PortableBlock from '@/components/PortableBlock'
 import { client } from '@/sanity/client'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RichText = string | Record<string, any>[]
 
 export const metadata: Metadata = {
   title: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor | Positive Intelligence®',
@@ -32,8 +36,8 @@ interface HomepageData {
   problemHeading?: string; problemCards?: string[]
   transBefore?: string[]; transAfter?: string[]
   mainVideoId?: string; mainVideoDuration?: string
-  sabHeading?: string; sabDesc?: string; sabSteps?: SabStep[]
-  aboutQuote?: string; aboutBio1?: string; aboutBio2?: string
+  sabHeading?: string; sabDesc?: RichText; sabSteps?: SabStep[]
+  aboutQuote?: string; aboutBio1?: RichText; aboutBio2?: RichText
   paths?: Path[]
   finaleHeading?: string; finaleLead?: string; finaleNote?: string
 }
@@ -297,20 +301,24 @@ export default async function HomePage() {
                   ? <>Zanim zaczniesz walczyć — <br />poznaj <span className="it">wroga</span>.</>
                   : h.sabHeading}
               </h2>
-              <p className="desc">{h.sabDesc}</p>
+              <PortableBlock value={h.sabDesc} className="desc" />
               <a href="#umow" className="btn btn-dark">Odbierz bezpłatny test</a>
-              <p className="note">Zapisz się niżej · Wyniki dostaniesz na e-mail</p>
+              <p className="note">Kliknij i odbierz darmowy test</p>
             </div>
-            <div className="sabo-steps reveal" data-delay="2">
-              {h.sabSteps.map((step, i) => (
-                <div key={i} className="sabo-step">
-                  <div className="n">{step.num}</div>
-                  <div>
-                    <div className="t">{step.title}</div>
-                    <div className="d">{step.desc}</div>
+            <div className="reveal" data-delay="2">
+              <h2 className="sabo-mobile-heading">3 proste kroki</h2>
+              <div className="sabo-steps">
+                {h.sabSteps.map((step, i) => (
+                  <div key={i} className="sabo-step">
+                    <div className="n">{step.num}</div>
+                    <div>
+                      <div className="t">{step.title}</div>
+                      <div className="d">{step.desc}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <a href="#umow" className="btn btn-dark sabo-mobile-cta">Odbierz bezpłatny test</a>
             </div>
           </div>
         </div>
@@ -324,8 +332,8 @@ export default async function HomePage() {
             <div className="about-body reveal" data-delay="1">
               <div className="eyebrow">04 <span className="em">—</span> Kim jestem</div>
               <div className="about-quote">{h.aboutQuote}</div>
-              <p className="about-bio">{h.aboutBio1}</p>
-              <p className="about-bio">{h.aboutBio2}</p>
+              <PortableBlock value={h.aboutBio1} className="about-bio" />
+              <PortableBlock value={h.aboutBio2} className="about-bio" />
               <div className="about-cta">
                 <Link href="/o-mnie" className="link-text">Przeczytaj pełną historię →</Link>
               </div>
