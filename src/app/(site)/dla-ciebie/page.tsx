@@ -27,7 +27,7 @@ interface PageData {
   heroH1?: string
   heroLead?: string
   aboutHeading?: string
-  aboutP1?: RichText; aboutP2?: RichText; aboutP3?: RichText
+  aboutP1?: RichText
   steps?: Step[]
   priceLabel?: string; priceText?: string
   faq?: FaqItem[]
@@ -38,8 +38,6 @@ const F = {
   heroLead: '7-tygodniowy program PQ dla liderów i menedżerów, którzy chcą osiągać na najwyższym poziomie — bez wypalania.',
   aboutHeading: 'Positive Intelligence® to nie pozytywne myślenie.',
   aboutP1: 'Opracowany przez Shirzada Chamine na Stanfordzie — Positive Intelligence® to naukowo udowodniony system, który uczy Twój mózg działania z mądrości zamiast reaktywności.',
-  aboutP2: 'Zamiast walczyć ze sobą — uczysz się rozpoznawać sabotażystów i aktywować Sage. Program działa na poziomie neurologicznym. Dlatego efekty są trwałe.',
-  aboutP3: 'Pracowałem z ponad 200 liderami. Widzę tę różnicę u każdego z nich.',
   steps: [
     { num: '01', title: 'Zrób test', desc: 'Poznaj swoich głównych Sabotażystów mentalnych w bezpłatnym 5-minutowym teście. Zrozum działanie swoich wewnętrznych wrogów.' },
     { num: '02', title: 'Dołącz do programu', desc: '7 tygodni intensywnej pracy z aplikacją PQ, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku.' },
@@ -96,8 +94,6 @@ export default async function DlaCiebiePage() {
     heroLead:      raw?.heroLead    ?? F.heroLead,
     aboutHeading:  raw?.aboutHeading ?? F.aboutHeading,
     aboutP1:       raw?.aboutP1     ?? F.aboutP1,
-    aboutP2:       raw?.aboutP2     ?? F.aboutP2,
-    aboutP3:       raw?.aboutP3     ?? F.aboutP3,
     steps:         raw?.steps?.length ? raw.steps : F.steps,
     priceLabel:    raw?.priceLabel  ?? F.priceLabel,
     priceText:     raw?.priceText   ?? F.priceText,
@@ -143,9 +139,7 @@ export default async function DlaCiebiePage() {
               </h2>
             </div>
             <div className="reveal" data-delay="1" style={{ paddingTop: '8px' }}>
-              <PortableBlock value={d.aboutP1} className="dc-body-p" />
-              <PortableBlock value={d.aboutP2} className="dc-body-p" />
-              <PortableBlock value={d.aboutP3} className="dc-body-p dc-body-p--last" />
+              <PortableBlock value={d.aboutP1} className="dc-body-p dc-body-p--last" />
             </div>
           </div>
         </div>

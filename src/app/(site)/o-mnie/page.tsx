@@ -60,7 +60,7 @@ interface ValueCell { label: string; title: string; desc: string }
 
 interface PageData {
   heroH1?: string
-  bioQuote?: string; bioP1?: RichText; bioP2?: RichText
+  bioQuote?: string; bioP1?: RichText
   values?: ValueCell[]
 }
 
@@ -68,7 +68,6 @@ const F = {
   heroH1: 'To nie historia \nsukcesu. \nTo historia \nprzebudzenia.',
   bioQuote: '„Nie prowadzę warsztatów.\nDam Ci ogień.\nPotem dam Ci też narzędzia,\nżebyś płonął dalej."',
   bioP1: 'Krzysztof Wnęk to inspirator, coach PQ, wykładowca WSB i mówca konferencyjny, który od ponad 25 lat pracuje w dynamicznych środowiskach projektowych z wieloma liderami w Polsce.',
-  bioP2: 'Łączy energię prelekcji ze sceny z uważnością coacha PQ rozmów indywidualnych. Interesuje go praktyka, a nie teoria w myśl przekonania, że „skuteczność jest miarą prawdy".',
   values: [
     { label: 'Wiara',           title: 'Wiara',          desc: 'W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Mędrca.' },
     { label: 'Honor',           title: 'Mów co myślisz', desc: 'Rób, co mówisz. Bez skrótów.' },
@@ -87,7 +86,6 @@ export default async function OMniePage() {
     heroLines: (raw?.heroH1  ?? F.heroH1).split('\n'),
     bioQuote:  raw?.bioQuote ?? F.bioQuote,
     bioP1:     raw?.bioP1    ?? F.bioP1,
-    bioP2:     raw?.bioP2    ?? F.bioP2,
     values:    raw?.values?.length ? raw.values : F.values,
   }
 
@@ -110,15 +108,14 @@ export default async function OMniePage() {
 
       <section className="sec light">
         <div className="wrap">
-          <div className="content-2col" style={{ alignItems: 'center' }}>
-            <div className="reveal" style={{ aspectRatio: '4/5', backgroundImage: 'url(/krzysztof-wnek.jpg)', backgroundSize: 'cover', backgroundPosition: 'center top', width: '100%' }} aria-label="Portret — Krzysztof Wnęk" />
+          <div className="content-2col" style={{ alignItems: 'flex-start' }}>
+            <div className="reveal" style={{ position: 'sticky', top: 0, alignSelf: 'flex-start', aspectRatio: '4/5', backgroundImage: 'url(/krzysztof-wnek.jpg)', backgroundSize: 'cover', backgroundPosition: 'center top', width: '100%' }} aria-label="Portret — Krzysztof Wnęk" />
             <div className="reveal" data-delay="1">
               <div className="eyebrow">01 <span className="em">—</span> Kim jestem</div>
               <div style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(26px,3.2vw,40px)', lineHeight: 1.18, color: 'var(--text)', letterSpacing: '-0.005em', margin: '22px 0 36px', textWrap: 'pretty', whiteSpace: 'pre-line' } as React.CSSProperties}>
                 {d.bioQuote}
               </div>
-              <PortableBlock value={d.bioP1} className="dc-body-p" />
-              <PortableBlock value={d.bioP2} className="dc-body-p dc-body-p--last" />
+              <PortableBlock value={d.bioP1} className="dc-body-p dc-body-p--last" />
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@ interface RoiStat { num: string; label: string }
 
 interface PageData {
   heroH1?: string; heroLead?: string
-  costHeading?: string; costP1?: RichText; costP2?: RichText
+  costHeading?: string; costP1?: RichText
   formats?: Format[]
   roiStats?: RoiStat[]; roiSource?: string
 }
@@ -33,7 +33,6 @@ const F = {
   heroLead: 'Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet w bardzo dynamicznych warunkach.',
   costHeading: 'Najdroższe błędy w firmie zaczynają się w głowie.',
   costP1: 'Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.',
-  costP2: 'Program PQ dla zespołów to nie team building. To zmiana sposobu myślenia — u każdego uczestnika i w dynamice grupy. Nowa kultura skuteczności działania.',
   formats: [
     { label: 'Format A', title: 'Power Speech', desc: '45–90 minut na scenie konferencyjnej lub dla Twojego zespołu. Inspirujące wystąpienie, które zmienia perspektywę i daje nowe możliwości wzrostu potencjału zespołu. Brief 15 min, wycena 48h.', ctaLabel: 'Wycena indywidualna →' },
     { label: 'Format B', title: 'Program Zespołowy', desc: '7-tygodniowy program PQ dla zespołu (10–30 osób). Cotygodniowe sesje, aplikacja PQ, wsparcie coachingowe. Efekty po pierwszym tygodniu.', ctaLabel: 'Wycena indywidualna →' },
@@ -57,7 +56,6 @@ export default async function DlaFirmPage() {
     heroLead:    raw?.heroLead     ?? F.heroLead,
     costHeading: raw?.costHeading  ?? F.costHeading,
     costP1:      raw?.costP1       ?? F.costP1,
-    costP2:      raw?.costP2       ?? F.costP2,
     formats:     raw?.formats?.length  ? raw.formats  : F.formats,
     roiStats:    raw?.roiStats?.length ? raw.roiStats : F.roiStats,
     roiSource:   raw?.roiSource    ?? F.roiSource,
@@ -90,8 +88,7 @@ export default async function DlaFirmPage() {
               </h2>
             </div>
             <div className="reveal" data-delay="1">
-              <PortableBlock value={d.costP1} className="dc-body-p" />
-              <PortableBlock value={d.costP2} className="dc-body-p dc-body-p--last" />
+              <PortableBlock value={d.costP1} className="dc-body-p dc-body-p--last" />
             </div>
           </div>
         </div>

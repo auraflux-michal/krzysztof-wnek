@@ -199,8 +199,6 @@ const pageDlaCiebie = defineType({
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'aboutHeading', title: 'Co to jest · nagłówek', type: 'string', group: 'about' }),
     defineField({ name: 'aboutP1', title: 'Co to jest · paragraf 1', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
-    defineField({ name: 'aboutP2', title: 'Co to jest · paragraf 2', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
-    defineField({ name: 'aboutP3', title: 'Co to jest · paragraf 3', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
     defineField({
       name: 'steps',
       title: 'Kroki (01, 02, 03)',
@@ -256,7 +254,6 @@ const pageDlaFirm = defineType({
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'costHeading', title: 'Koszt · nagłówek', type: 'string', group: 'cost' }),
     defineField({ name: 'costP1', title: 'Koszt · paragraf 1', type: 'array', group: 'cost', of: [defineArrayMember({ type: 'block' })] }),
-    defineField({ name: 'costP2', title: 'Koszt · paragraf 2', type: 'array', group: 'cost', of: [defineArrayMember({ type: 'block' })] }),
     defineField({
       name: 'formats',
       title: 'Formaty (A i B)',
@@ -311,7 +308,6 @@ const pageOMnie = defineType({
     defineField({ name: 'heroH1', title: 'Hero · H1', type: 'text', group: 'hero' }),
     defineField({ name: 'bioQuote', title: 'Bio · cytat', type: 'text', group: 'bio' }),
     defineField({ name: 'bioP1', title: 'Bio · paragraf 1', type: 'array', group: 'bio', of: [defineArrayMember({ type: 'block' })] }),
-    defineField({ name: 'bioP2', title: 'Bio · paragraf 2', type: 'array', group: 'bio', of: [defineArrayMember({ type: 'block' })] }),
     defineField({
       name: 'timeline',
       title: 'Oś czasu',
