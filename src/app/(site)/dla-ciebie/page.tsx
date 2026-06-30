@@ -22,15 +22,18 @@ export const metadata: Metadata = {
 
 interface Step { num: string; title: string; desc: string }
 interface FaqItem { q: string; a: string }
+interface DcFormat { label: string; title: string; desc: string; ctaLabel: string; ctaHref: string }
 
 interface PageData {
   heroH1?: string
   heroLead?: string
   aboutHeading?: string
   aboutP1?: RichText
+  formats?: DcFormat[]
   steps?: Step[]
-  priceLabel?: string; priceText?: string
   faq?: FaqItem[]
+  testHeading?: string; testNote?: string; testButtonText?: string
+  ctaHeading?: string; ctaButtonText?: string
 }
 
 const F = {
@@ -38,13 +41,15 @@ const F = {
   heroLead: '7-tygodniowy program PQ dla liderów i menedżerów, którzy chcą osiągać na najwyższym poziomie — bez wypalania.',
   aboutHeading: 'Positive Intelligence® to nie pozytywne myślenie.',
   aboutP1: 'Opracowany przez Shirzada Chamine na Stanfordzie — Positive Intelligence® to naukowo udowodniony system, który uczy Twój mózg działania z mądrości zamiast reaktywności.',
+  formats: [
+    { label: 'Program PQ · Premium', title: '7-tygodniowy\nprogram PQ', desc: 'Dla osób znających angielski. Pełna metodologia PQ — aplikacja, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku. Najgłębsza i najbardziej trwała transformacja.', ctaLabel: 'Jak to działa →', ctaHref: '#kroki' },
+    { label: 'Coaching 1:1 · Indywidualny', title: 'Minimum\n5 sesji', desc: 'Bez angielskiego lub po Programie®. Narzędzia proaktywnego coachingu i metodologia PQ dopasowana do Twojej sytuacji. Pracujemy we własnym tempie.', ctaLabel: 'Zapytaj o sesję →', ctaHref: '/umow-rozmowe' },
+  ],
   steps: [
     { num: '01', title: 'Zrób test', desc: 'Poznaj swoich głównych Sabotażystów mentalnych w bezpłatnym 5-minutowym teście. Zrozum działanie swoich wewnętrznych wrogów.' },
     { num: '02', title: 'Dołącz do programu', desc: '7 tygodni intensywnej pracy z aplikacją PQ, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku.' },
     { num: '03', title: 'Poczuj zmianę', desc: 'Buduj trwałe ścieżki neuronalne dla spokoju i jasności umysłu oraz najwyższej efektywności. Mierzalna poprawa, nie motywacja.' },
   ],
-  priceLabel: 'Program PQ · 7 tygodni',
-  priceText: 'Cenę omawiamy indywidualnie.',
   faq: [
     { q: 'Czy muszę znać angielski?', a: 'Program PQ jest prowadzony w oparciu o aplikację PQ po angielsku, ale materiały można powtarzać i są w pełni zrozumiałe nawet przy średniej znajomości języka (wystarczy znajomość bierna). Poza aplikacją pracuję z Tobą po polsku przez całe 7 tygodni.' },
     { q: 'Ile czasu zajmuje program tygodniowo?', a: 'Potrzebujesz dziennie 15 minut na wykonanie ćwiczeń z aplikacją. Poza tym 1 raz w tygodniu (między piątkiem, a niedzielą) masz do obejrzenia webinar, który trwa około 1h. Również 1 raz w tygodniu (w poniedziałek) mamy cotygodniowe sesje grupowe, które trwają do 1h. To nie jest kurs — to codzienność.' },
@@ -53,6 +58,11 @@ const F = {
     { q: 'Czy mogę płacić ratalnie?', a: 'Mam świadomość, że czasami płynność nie pozwala na jednorazowe obciążenie budżetu domowego, dlatego jest też możliwość skorzystania z płatności ratalnych — łącznie do 12 rat. Szczegóły możemy omówić podczas rozmowy — umów spotkanie w moim kalendarzu lub napisz.' },
     { q: 'Co to właściwie jest PQ?', a: 'PQ w koncepcji Positive Intelligence® oznacza Positive Intelligence® Quotient, czyli iloraz inteligencji pozytywnej. Jest to wskaźnik tzw. kondycji psychicznej (ang. mental fitness), który mierzy zdolność radzenia sobie z wyzwaniami życiowymi z poziomu spokoju i odporności, zamiast pod wpływem stresu czy negatywnych emocji.' },
   ],
+  testHeading: 'Zacznij od testu.',
+  testNote: '5 minut · bezpłatnie · wyniki na e-mail',
+  testButtonText: 'Zrób bezpłatny test',
+  ctaHeading: 'Zacznij od rozmowy.',
+  ctaButtonText: 'Umów rozmowę Discovery',
 } satisfies Required<PageData>
 
 const COURSE_SCHEMA = {
@@ -90,14 +100,18 @@ export default async function DlaCiebiePage() {
   ).catch(() => null)
 
   const d = {
-    heroLines:     (raw?.heroH1     ?? F.heroH1).split('\n'),
-    heroLead:      raw?.heroLead    ?? F.heroLead,
-    aboutHeading:  raw?.aboutHeading ?? F.aboutHeading,
-    aboutP1:       raw?.aboutP1     ?? F.aboutP1,
-    steps:         raw?.steps?.length ? raw.steps : F.steps,
-    priceLabel:    raw?.priceLabel  ?? F.priceLabel,
-    priceText:     raw?.priceText   ?? F.priceText,
-    faq:           raw?.faq?.length  ? raw.faq   : F.faq,
+    heroLines:      (raw?.heroH1      ?? F.heroH1).split('\n'),
+    heroLead:       raw?.heroLead     ?? F.heroLead,
+    aboutHeading:   raw?.aboutHeading ?? F.aboutHeading,
+    aboutP1:        raw?.aboutP1      ?? F.aboutP1,
+    formats:        raw?.formats?.length ? raw.formats : F.formats,
+    steps:          raw?.steps?.length   ? raw.steps   : F.steps,
+    faq:            raw?.faq?.length     ? raw.faq     : F.faq,
+    testHeading:    raw?.testHeading    ?? F.testHeading,
+    testNote:       raw?.testNote       ?? F.testNote,
+    testButtonText: raw?.testButtonText ?? F.testButtonText,
+    ctaHeading:     raw?.ctaHeading     ?? F.ctaHeading,
+    ctaButtonText:  raw?.ctaButtonText  ?? F.ctaButtonText,
   }
 
   const faqSchema = {
@@ -114,6 +128,8 @@ export default async function DlaCiebiePage() {
     <>
       <JsonLd schema={COURSE_SCHEMA} />
       <JsonLd schema={faqSchema} />
+
+      {/* 01 · Hero */}
       <section className="sub-hero dark">
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="eyebrow on-dark reveal">Dla Ciebie <span className="em">—</span> Program PQ</div>
@@ -129,6 +145,7 @@ export default async function DlaCiebiePage() {
         </div>
       </section>
 
+      {/* 02 · Co to jest */}
       <section className="sec light">
         <div className="wrap">
           <div className="content-2col">
@@ -145,6 +162,7 @@ export default async function DlaCiebiePage() {
         </div>
       </section>
 
+      {/* 03 · Dwa formaty */}
       <section className="sec dark">
         <div className="wrap">
           <div className="eyebrow on-dark reveal">02 <span className="em">—</span> Jak możemy współpracować</div>
@@ -152,22 +170,19 @@ export default async function DlaCiebiePage() {
             Dwa formaty.
           </h2>
           <div className="formats-row reveal" data-delay="2">
-            <div className="format-col">
-              <div className="eyebrow">Program PQ <span className="em">·</span> Premium</div>
-              <h3>7-tygodniowy<br />program PQ</h3>
-              <p>Dla osób znających angielski. Pełna metodologia PQ — aplikacja, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku. Najgłębsza i najbardziej trwała transformacja.</p>
-              <a href="#kroki" className="link-text amber">Jak to działa →</a>
-            </div>
-            <div className="format-col">
-              <div className="eyebrow">Coaching 1:1 <span className="em">·</span> Indywidualny</div>
-              <h3>Minimum<br />5 sesji</h3>
-              <p>Bez angielskiego lub po Programie®. Narzędzia proaktywnego coachingu i metodologia PQ dopasowana do Twojej sytuacji. Pracujemy we własnym tempie.</p>
-              <a href="/umow-rozmowe" className="link-text amber">Zapytaj o sesję →</a>
-            </div>
+            {d.formats.map((fmt, i) => (
+              <div key={i} className="format-col">
+                <div className="eyebrow">{fmt.label}</div>
+                <h3 style={{ whiteSpace: 'pre-line' }}>{fmt.title}</h3>
+                <p>{fmt.desc}</p>
+                <a href={fmt.ctaHref} className="link-text amber">{fmt.ctaLabel}</a>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* 04 · Kroki */}
       <section className="sec" id="kroki" style={{ background: 'var(--paper)' }}>
         <div className="wrap">
           <div className="eyebrow reveal">03 <span className="em">—</span> Proces</div>
@@ -186,21 +201,25 @@ export default async function DlaCiebiePage() {
         </div>
       </section>
 
+      {/* 05 · Zacznij od testu */}
       <section className="dark sec-tight">
         <div className="wrap" style={{ textAlign: 'center' }}>
           <div className="eyebrow on-dark reveal">04 <span className="em">—</span> Pierwszy krok</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5.5vw,80px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px auto 16px', maxWidth: '16ch', textWrap: 'balance', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
-            Zacznij od <em>testu</em>.
+            {d.testHeading.includes('testu')
+              ? <>Zacznij od <em>testu</em>.</>
+              : d.testHeading}
           </h2>
           <p style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: '0 0 40px' }} className="reveal" data-delay="2">
-            5 minut · bezpłatnie · wyniki na e-mail
+            {d.testNote}
           </p>
           <div className="reveal" data-delay="3">
-            <a href="/#umow" className="btn btn-teal">Zrób bezpłatny test</a>
+            <a href="/#umow" className="btn btn-teal">{d.testButtonText}</a>
           </div>
         </div>
       </section>
 
+      {/* 06 · FAQ */}
       <section className="sec light">
         <div className="wrap">
           <div style={{ textAlign: 'center' }}>
@@ -211,13 +230,16 @@ export default async function DlaCiebiePage() {
         </div>
       </section>
 
+      {/* 07 · Ostatni CTA */}
       <section className="dark sec-tight">
         <div className="wrap" style={{ textAlign: 'center' }}>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5.5vw,80px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '24px auto 48px', maxWidth: '16ch', textWrap: 'balance', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
-            Zacznij od <em>rozmowy</em>.
+            {d.ctaHeading.includes('rozmowy')
+              ? <>Zacznij od <em>rozmowy</em>.</>
+              : d.ctaHeading}
           </h2>
           <div className="reveal" data-delay="2">
-            <Link href="/umow-rozmowe" className="btn btn-teal">Umów rozmowę Discovery</Link>
+            <Link href="/umow-rozmowe" className="btn btn-teal">{d.ctaButtonText}</Link>
           </div>
         </div>
       </section>

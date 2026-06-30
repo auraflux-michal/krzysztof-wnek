@@ -189,15 +189,35 @@ const pageDlaCiebie = defineType({
   groups: [
     { name: 'hero', title: '🦸 Hero' },
     { name: 'about', title: '📖 Co to jest' },
+    { name: 'formats', title: '🔀 Dwa formaty' },
     { name: 'steps', title: '📋 Kroki' },
-    { name: 'price', title: '💰 Cena' },
     { name: 'faq', title: '❓ FAQ' },
+    { name: 'cta', title: '🎯 CTA' },
   ],
   fields: [
     defineField({ name: 'heroH1', title: 'Hero · nagłówek H1 (4 linie, każda nową linią)', type: 'text', group: 'hero' }),
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'aboutHeading', title: 'Co to jest · nagłówek', type: 'string', group: 'about' }),
     defineField({ name: 'aboutP1', title: 'Co to jest · paragraf 1', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({
+      name: 'formats',
+      title: 'Dwa formaty (karty)',
+      type: 'array',
+      group: 'formats',
+      of: [defineArrayMember({
+        type: 'object',
+        name: 'dcFormat',
+        title: 'Format',
+        fields: [
+          defineField({ name: 'label', title: 'Label (np. "Program PQ · Premium")', type: 'string' }),
+          defineField({ name: 'title', title: 'Tytuł (możesz użyć \\n by złamać linię)', type: 'string' }),
+          defineField({ name: 'desc', title: 'Opis', type: 'text' }),
+          defineField({ name: 'ctaLabel', title: 'Tekst linku', type: 'string' }),
+          defineField({ name: 'ctaHref', title: 'Link (np. "#kroki" lub "/umow-rozmowe")', type: 'string' }),
+        ],
+        preview: { select: { title: 'label', subtitle: 'title' } },
+      })],
+    }),
     defineField({
       name: 'steps',
       title: 'Kroki (01, 02, 03)',
@@ -215,8 +235,6 @@ const pageDlaCiebie = defineType({
         preview: { select: { title: 'title', subtitle: 'num' } },
       })],
     }),
-    defineField({ name: 'priceLabel', title: 'Inwestycja · label', type: 'string', group: 'price' }),
-    defineField({ name: 'priceText', title: 'Inwestycja · tekst ceny', type: 'string', group: 'price' }),
     defineField({
       name: 'faq',
       title: 'Pytania i odpowiedzi',
@@ -233,6 +251,11 @@ const pageDlaCiebie = defineType({
         preview: { select: { title: 'q' } },
       })],
     }),
+    defineField({ name: 'testHeading', title: 'Sekcja test · nagłówek', type: 'string', group: 'cta' }),
+    defineField({ name: 'testNote', title: 'Sekcja test · podpis (np. "5 minut · bezpłatnie · wyniki na e-mail")', type: 'string', group: 'cta' }),
+    defineField({ name: 'testButtonText', title: 'Sekcja test · tekst przycisku', type: 'string', group: 'cta' }),
+    defineField({ name: 'ctaHeading', title: 'Końcowy CTA · nagłówek', type: 'string', group: 'cta' }),
+    defineField({ name: 'ctaButtonText', title: 'Końcowy CTA · tekst przycisku', type: 'string', group: 'cta' }),
   ],
 })
 
