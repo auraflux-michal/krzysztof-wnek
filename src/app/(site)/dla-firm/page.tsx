@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
 import PortableBlock from '@/components/PortableBlock'
-import VideoTrigger from '@/components/VideoTrigger'
 import { client } from '@/sanity/client'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -148,7 +147,15 @@ export default async function DlaFirmPage() {
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 48px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             Dowody.
           </h2>
-          <VideoTrigger videoId={`vimeo:${d.dowodyVimeoId}`} />
+          <div className="reveal" data-delay="2" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '4px', marginTop: '8px' }}>
+            <iframe
+              src={`https://player.vimeo.com/video/${d.dowodyVimeoId}?title=0&byline=0&portrait=0`}
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              title="Dowody — Krzysztof Wnęk"
+            />
+          </div>
         </div>
       </section>
 

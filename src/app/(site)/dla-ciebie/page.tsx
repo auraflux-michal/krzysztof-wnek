@@ -187,7 +187,7 @@ export default async function DlaCiebiePage() {
         <div className="wrap">
           <div className="eyebrow reveal">03 <span className="em">—</span> Proces</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 0', textWrap: 'balance' } as React.CSSProperties} className="reveal" data-delay="1">
-            Trzy <em>kroki</em>.
+            Trzy kroki.
           </h2>
           <div className="steps-row reveal" data-delay="2">
             {d.steps.map((step, i) => (

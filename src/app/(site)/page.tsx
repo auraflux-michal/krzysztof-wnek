@@ -304,7 +304,7 @@ export default async function HomePage() {
               <p className="note">Kliknij i odbierz darmowy test</p>
             </div>
             <div className="reveal" data-delay="2">
-              <h2 className="sabo-mobile-heading">3 proste kroki</h2>
+              <h2 className="sabo-mobile-heading">3 proste <em>kroki</em></h2>
               <div className="sabo-steps">
                 {h.sabSteps.map((step, i) => (
                   <div key={i} className="sabo-step">
