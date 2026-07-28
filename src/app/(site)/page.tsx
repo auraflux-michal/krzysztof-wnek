@@ -35,7 +35,7 @@ interface HomepageData {
   authority?: AuthCell[]
   problemHeading?: string; problemCards?: string[]
   transBefore?: string[]; transAfter?: string[]
-  mainVideoId?: string; mainVideoDuration?: string
+  mainVimeoId?: string; mainVideoDuration?: string
   sabHeading?: string; sabDesc?: RichText; sabSteps?: SabStep[]
   aboutQuote?: string; aboutBio1?: RichText
   paths?: Path[]
@@ -66,7 +66,7 @@ const F = {
   ],
   transBefore: ['Przewlekły stres, reaktywność, rozdrażnienie', 'Późne noce, wczesne pobudki', 'Zaniedbane relacje', '„Będę szczęśliwy gdy…"'],
   transAfter:  ['Spokój mimo presji', 'Głęboka praca, prawdziwy odpoczynek', 'Uważność w domu i w pracy', 'Radość „w standardzie" codzienności'],
-  mainVideoId: 'J_yUIu3ARmw',
+  mainVimeoId: '1213568679',
   mainVideoDuration: '2:14',
   sabHeading: 'Zanim zaczniesz walczyć — poznaj wroga.',
   sabDesc: 'Test Sabotażystów Mentalnych opracowany przez Shirzada Chamine\'a wykładowcę Stanford University. Identyfikuje Twoje przekonania i nawyki, które sabotują Twoją efektywność, relacje i spokój.',
@@ -173,7 +173,7 @@ export default async function HomePage() {
     problemCards:    hp?.problemCards?.length ? hp.problemCards : F.problemCards,
     transBefore:     hp?.transBefore?.length  ? hp.transBefore  : F.transBefore,
     transAfter:      hp?.transAfter?.length   ? hp.transAfter   : F.transAfter,
-    mainVideoId:     hp?.mainVideoId     ?? F.mainVideoId,
+    mainVimeoId:     hp?.mainVimeoId     ?? F.mainVimeoId,
     mainVideoDuration: hp?.mainVideoDuration ?? F.mainVideoDuration,
     sabHeading:      hp?.sabHeading      ?? F.sabHeading,
     sabDesc:         hp?.sabDesc         ?? F.sabDesc,
@@ -284,7 +284,7 @@ export default async function HomePage() {
             <span className="nowrap">Jak Program PQ<sup>®</sup></span><br />
             <span className="it">może Ci pomóc?</span>
           </h2>
-          <VideoTrigger videoId={h.mainVideoId} duration={h.mainVideoDuration} />
+          <VideoTrigger videoId={`vimeo:${h.mainVimeoId}`} duration={h.mainVideoDuration} />
         </div>
       </section>
 

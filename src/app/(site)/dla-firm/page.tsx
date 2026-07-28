@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
 import PortableBlock from '@/components/PortableBlock'
+import VideoTrigger from '@/components/VideoTrigger'
 import { client } from '@/sanity/client'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,6 +27,7 @@ interface PageData {
   costHeading?: string; costP1?: RichText
   formats?: Format[]
   roiStats?: RoiStat[]; roiSource?: string
+  dowodyVimeoId?: string
 }
 
 const F = {
@@ -44,6 +46,7 @@ const F = {
     { num: '↑ 3×',  label: 'Zaangażowanie\npo programie' },
   ],
   roiSource: 'Dane z badań Positive Intelligence® · próba 50 000+ uczestników',
+  dowodyVimeoId: '1213568679',
 } satisfies Required<PageData>
 
 export default async function DlaFirmPage() {
@@ -52,17 +55,19 @@ export default async function DlaFirmPage() {
   ).catch(() => null)
 
   const d = {
-    heroLines:   (raw?.heroH1      ?? F.heroH1).split('\n'),
-    heroLead:    raw?.heroLead     ?? F.heroLead,
-    costHeading: raw?.costHeading  ?? F.costHeading,
-    costP1:      raw?.costP1       ?? F.costP1,
-    formats:     raw?.formats?.length  ? raw.formats  : F.formats,
-    roiStats:    raw?.roiStats?.length ? raw.roiStats : F.roiStats,
-    roiSource:   raw?.roiSource    ?? F.roiSource,
+    heroLines:    (raw?.heroH1      ?? F.heroH1).split('\n'),
+    heroLead:     raw?.heroLead     ?? F.heroLead,
+    costHeading:  raw?.costHeading  ?? F.costHeading,
+    costP1:       raw?.costP1       ?? F.costP1,
+    formats:      raw?.formats?.length  ? raw.formats  : F.formats,
+    roiStats:     raw?.roiStats?.length ? raw.roiStats : F.roiStats,
+    roiSource:    raw?.roiSource    ?? F.roiSource,
+    dowodyVimeoId: raw?.dowodyVimeoId ?? F.dowodyVimeoId,
   }
 
   return (
     <>
+      {/* Hero */}
       <section className="sub-hero dark">
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="eyebrow on-dark reveal">Dla Firm <span className="em">—</span> B2B</div>
@@ -78,6 +83,7 @@ export default async function DlaFirmPage() {
         </div>
       </section>
 
+      {/* 01 · Koszt */}
       <section className="sec light">
         <div className="wrap">
           <div className="content-2col">
@@ -94,6 +100,7 @@ export default async function DlaFirmPage() {
         </div>
       </section>
 
+      {/* 02 · Formaty */}
       <section className="sec" style={{ paddingTop: 'clamp(80px,9vw,120px)', background: 'var(--paper)' }}>
         <div className="wrap">
           <div className="eyebrow reveal">02 <span className="em">—</span> Formaty</div>
@@ -113,9 +120,10 @@ export default async function DlaFirmPage() {
         </div>
       </section>
 
-      <section className="dark sec-tight">
+      {/* 03 · Efektywność — orange */}
+      <section className="sec-tight" style={{ background: 'var(--accent-deep)', color: '#fff' }}>
         <div className="wrap">
-          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Efektywność</div>
+          <div className="eyebrow reveal" style={{ color: 'rgba(255,255,255,0.6)' }}>03 <span className="em">—</span> Efektywność</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             ROI, który można zmierzyć.
           </h2>
@@ -127,16 +135,28 @@ export default async function DlaFirmPage() {
               </div>
             ))}
           </div>
-          <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.3)', marginTop: '32px' }}>
+          <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.4)', marginTop: '32px' }}>
             {d.roiSource}
           </p>
         </div>
       </section>
 
+      {/* 04 · Dowody */}
+      <section className="sec dark">
+        <div className="wrap-narrow">
+          <div className="eyebrow on-dark reveal">04 <span className="em">—</span> Dowody</div>
+          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 48px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
+            Dowody.
+          </h2>
+          <VideoTrigger videoId={`vimeo:${d.dowodyVimeoId}`} />
+        </div>
+      </section>
+
+      {/* 05 · Kontakt */}
       <section className="sec light" id="kontakt">
         <div className="wrap">
           <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-            <div className="eyebrow reveal">04 <span className="em">—</span> Skontaktuj się</div>
+            <div className="eyebrow reveal">05 <span className="em">—</span> Skontaktuj się</div>
             <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 0' } as React.CSSProperties} className="reveal" data-delay="1">
               Porozmawiajmy.
             </h2>

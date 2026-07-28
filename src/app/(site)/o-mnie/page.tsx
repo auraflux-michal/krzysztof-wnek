@@ -155,11 +155,15 @@ export default async function OMniePage() {
       <section className="sec light">
         <div className="wrap" style={{ textAlign: 'center' }}>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5.5vw,80px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '24px auto 48px', maxWidth: '16ch', textWrap: 'balance', color: 'var(--text)' } as React.CSSProperties} className="reveal" data-delay="1">
-            Zacznij od <em>rozmowy</em>.
+            Chcesz poznać mnie <em>lepiej</em>?
           </h2>
           <div className="reveal" data-delay="2">
-            <Link href="/umow-rozmowe" className="btn btn-teal">Umów rozmowę Discovery</Link>
+            <Link href="/umow-rozmowe" className="btn btn-teal">Porozmawiajmy.</Link>
           </div>
+          <p style={{ fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '0.1em', color: 'var(--text-muted)', marginTop: '28px' }} className="reveal" data-delay="3">
+            Wolisz napisać?{' '}
+            <a href="mailto:do@krzysztofwnek.pl" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '3px' }}>do@krzysztofwnek.pl</a>
+          </p>
         </div>
       </section>
     </>

@@ -137,7 +137,7 @@ const homepage = defineType({
     }),
 
     /* Video */
-    defineField({ name: 'mainVideoId', title: 'Główny film · YouTube ID', type: 'string', group: 'video' }),
+    defineField({ name: 'mainVimeoId', title: 'Główny film · Vimeo ID (np. 1213568679)', type: 'string', group: 'video' }),
     defineField({ name: 'mainVideoDuration', title: 'Główny film · czas trwania (np. "2:14")', type: 'string', group: 'video' }),
 
     /* Saboteurs */
@@ -270,6 +270,7 @@ const pageDlaFirm = defineType({
     { name: 'cost', title: '💸 Koszt' },
     { name: 'formats', title: '📋 Formaty' },
     { name: 'roi', title: '📈 ROI' },
+    { name: 'dowody', title: '🎬 Dowody' },
   ],
   fields: [
     defineField({ name: 'heroH1', title: 'Hero · H1', type: 'text', group: 'hero' }),
@@ -311,6 +312,7 @@ const pageDlaFirm = defineType({
       })],
     }),
     defineField({ name: 'roiSource', title: 'ROI · źródło danych', type: 'string', group: 'roi' }),
+    defineField({ name: 'dowodyVimeoId', title: 'Dowody · Vimeo ID (np. 1213568679)', type: 'string', group: 'dowody' }),
   ],
 })
 
