@@ -82,7 +82,7 @@ const F = {
     { tag: 'Coaching 1:1 · Indywidualny', title: 'Minimum 5 sesji',            desc: 'Bez angielskiego lub po programie. Narzędzia proaktywnego coachingu + metodologia PQ dopasowana do Twojej sytuacji.', price: 'Do ustalenia', ctaLabel: 'Zapytaj o sesję →', ctaHref: '/umow-rozmowe' },
     { tag: 'Prelekcje · B2B · Zespoły', title: 'Przemówienia i Warsztaty',   desc: 'Dla konferencji i zespołów korporacyjnych. Język biznesu — odporność decyzyjna, efektywność pod presją, mierzalne rezultaty.', price: 'Wycena indywidualna', ctaLabel: 'Zapytaj →', ctaHref: '/dla-firm' },
   ],
-  finaleHeading: 'Gotowy na rozmowę, która zmienia wszystko?',
+  finaleHeading: 'Gotowy na krok, który zmienia wszystko?',
   finaleLead: 'Odbierz prezent — bezpłatny test Sabotażystów.',
   finaleNote: 'Bezpłatne · Wyniki na Twój e-mail · Test opracowany przez Shirzada Chamine\'a ze Stanford',
 } satisfies Required<HomepageData>
@@ -304,7 +304,7 @@ export default async function HomePage() {
               <p className="note">Kliknij i odbierz darmowy test</p>
             </div>
             <div className="reveal" data-delay="2">
-              <h2 className="sabo-mobile-heading">3 proste <em>kroki</em></h2>
+              <h2 className="sabo-mobile-heading">3 proste kroki</h2>
               <div className="sabo-steps">
                 {h.sabSteps.map((step, i) => (
                   <div key={i} className="sabo-step">
@@ -394,8 +394,8 @@ export default async function HomePage() {
         <div className="finale-inner">
           <div className="eyebrow reveal">08 <span className="em">—</span> Decyzja</div>
           <h2 className="reveal" data-delay="1">
-            {h.finaleHeading.includes('rozmowę')
-              ? <>Gotowy na <span className="it">rozmowę</span>,<br />która zmienia wszystko?</>
+            {h.finaleHeading.includes('krok')
+              ? <>Gotowy na <span className="it">krok</span>,<br />który zmienia wszystko?</>
               : h.finaleHeading}
           </h2>
           <p className="finale-lead reveal" data-delay="2">{h.finaleLead}</p>
