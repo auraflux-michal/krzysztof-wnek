@@ -84,10 +84,11 @@ const homepage = defineType({
     { name: 'authority', title: '📊 Autorytety' },
     { name: 'problem', title: '❓ Problem' },
     { name: 'transformation', title: '🔄 Transformacja' },
-    { name: 'video', title: '🎬 Wideo' },
+    { name: 'video', title: '🎬 Główny film' },
     { name: 'saboteurs', title: '👹 Sabotażyści' },
     { name: 'about', title: '👤 O mnie' },
     { name: 'paths', title: '🛤️ Ścieżki' },
+    { name: 'youtube', title: '📺 YouTube' },
     { name: 'finale', title: '🎯 Finale' },
   ],
   fields: [
@@ -137,37 +138,33 @@ const homepage = defineType({
     }),
 
     /* Video */
-    defineField({ name: 'mainVimeoId', title: 'Główny film · Vimeo ID (np. 1213568679)', type: 'string', group: 'video' }),
-    defineField({ name: 'mainVideoDuration', title: 'Główny film · czas trwania (np. "2:14")', type: 'string', group: 'video' }),
+    defineField({ name: 'videoHeading', title: 'Film · nagłówek sekcji (np. "Jak Program PQ® może Ci pomóc?")', type: 'string', group: 'video' }),
+    defineField({ name: 'mainVimeoId', title: 'Film · Vimeo ID (np. 1213568679)', type: 'string', group: 'video' }),
+    defineField({ name: 'mainVideoDuration', title: 'Film · czas trwania (np. "2:14")', type: 'string', group: 'video' }),
     defineField({
-      name: 'ytVideos',
-      title: 'YouTube · konkretne filmy (opcjonalne, nadpisuje RSS)',
-      type: 'array',
+      name: 'mainVideoThumbnail',
+      title: 'Film · miniatura (jeśli puste — domyślny placeholder)',
+      type: 'image',
+      options: { hotspot: true },
       group: 'video',
-      of: [defineArrayMember({
-        type: 'object',
-        name: 'ytVideo',
-        title: 'Film',
-        fields: [
-          defineField({ name: 'label', title: 'Etykieta (np. "NAJNOWSZE")', type: 'string' }),
-          defineField({ name: 'title', title: 'Tytuł', type: 'string' }),
-          defineField({ name: 'url', title: 'URL YouTube (np. https://youtu.be/...)', type: 'url' }),
-        ],
-        preview: { select: { title: 'title', subtitle: 'label' } },
-      })],
-      validation: (r) => r.max(3),
     }),
+    defineField({ name: 'mainVideoId', title: 'Film · stare pole YT (nieużywane)', type: 'string', group: 'video', hidden: true }),
 
     /* Saboteurs */
     defineField({ name: 'sabHeading', title: 'Sabotażyści · nagłówek', type: 'string', group: 'saboteurs' }),
     defineField({ name: 'sabDesc', title: 'Sabotażyści · opis', type: 'array', group: 'saboteurs', of: [defineArrayMember({ type: 'block' })] }),
     defineField({ name: 'sabSteps', title: 'Sabotażyści · kroki', type: 'array', group: 'saboteurs', of: [sabStep] }),
+    defineField({ name: 'sabCtaText', title: 'Sabotażyści · tekst przycisku CTA', type: 'string', group: 'saboteurs' }),
+    defineField({ name: 'sabCtaNote', title: 'Sabotażyści · tekst pod przyciskiem', type: 'string', group: 'saboteurs' }),
 
     /* About */
     defineField({ name: 'aboutQuote', title: 'O mnie · cytat', type: 'text', group: 'about' }),
     defineField({ name: 'aboutBio1', title: 'O mnie · bio paragraf 1', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'aboutCtaText', title: 'O mnie · tekst linku "Przeczytaj historię"', type: 'string', group: 'about' }),
 
     /* Paths */
+    defineField({ name: 'pathsHeading', title: 'Ścieżki · nagłówek (np. "Trzy ścieżki.")', type: 'string', group: 'paths' }),
+    defineField({ name: 'pathsSubheading', title: 'Ścieżki · podnagłówek (zdanie pod nagłówkiem)', type: 'string', group: 'paths' }),
     defineField({
       name: 'paths',
       title: 'Ścieżki współpracy',
@@ -187,6 +184,27 @@ const homepage = defineType({
           defineField({ name: 'ctaHref', title: 'Link CTA (np. /dla-ciebie)', type: 'string' }),
         ],
         preview: { select: { title: 'title', subtitle: 'price' } },
+      })],
+      validation: (r) => r.max(3),
+    }),
+
+    /* YouTube */
+    defineField({ name: 'ytHeading', title: 'YouTube · nagłówek sekcji (np. "Bezpłatnie. Na YouTube.")', type: 'string', group: 'youtube' }),
+    defineField({
+      name: 'ytVideos',
+      title: 'YouTube · konkretne filmy (opcjonalne, nadpisuje RSS)',
+      type: 'array',
+      group: 'youtube',
+      of: [defineArrayMember({
+        type: 'object',
+        name: 'ytVideo',
+        title: 'Film',
+        fields: [
+          defineField({ name: 'label', title: 'Etykieta (np. "NAJNOWSZE")', type: 'string' }),
+          defineField({ name: 'title', title: 'Tytuł', type: 'string' }),
+          defineField({ name: 'url', title: 'URL YouTube (np. https://youtu.be/...)', type: 'url' }),
+        ],
+        preview: { select: { title: 'title', subtitle: 'label' } },
       })],
       validation: (r) => r.max(3),
     }),
@@ -217,6 +235,7 @@ const pageDlaCiebie = defineType({
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'aboutHeading', title: 'Co to jest · nagłówek', type: 'string', group: 'about' }),
     defineField({ name: 'aboutP1', title: 'Co to jest · paragraf 1', type: 'array', group: 'about', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'formatsHeading', title: 'Dwa formaty · nagłówek', type: 'string', group: 'formats' }),
     defineField({
       name: 'formats',
       title: 'Dwa formaty (karty)',
@@ -236,6 +255,7 @@ const pageDlaCiebie = defineType({
         preview: { select: { title: 'label', subtitle: 'title' } },
       })],
     }),
+    defineField({ name: 'stepsHeading', title: 'Trzy kroki · nagłówek', type: 'string', group: 'steps' }),
     defineField({
       name: 'steps',
       title: 'Kroki (01, 02, 03)',
@@ -269,8 +289,6 @@ const pageDlaCiebie = defineType({
         preview: { select: { title: 'q' } },
       })],
     }),
-    defineField({ name: 'formatsHeading', title: 'Dwa formaty · nagłówek', type: 'string', group: 'formats' }),
-    defineField({ name: 'stepsHeading', title: 'Trzy kroki · nagłówek', type: 'string', group: 'steps' }),
     defineField({ name: 'testHeading', title: 'Sekcja test · nagłówek', type: 'string', group: 'cta' }),
     defineField({ name: 'testNote', title: 'Sekcja test · podpis (np. "5 minut · bezpłatnie · wyniki na e-mail")', type: 'string', group: 'cta' }),
     defineField({ name: 'testButtonText', title: 'Sekcja test · tekst przycisku', type: 'string', group: 'cta' }),
@@ -297,6 +315,7 @@ const pageDlaFirm = defineType({
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'costHeading', title: 'Koszt · nagłówek', type: 'string', group: 'cost' }),
     defineField({ name: 'costP1', title: 'Koszt · paragraf 1', type: 'array', group: 'cost', of: [defineArrayMember({ type: 'block' })] }),
+    defineField({ name: 'formatsHeading', title: 'Formaty · nagłówek', type: 'string', group: 'formats' }),
     defineField({
       name: 'formats',
       title: 'Formaty (A i B)',
@@ -315,6 +334,7 @@ const pageDlaFirm = defineType({
         preview: { select: { title: 'title', subtitle: 'label' } },
       })],
     }),
+    defineField({ name: 'roiHeading', title: 'ROI · nagłówek', type: 'string', group: 'roi' }),
     defineField({
       name: 'roiStats',
       title: 'Statystyki ROI',
@@ -331,8 +351,6 @@ const pageDlaFirm = defineType({
         preview: { select: { title: 'num', subtitle: 'label' } },
       })],
     }),
-    defineField({ name: 'formatsHeading', title: 'Formaty · nagłówek', type: 'string', group: 'formats' }),
-    defineField({ name: 'roiHeading', title: 'ROI · nagłówek', type: 'string', group: 'roi' }),
     defineField({ name: 'roiSource', title: 'ROI · źródło danych', type: 'string', group: 'roi' }),
     defineField({ name: 'dowodyHeading', title: 'Dowody · nagłówek', type: 'string', group: 'dowody' }),
     defineField({ name: 'dowodyVimeoId', title: 'Dowody · Vimeo ID (np. 1213568679)', type: 'string', group: 'dowody' }),

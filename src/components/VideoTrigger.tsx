@@ -1,6 +1,6 @@
 'use client'
 
-export default function VideoTrigger({ videoId = 'J_yUIu3ARmw', duration = '2:14' }: { videoId?: string; duration?: string }) {
+export default function VideoTrigger({ videoId = 'J_yUIu3ARmw', duration = '2:14', thumbnailUrl }: { videoId?: string; duration?: string; thumbnailUrl?: string }) {
   function open() {
     window.dispatchEvent(new CustomEvent('open-video', { detail: videoId }))
   }
@@ -18,7 +18,7 @@ export default function VideoTrigger({ videoId = 'J_yUIu3ARmw', duration = '2:14
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open() } }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="video-thumb" src="/video-placeholder.png" alt="Krzysztof Wnęk — obejrzyj" />
+      <img className="video-thumb" src={thumbnailUrl ?? '/video-placeholder.png'} alt="Krzysztof Wnęk — obejrzyj" />
       <div className="video-overlay" />
       <div className="video-meta">
         <span className="rec">REC</span>

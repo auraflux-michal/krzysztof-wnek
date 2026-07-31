@@ -35,12 +35,12 @@ interface HomepageData {
   authority?: AuthCell[]
   problemHeading?: string; problemCards?: string[]
   transBefore?: string[]; transAfter?: string[]
-  mainVimeoId?: string; mainVideoDuration?: string
-  sabHeading?: string; sabDesc?: RichText; sabSteps?: SabStep[]
-  aboutQuote?: string; aboutBio1?: RichText
-  paths?: Path[]
+  videoHeading?: string; mainVimeoId?: string; mainVideoDuration?: string; mainVideoThumbnailUrl?: string
+  sabHeading?: string; sabDesc?: RichText; sabSteps?: SabStep[]; sabCtaText?: string; sabCtaNote?: string
+  aboutQuote?: string; aboutBio1?: RichText; aboutCtaText?: string
+  pathsHeading?: string; pathsSubheading?: string; paths?: Path[]
+  ytHeading?: string; ytVideos?: YTStaticVideo[]
   finaleHeading?: string; finaleLead?: string; finaleNote?: string
-  ytVideos?: YTStaticVideo[]
 }
 
 /* ── Fallback content ── */
@@ -67,6 +67,7 @@ const F = {
   ],
   transBefore: ['Przewlekły stres, reaktywność, rozdrażnienie', 'Późne noce, wczesne pobudki', 'Zaniedbane relacje', '„Będę szczęśliwy gdy…"'],
   transAfter:  ['Spokój mimo presji', 'Głęboka praca, prawdziwy odpoczynek', 'Uważność w domu i w pracy', 'Radość „w standardzie" codzienności'],
+  videoHeading: 'Jak Program PQ® może Ci pomóc?',
   mainVimeoId: '1213568679',
   mainVideoDuration: '2:14',
   sabHeading: 'Zanim zaczniesz walczyć — poznaj wroga.',
@@ -76,8 +77,14 @@ const F = {
     { num: 'II',  title: 'Otrzymasz wyniki',      desc: 'Spersonalizowany profil sabotażystów na mail' },
     { num: 'III', title: 'Umów bezpłatną sesję', desc: '30-minutowe omówienie wyników na żywo' },
   ],
+  sabCtaText: 'Odbierz bezpłatny test',
+  sabCtaNote: 'Kliknij i odbierz darmowy test',
   aboutQuote: '„Nie prowadzę warsztatów. Rozpalam ludzi. Potem daję im narzędzia, żeby płonęli dalej."',
   aboutBio1: 'Trener fitnessu mentalnego i propagator Pozytywnej Inteligencji. Wspieram mężczyzn w budowaniu „antykruchości" — większego spokoju, odporności psychicznej i lepszych relacji, bez udawania twardziela w dynamicznych czasach.',
+  aboutCtaText: 'Przeczytaj pełną historię →',
+  pathsHeading: 'Trzy ścieżki.',
+  pathsSubheading: 'Wszystkie drogi prowadzą do tego samego miejsca — jasności, energii i obecności.',
+  ytHeading: 'Bezpłatnie. Na YouTube.',
   paths: [
     { tag: 'Program PQ · Premium',      title: '7-tygodniowy program',       desc: 'Dla osób znających angielski. Pełna metodologia PQ. Najgłębsza, najbardziej trwała transformacja.', price: '4 000 — 5 000 PLN', priceSub: 'lub 12 × 300 PLN', ctaLabel: 'Dowiedz się więcej →', ctaHref: '/dla-ciebie' },
     { tag: 'Coaching 1:1 · Indywidualny', title: 'Minimum 5 sesji',            desc: 'Bez angielskiego lub po programie. Narzędzia proaktywnego coachingu + metodologia PQ dopasowana do Twojej sytuacji.', price: 'Do ustalenia', ctaLabel: 'Zapytaj o sesję →', ctaHref: '/umow-rozmowe' },
@@ -87,13 +94,13 @@ const F = {
   finaleLead: 'Odbierz prezent — bezpłatny test Sabotażystów.',
   finaleNote: 'Bezpłatne · Wyniki na Twój e-mail · Test opracowany przez Shirzada Chamine\'a ze Stanford',
   ytVideos: [] as YTStaticVideo[],
-} satisfies Required<HomepageData>
+} satisfies Omit<Required<HomepageData>, 'mainVideoThumbnailUrl'>
 
 /* ── Data fetching ── */
 
 async function getPageData() {
   const [hp, testimonials] = await Promise.all([
-    client.fetch<HomepageData | null>(`*[_type == "homepage"][0]`, {}, { next: { revalidate: 60 } }).catch(() => null),
+    client.fetch<HomepageData | null>(`*[_type == "homepage"][0]{ ..., "mainVideoThumbnailUrl": mainVideoThumbnail.asset->url }`, {}, { next: { revalidate: 60 } }).catch(() => null),
     client.fetch<Slide[]>(
       `*[_type == "testimonial"] | order(order asc) { name, role, quote, vimeoId, "thumbnailUrl": thumbnail.asset->url }`,
       {},
@@ -175,18 +182,26 @@ export default async function HomePage() {
     problemCards:    hp?.problemCards?.length ? hp.problemCards : F.problemCards,
     transBefore:     hp?.transBefore?.length  ? hp.transBefore  : F.transBefore,
     transAfter:      hp?.transAfter?.length   ? hp.transAfter   : F.transAfter,
+    videoHeading:    hp?.videoHeading     ?? F.videoHeading,
     mainVimeoId:     hp?.mainVimeoId     ?? F.mainVimeoId,
     mainVideoDuration: hp?.mainVideoDuration ?? F.mainVideoDuration,
+    mainVideoThumbnailUrl: hp?.mainVideoThumbnailUrl ?? undefined,
     sabHeading:      hp?.sabHeading      ?? F.sabHeading,
     sabDesc:         hp?.sabDesc         ?? F.sabDesc,
     sabSteps:        hp?.sabSteps?.length ? hp.sabSteps : F.sabSteps,
+    sabCtaText:      hp?.sabCtaText      ?? F.sabCtaText,
+    sabCtaNote:      hp?.sabCtaNote      ?? F.sabCtaNote,
     aboutQuote:      hp?.aboutQuote      ?? F.aboutQuote,
     aboutBio1:       hp?.aboutBio1       ?? F.aboutBio1,
+    aboutCtaText:    hp?.aboutCtaText    ?? F.aboutCtaText,
+    pathsHeading:    hp?.pathsHeading    ?? F.pathsHeading,
+    pathsSubheading: hp?.pathsSubheading ?? F.pathsSubheading,
     paths:           hp?.paths?.length   ? hp.paths   : F.paths,
+    ytHeading:       hp?.ytHeading       ?? F.ytHeading,
+    ytVideos:        hp?.ytVideos?.length ? hp.ytVideos : undefined,
     finaleHeading:   hp?.finaleHeading   ?? F.finaleHeading,
     finaleLead:      hp?.finaleLead      ?? F.finaleLead,
     finaleNote:      hp?.finaleNote      ?? F.finaleNote,
-    ytVideos:        hp?.ytVideos?.length ? hp.ytVideos : undefined,
   }
 
   const slides = testimonials.length > 0 ? testimonials : undefined
@@ -284,10 +299,11 @@ export default async function HomePage() {
             <div className="eyebrow on-dark">02 <span className="em">—</span> Zobacz sam</div>
           </div>
           <h2 className="video-headline reveal" data-delay="1">
-            <span className="nowrap">Jak Program PQ<sup>®</sup></span><br />
-            <span className="it">może Ci pomóc?</span>
+            {h.videoHeading.includes('może Ci') ? (
+              <><span className="nowrap">Jak Program PQ<sup>®</sup></span><br /><span className="it">może Ci pomóc?</span></>
+            ) : h.videoHeading}
           </h2>
-          <VideoTrigger videoId={`vimeo:${h.mainVimeoId}`} duration={h.mainVideoDuration} />
+          <VideoTrigger videoId={`vimeo:${h.mainVimeoId}`} duration={h.mainVideoDuration} thumbnailUrl={h.mainVideoThumbnailUrl} />
         </div>
       </section>
 
@@ -303,8 +319,8 @@ export default async function HomePage() {
                   : h.sabHeading}
               </h2>
               <PortableBlock value={h.sabDesc} className="desc" />
-              <a href="#umow" className="btn btn-dark">Odbierz bezpłatny test</a>
-              <p className="note">Kliknij i odbierz darmowy test</p>
+              <a href="#umow" className="btn btn-dark">{h.sabCtaText}</a>
+              <p className="note">{h.sabCtaNote}</p>
             </div>
             <div className="reveal" data-delay="2">
               <h2 className="sabo-mobile-heading">3 proste kroki</h2>
@@ -319,7 +335,7 @@ export default async function HomePage() {
                   </div>
                 ))}
               </div>
-              <a href="#umow" className="btn btn-dark sabo-mobile-cta">Odbierz bezpłatny test</a>
+              <a href="#umow" className="btn btn-dark sabo-mobile-cta">{h.sabCtaText}</a>
             </div>
           </div>
         </div>
@@ -335,7 +351,7 @@ export default async function HomePage() {
               <div className="about-quote">{h.aboutQuote}</div>
               <PortableBlock value={h.aboutBio1} className="about-bio" />
               <div className="about-cta">
-                <Link href="/o-mnie" className="link-text">Przeczytaj pełną historię →</Link>
+                <Link href="/o-mnie" className="link-text">{h.aboutCtaText}</Link>
               </div>
             </div>
           </div>
@@ -358,8 +374,8 @@ export default async function HomePage() {
         <div className="wrap">
           <div className="paths-head reveal">
             <div className="eyebrow">06 <span className="em">—</span> Jak możemy współpracować</div>
-            <h2>Trzy ścieżki.</h2>
-            <p>Wszystkie drogi prowadzą do tego samego miejsca — jasności, energii i obecności.</p>
+            <h2>{h.pathsHeading}</h2>
+            <p>{h.pathsSubheading}</p>
           </div>
           <div className="paths-grid">
             {h.paths.map((path, i) => (
@@ -381,7 +397,7 @@ export default async function HomePage() {
         <div className="wrap">
           <div className="yt-head reveal">
             <div className="eyebrow on-dark">07 <span className="em">—</span> YouTube</div>
-            <h2>Bezpłatnie. Na YouTube.</h2>
+            <h2>{h.ytHeading}</h2>
           </div>
           <YouTubeGrid staticItems={h.ytVideos} />
           <div className="yt-foot reveal">
