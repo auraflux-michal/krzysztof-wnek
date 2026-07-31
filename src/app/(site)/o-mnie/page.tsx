@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
+import PhotoSlotPlayer from '@/components/PhotoSlotPlayer'
 import PortableBlock from '@/components/PortableBlock'
 import { client } from '@/sanity/client'
 
@@ -63,6 +64,8 @@ interface PageData {
   bioQuote?: string; bioP1?: RichText
   valuesHeading?: string
   values?: ValueCell[]
+  sceneVimeoId?: string; sceneLabel?: string; sceneThumbnailUrl?: string
+  studioVimeoId?: string; studioLabel?: string; studioThumbnailUrl?: string
 }
 
 const F = {
@@ -70,6 +73,8 @@ const F = {
   bioQuote: '„Nie prowadzę warsztatów.\nDam Ci ogień.\nPotem dam Ci też narzędzia,\nżebyś płonął dalej."',
   bioP1: 'Krzysztof Wnęk to inspirator, coach PQ, wykładowca WSB i mówca konferencyjny, który od ponad 25 lat pracuje w dynamicznych środowiskach projektowych z wieloma liderami w Polsce.',
   valuesHeading: 'Kodeks rycerza.',
+  sceneVimeoId: '', sceneLabel: 'Scena · Konferencja',
+  studioVimeoId: '', studioLabel: 'Studio WSB',
   values: [
     { label: 'Wiara',           title: 'Wiara',          desc: 'W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Mędrca.' },
     { label: 'Honor',           title: 'Mów co myślisz', desc: 'Rób, co mówisz. Bez skrótów.' },
@@ -77,19 +82,27 @@ const F = {
     { label: 'Lojalność',       title: 'Wobec prawdy',   desc: 'Wobec ludzi, którzy Ci ufają. Wobec procesu. Wobec prawdy.' },
     { label: 'Odpowiedzialność', title: 'Jesteś autorem', desc: 'Nie jesteś ofiarą okoliczności. Jesteś autorem swojego życia.' },
   ],
-} satisfies Required<PageData>
+} satisfies Omit<Required<PageData>, 'sceneThumbnailUrl' | 'studioThumbnailUrl'>
 
 export default async function OMniePage() {
   const raw = await client.fetch<PageData | null>(
-    `*[_type == "pageOMnie"][0]`, {}, { next: { revalidate: 60 } }
+    `*[_type == "pageOMnie"][0]{ ..., "sceneThumbnailUrl": sceneThumbnail.asset->url, "studioThumbnailUrl": studioThumbnail.asset->url }`,
+    {},
+    { next: { revalidate: 60 } }
   ).catch(() => null)
 
   const d = {
-    heroLines:     (raw?.heroH1  ?? F.heroH1).split('\n'),
-    bioQuote:      raw?.bioQuote     ?? F.bioQuote,
-    bioP1:         raw?.bioP1        ?? F.bioP1,
-    valuesHeading: raw?.valuesHeading ?? F.valuesHeading,
-    values:        raw?.values?.length ? raw.values : F.values,
+    heroLines:        (raw?.heroH1  ?? F.heroH1).split('\n'),
+    bioQuote:         raw?.bioQuote      ?? F.bioQuote,
+    bioP1:            raw?.bioP1         ?? F.bioP1,
+    valuesHeading:    raw?.valuesHeading ?? F.valuesHeading,
+    values:           raw?.values?.length ? raw.values : F.values,
+    sceneVimeoId:     raw?.sceneVimeoId  ?? F.sceneVimeoId,
+    sceneLabel:       raw?.sceneLabel    ?? F.sceneLabel,
+    sceneThumbnailUrl:  raw?.sceneThumbnailUrl  ?? undefined,
+    studioVimeoId:    raw?.studioVimeoId ?? F.studioVimeoId,
+    studioLabel:      raw?.studioLabel   ?? F.studioLabel,
+    studioThumbnailUrl: raw?.studioThumbnailUrl ?? undefined,
   }
 
   return (
@@ -145,12 +158,28 @@ export default async function OMniePage() {
       <section className="sec dark" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <div className="photo-grid reveal">
-            <div className="photo-slot" style={{ background: 'var(--ink-3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>Scena · Konferencja</span>
-            </div>
-            <div className="photo-slot" style={{ background: 'var(--ink-2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>Studio WSB</span>
-            </div>
+            {d.sceneVimeoId ? (
+              <PhotoSlotPlayer
+                vimeoId={d.sceneVimeoId}
+                thumbnailUrl={d.sceneThumbnailUrl ?? `https://vumbnail.com/${d.sceneVimeoId}.jpg`}
+                label={d.sceneLabel}
+              />
+            ) : (
+              <div className="photo-slot" style={{ background: 'var(--ink-3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>{d.sceneLabel}</span>
+              </div>
+            )}
+            {d.studioVimeoId ? (
+              <PhotoSlotPlayer
+                vimeoId={d.studioVimeoId}
+                thumbnailUrl={d.studioThumbnailUrl ?? `https://vumbnail.com/${d.studioVimeoId}.jpg`}
+                label={d.studioLabel}
+              />
+            ) : (
+              <div className="photo-slot" style={{ background: 'var(--ink-2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>{d.studioLabel}</span>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -360,6 +360,7 @@ const pageOMnie = defineType({
     { name: 'bio', title: '👤 Bio' },
     { name: 'timeline', title: '📅 Oś czasu' },
     { name: 'values', title: '⚔️ Wartości' },
+    { name: 'media', title: '🎬 Media (filmy)' },
   ],
   fields: [
     defineField({ name: 'heroH1', title: 'Hero · H1', type: 'text', group: 'hero' }),
@@ -381,6 +382,24 @@ const pageOMnie = defineType({
         ],
         preview: { select: { title: 'title', subtitle: 'year' } },
       })],
+    }),
+    defineField({ name: 'sceneVimeoId', title: 'Film 1 · Vimeo ID (Scena / Konferencja)', type: 'string', group: 'media' }),
+    defineField({ name: 'sceneLabel', title: 'Film 1 · etykieta (np. "Scena · Konferencja")', type: 'string', group: 'media' }),
+    defineField({
+      name: 'sceneThumbnail',
+      title: 'Film 1 · miniatura (jeśli puste — automatyczny kadr z Vimeo)',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'media',
+    }),
+    defineField({ name: 'studioVimeoId', title: 'Film 2 · Vimeo ID (Studio WSB)', type: 'string', group: 'media' }),
+    defineField({ name: 'studioLabel', title: 'Film 2 · etykieta (np. "Studio WSB")', type: 'string', group: 'media' }),
+    defineField({
+      name: 'studioThumbnail',
+      title: 'Film 2 · miniatura (jeśli puste — automatyczny kadr z Vimeo)',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'media',
     }),
     defineField({ name: 'valuesHeading', title: 'Wartości · nagłówek (np. "Kodeks rycerza.")', type: 'string', group: 'values' }),
     defineField({
