@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
   }
 
-  const { name, email, company, message, b2b_honeypot, 'cf-turnstile-response': turnstileToken } = body
+  const { name, email, phone, company, message, b2b_honeypot, 'cf-turnstile-response': turnstileToken } = body
 
   if (b2b_honeypot) {
     return NextResponse.json({ error: 'Blocked' }, { status: 400 })
@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
       <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse">
         <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Imię i nazwisko</td><td style="padding:6px 0"><strong>${name ?? '—'}</strong></td></tr>
         <tr><td style="padding:6px 16px 6px 0;color:#666">Email</td><td style="padding:6px 0"><a href="mailto:${email}">${email ?? '—'}</a></td></tr>
+        <tr><td style="padding:6px 16px 6px 0;color:#666">Telefon</td><td style="padding:6px 0"><a href="tel:${phone}">${phone ?? '—'}</a></td></tr>
         <tr><td style="padding:6px 16px 6px 0;color:#666">Firma</td><td style="padding:6px 0">${company ?? '—'}</td></tr>
       </table>
       <p style="font-family:sans-serif;font-size:15px;color:#666;margin:24px 0 8px">Wiadomość:</p>

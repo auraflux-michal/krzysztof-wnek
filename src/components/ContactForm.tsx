@@ -24,6 +24,7 @@ export default function ContactForm() {
         body: JSON.stringify({
           name:                    fd.get('name'),
           email:                   fd.get('email'),
+          phone:                   fd.get('phone'),
           company:                 fd.get('company'),
           message:                 fd.get('message'),
           b2b_honeypot:            fd.get('b2b_honeypot'),
@@ -98,12 +99,16 @@ export default function ContactForm() {
         <input id="cf-email" type="email" name="email" placeholder="jan@firma.pl" required autoComplete="email" />
       </div>
       <div className="field">
+        <label htmlFor="cf-phone">Telefon</label>
+        <input id="cf-phone" type="tel" name="phone" placeholder="+48 600 000 000" required autoComplete="tel" />
+      </div>
+      <div className="field">
         <label htmlFor="cf-company">Firma</label>
-        <input id="cf-company" type="text" name="company" placeholder="Nazwa firmy" autoComplete="organization" />
+        <input id="cf-company" type="text" name="company" placeholder="Nazwa firmy" required autoComplete="organization" />
       </div>
       <div className="field">
         <label htmlFor="cf-message">Wiadomość</label>
-        <textarea id="cf-message" name="message" placeholder="Opisz krótko, czego szukasz..." rows={4} />
+        <textarea id="cf-message" name="message" placeholder="Opisz krótko, czego szukasz..." rows={4} required />
       </div>
 
       <Turnstile
