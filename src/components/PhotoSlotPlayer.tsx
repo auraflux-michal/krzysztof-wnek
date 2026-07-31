@@ -25,11 +25,12 @@ export default function PhotoSlotPlayer({ vimeoId, thumbnailUrl, label }: Props)
       <img src={thumbnailUrl} alt={label} />
       <div className="testi-video-overlay" />
       <div style={{
-        position: 'absolute', bottom: '16px', left: '16px', right: '16px',
-        display: 'flex', alignItems: 'center', gap: '12px', zIndex: 2,
+        position: 'absolute', inset: 0,
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        zIndex: 2, gap: '12px',
       }}>
-        <div className="testi-play" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
-          <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: '12px', height: '12px' }}>
+        <div className="testi-play" style={{ width: '56px', height: '56px', flexShrink: 0 }}>
+          <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: '16px', height: '16px' }}>
             <path d="M4 2v12l10-6z" />
           </svg>
         </div>

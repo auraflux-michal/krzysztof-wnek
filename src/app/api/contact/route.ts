@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { client } from '@/sanity/client'
 
 export async function POST(req: NextRequest) {
   let body: Record<string, string>
@@ -32,11 +33,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Captcha failed' }, { status: 403 })
   }
 
+  const sanityEmail = await client
+    .fetch<string | null>(`*[_type == "settings"][0].emailContact`)
+    .catch(() => null)
+  const notifyEmail = sanityEmail ?? process.env.RESEND_NOTIFY_EMAIL ?? 'do@krzysztofwnek.pl'
+
   const resend = new Resend(process.env.RESEND_API_KEY)
 
   const { data, error } = await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
-    to: process.env.RESEND_NOTIFY_EMAIL ?? 'czesc@auraflux.pl',
+    to: notifyEmail,
     replyTo: email,
     subject: `[Nowy Lead B2B] Zapytanie ofertowe od: ${company ?? '—'}`,
     html: `
