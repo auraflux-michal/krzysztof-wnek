@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import VideoTrigger from '@/components/VideoTrigger'
 import TestimonialsCarousel, { type Slide } from '@/components/TestimonialsCarousel'
-import YouTubeGrid from '@/components/YouTubeGrid'
+import YouTubeGrid, { type YTStaticVideo } from '@/components/YouTubeGrid'
 import FinaleForm from '@/components/FinaleForm'
 import JsonLd from '@/components/JsonLd'
 import PortableBlock from '@/components/PortableBlock'
@@ -40,6 +40,7 @@ interface HomepageData {
   aboutQuote?: string; aboutBio1?: RichText
   paths?: Path[]
   finaleHeading?: string; finaleLead?: string; finaleNote?: string
+  ytVideos?: YTStaticVideo[]
 }
 
 /* ── Fallback content ── */
@@ -85,6 +86,7 @@ const F = {
   finaleHeading: 'Gotowy na krok, który zmienia wszystko?',
   finaleLead: 'Odbierz prezent — bezpłatny test Sabotażystów.',
   finaleNote: 'Bezpłatne · Wyniki na Twój e-mail · Test opracowany przez Shirzada Chamine\'a ze Stanford',
+  ytVideos: [] as YTStaticVideo[],
 } satisfies Required<HomepageData>
 
 /* ── Data fetching ── */
@@ -184,6 +186,7 @@ export default async function HomePage() {
     finaleHeading:   hp?.finaleHeading   ?? F.finaleHeading,
     finaleLead:      hp?.finaleLead      ?? F.finaleLead,
     finaleNote:      hp?.finaleNote      ?? F.finaleNote,
+    ytVideos:        hp?.ytVideos?.length ? hp.ytVideos : undefined,
   }
 
   const slides = testimonials.length > 0 ? testimonials : undefined
@@ -380,7 +383,7 @@ export default async function HomePage() {
             <div className="eyebrow on-dark">07 <span className="em">—</span> YouTube</div>
             <h2>Bezpłatnie. Na YouTube.</h2>
           </div>
-          <YouTubeGrid />
+          <YouTubeGrid staticItems={h.ytVideos} />
           <div className="yt-foot reveal">
             <a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer" className="btn btn-outline-light">
               Zobacz wszystkie

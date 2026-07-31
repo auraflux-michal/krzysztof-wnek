@@ -29,7 +29,9 @@ interface PageData {
   heroLead?: string
   aboutHeading?: string
   aboutP1?: RichText
+  formatsHeading?: string
   formats?: DcFormat[]
+  stepsHeading?: string
   steps?: Step[]
   faq?: FaqItem[]
   testHeading?: string; testNote?: string; testButtonText?: string
@@ -41,10 +43,12 @@ const F = {
   heroLead: '7-tygodniowy program PQ dla liderów i menedżerów, którzy chcą osiągać na najwyższym poziomie — bez wypalania.',
   aboutHeading: 'Positive Intelligence® to nie pozytywne myślenie.',
   aboutP1: 'Opracowany przez Shirzada Chamine na Stanfordzie — Positive Intelligence® to naukowo udowodniony system, który uczy Twój mózg działania z mądrości zamiast reaktywności.',
+  formatsHeading: 'Dwa formaty.',
   formats: [
     { label: 'Program PQ · Premium', title: '7-tygodniowy\nprogram PQ', desc: 'Dla osób znających angielski. Pełna metodologia PQ — aplikacja, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku. Najgłębsza i najbardziej trwała transformacja.', ctaLabel: 'Jak to działa →', ctaHref: '#kroki' },
     { label: 'Coaching 1:1 · Indywidualny', title: 'Minimum\n5 sesji', desc: 'Bez angielskiego lub po Programie®. Narzędzia proaktywnego coachingu i metodologia PQ dopasowana do Twojej sytuacji. Pracujemy we własnym tempie.', ctaLabel: 'Zapytaj o sesję →', ctaHref: '/umow-rozmowe' },
   ],
+  stepsHeading: 'Trzy kroki.',
   steps: [
     { num: '01', title: 'Zrób test', desc: 'Poznaj swoich głównych Sabotażystów mentalnych w bezpłatnym 5-minutowym teście. Zrozum działanie swoich wewnętrznych wrogów.' },
     { num: '02', title: 'Dołącz do programu', desc: '7 tygodni intensywnej pracy z aplikacją PQ, cotygodniowe sesje grupowe i indywidualne wsparcie po polsku.' },
@@ -104,7 +108,9 @@ export default async function DlaCiebiePage() {
     heroLead:       raw?.heroLead     ?? F.heroLead,
     aboutHeading:   raw?.aboutHeading ?? F.aboutHeading,
     aboutP1:        raw?.aboutP1      ?? F.aboutP1,
+    formatsHeading: raw?.formatsHeading ?? F.formatsHeading,
     formats:        raw?.formats?.length ? raw.formats : F.formats,
+    stepsHeading:   raw?.stepsHeading   ?? F.stepsHeading,
     steps:          raw?.steps?.length   ? raw.steps   : F.steps,
     faq:            raw?.faq?.length     ? raw.faq     : F.faq,
     testHeading:    raw?.testHeading    ?? F.testHeading,
@@ -167,7 +173,7 @@ export default async function DlaCiebiePage() {
         <div className="wrap">
           <div className="eyebrow on-dark reveal">02 <span className="em">—</span> Jak możemy współpracować</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
-            Dwa formaty.
+            {d.formatsHeading}
           </h2>
           <div className="formats-row reveal" data-delay="2">
             {d.formats.map((fmt, i) => (
@@ -187,7 +193,7 @@ export default async function DlaCiebiePage() {
         <div className="wrap">
           <div className="eyebrow reveal">03 <span className="em">—</span> Proces</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 0', textWrap: 'balance' } as React.CSSProperties} className="reveal" data-delay="1">
-            Trzy kroki.
+            {d.stepsHeading}
           </h2>
           <div className="steps-row reveal" data-delay="2">
             {d.steps.map((step, i) => (

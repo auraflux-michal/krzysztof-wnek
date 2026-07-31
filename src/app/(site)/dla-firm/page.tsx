@@ -24,9 +24,13 @@ interface RoiStat { num: string; label: string }
 interface PageData {
   heroH1?: string; heroLead?: string
   costHeading?: string; costP1?: RichText
+  formatsHeading?: string
   formats?: Format[]
+  roiHeading?: string
   roiStats?: RoiStat[]; roiSource?: string
+  dowodyHeading?: string
   dowodyVimeoId?: string
+  dowodyQuote?: string; dowodyName?: string; dowodyRole?: string
 }
 
 const F = {
@@ -34,18 +38,24 @@ const F = {
   heroLead: 'Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet w bardzo dynamicznych warunkach.',
   costHeading: 'Najdroższe błędy w firmie zaczynają się w głowie.',
   costP1: 'Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.',
+  formatsHeading: 'Dwa formaty.',
   formats: [
     { label: 'Format A', title: 'Power Speech', desc: '45–90 minut na scenie konferencyjnej lub dla Twojego zespołu. Inspirujące wystąpienie, które zmienia perspektywę i daje nowe możliwości wzrostu potencjału zespołu. Brief 15 min, wycena 48h.', ctaLabel: 'Wycena indywidualna →' },
     { label: 'Format B', title: 'Program Zespołowy', desc: '7-tygodniowy program PQ dla zespołu (10–30 osób). Cotygodniowe sesje, aplikacja PQ, wsparcie coachingowe. Efekty po pierwszym tygodniu.', ctaLabel: 'Wycena indywidualna →' },
   ],
+  roiHeading: 'ROI, który można zmierzyć.',
   roiStats: [
-    { num: '↑ 37%', label: 'Poprawa wydajności\npod presją' },
-    { num: '↑ 54%', label: 'Lepsza komunikacja\nw zespołach' },
-    { num: '↑ 31%', label: 'Jakość podejmowania\ndecyzji' },
-    { num: '↑ 3×',  label: 'Zaangażowanie\npo programie' },
+    { num: '84%', label: 'Lepsze zarządzanie\nkonfliktem' },
+    { num: '91%', label: 'Lepsze zarządzanie\nstresem' },
+    { num: '92%', label: 'Lepsza praca zespołowa\ni współpraca' },
+    { num: '85%', label: 'Wzrost szczęścia' },
   ],
-  roiSource: 'Dane z badań Positive Intelligence® · próba 50 000+ uczestników',
+  roiSource: 'Badania Positive Intelligence® · próba >2000 uczestników',
+  dowodyHeading: 'Dowody.',
   dowodyVimeoId: '1213568679',
+  dowodyQuote: '„Program PQ całkowicie zmienił mój sposób reagowania na stres i konflikty. Po 7 tygodniach mój zespół działa na zupełnie innym poziomie."',
+  dowodyName: 'Anna Kowalska',
+  dowodyRole: 'Dyrektor Operacyjny',
 } satisfies Required<PageData>
 
 export default async function DlaFirmPage() {
@@ -54,14 +64,20 @@ export default async function DlaFirmPage() {
   ).catch(() => null)
 
   const d = {
-    heroLines:    (raw?.heroH1      ?? F.heroH1).split('\n'),
-    heroLead:     raw?.heroLead     ?? F.heroLead,
-    costHeading:  raw?.costHeading  ?? F.costHeading,
-    costP1:       raw?.costP1       ?? F.costP1,
-    formats:      raw?.formats?.length  ? raw.formats  : F.formats,
-    roiStats:     raw?.roiStats?.length ? raw.roiStats : F.roiStats,
-    roiSource:    raw?.roiSource    ?? F.roiSource,
-    dowodyVimeoId: raw?.dowodyVimeoId ?? F.dowodyVimeoId,
+    heroLines:     (raw?.heroH1      ?? F.heroH1).split('\n'),
+    heroLead:      raw?.heroLead      ?? F.heroLead,
+    costHeading:   raw?.costHeading   ?? F.costHeading,
+    costP1:        raw?.costP1        ?? F.costP1,
+    formatsHeading: raw?.formatsHeading ?? F.formatsHeading,
+    formats:       raw?.formats?.length  ? raw.formats  : F.formats,
+    roiHeading:    raw?.roiHeading    ?? F.roiHeading,
+    roiStats:      raw?.roiStats?.length ? raw.roiStats : F.roiStats,
+    roiSource:     raw?.roiSource     ?? F.roiSource,
+    dowodyHeading: raw?.dowodyHeading  ?? F.dowodyHeading,
+    dowodyVimeoId: raw?.dowodyVimeoId  ?? F.dowodyVimeoId,
+    dowodyQuote:   raw?.dowodyQuote    ?? F.dowodyQuote,
+    dowodyName:    raw?.dowodyName     ?? F.dowodyName,
+    dowodyRole:    raw?.dowodyRole     ?? F.dowodyRole,
   }
 
   return (
@@ -104,7 +120,7 @@ export default async function DlaFirmPage() {
         <div className="wrap">
           <div className="eyebrow reveal">02 <span className="em">—</span> Formaty</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 48px' } as React.CSSProperties} className="reveal" data-delay="1">
-            Dwa formaty.
+            {d.formatsHeading}
           </h2>
           <div className="formats-row reveal" data-delay="2">
             {d.formats.map((fmt, i) => (
@@ -122,9 +138,9 @@ export default async function DlaFirmPage() {
       {/* 03 · Efektywność — orange */}
       <section className="sec-tight" style={{ background: 'var(--accent-deep)', color: '#fff' }}>
         <div className="wrap">
-          <div className="eyebrow reveal" style={{ color: 'rgba(255,255,255,0.6)' }}>03 <span className="em">—</span> Efektywność</div>
-          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
-            ROI, który można zmierzyć.
+          <div className="eyebrow reveal" style={{ color: 'rgba(0,0,0,0.5)' }}>03 <span className="em">—</span> Efektywność</div>
+          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: 'var(--ink)' } as React.CSSProperties} className="reveal" data-delay="1">
+            {d.roiHeading}
           </h2>
           <div className="roi-grid reveal" data-delay="2">
             {d.roiStats.map((stat, i) => (
@@ -134,7 +150,7 @@ export default async function DlaFirmPage() {
               </div>
             ))}
           </div>
-          <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.4)', marginTop: '32px' }}>
+          <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(0,0,0,0.45)', marginTop: '32px' }}>
             {d.roiSource}
           </p>
         </div>
@@ -142,19 +158,26 @@ export default async function DlaFirmPage() {
 
       {/* 04 · Dowody */}
       <section className="sec dark">
-        <div className="wrap-narrow">
+        <div className="wrap">
           <div className="eyebrow on-dark reveal">04 <span className="em">—</span> Dowody</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 48px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
-            Dowody.
+            {d.dowodyHeading}
           </h2>
-          <div className="reveal" data-delay="2" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '4px', marginTop: '8px' }}>
-            <iframe
-              src={`https://player.vimeo.com/video/${d.dowodyVimeoId}?title=0&byline=0&portrait=0`}
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              title="Dowody — Krzysztof Wnęk"
-            />
+          <div className="content-2col reveal" data-delay="2" style={{ alignItems: 'center' }}>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '4px' }}>
+              <iframe
+                src={`https://player.vimeo.com/video/${d.dowodyVimeoId}?title=0&byline=0&portrait=0`}
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                title="Dowody — Krzysztof Wnęk"
+              />
+            </div>
+            <div>
+              <div className="testi-card-quote">{d.dowodyQuote}</div>
+              <div className="testi-card-name" style={{ marginTop: '28px' }}>{d.dowodyName}</div>
+              <div className="testi-card-role">{d.dowodyRole}</div>
+            </div>
           </div>
         </div>
       </section>

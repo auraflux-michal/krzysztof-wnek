@@ -11,12 +11,18 @@ interface PortableBlockProps {
 export default function PortableBlock({ value, className }: PortableBlockProps) {
   if (!value) return null
   if (typeof value === 'string') return <p className={className}>{value}</p>
+  const blocks = value as Block[]
+  const baseClass = className?.replace(/\s*dc-body-p--last\b/, '').trim()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (
     <PortableText
-      value={value as any}
+      value={blocks as any}
       components={{
-        block: { normal: ({ children }) => <p className={className}>{children}</p> },
+        block: {
+          normal: ({ children, index }) => (
+            <p className={index === blocks.length - 1 ? className : baseClass}>{children}</p>
+          ),
+        },
       }}
     />
   )

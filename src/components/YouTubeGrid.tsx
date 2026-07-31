@@ -13,11 +13,22 @@ const FALLBACK = [
 ]
 
 interface YTItem { title: string; link: string; guid: string; pubDate: string }
+export interface YTStaticVideo { label: string; title: string; url: string }
 
-export default function YouTubeGrid() {
-  const [items, setItems] = useState<{ label: string; title: string; href: string; thumb?: string }[]>(FALLBACK)
+function thumbFromUrl(url: string): string | undefined {
+  const m = url.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/)
+  return m ? `https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg` : undefined
+}
+
+export default function YouTubeGrid({ staticItems }: { staticItems?: YTStaticVideo[] }) {
+  const initial = staticItems?.length
+    ? staticItems.map((v) => ({ label: v.label, title: v.title, href: v.url, thumb: thumbFromUrl(v.url) }))
+    : FALLBACK
+
+  const [items, setItems] = useState<{ label: string; title: string; href: string; thumb?: string }[]>(initial)
 
   useEffect(() => {
+    if (staticItems?.length) return
     const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL}`
     fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
       .then((r) => r.json())
@@ -38,7 +49,7 @@ export default function YouTubeGrid() {
         setItems(mapped)
       })
       .catch(() => {})
-  }, [])
+  }, [staticItems])
 
   return (
     <div className="yt-grid" id="yt-grid">

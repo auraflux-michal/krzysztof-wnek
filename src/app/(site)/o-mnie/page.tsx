@@ -61,6 +61,7 @@ interface ValueCell { label: string; title: string; desc: string }
 interface PageData {
   heroH1?: string
   bioQuote?: string; bioP1?: RichText
+  valuesHeading?: string
   values?: ValueCell[]
 }
 
@@ -68,6 +69,7 @@ const F = {
   heroH1: 'To nie historia \nsukcesu. \nTo historia \nprzebudzenia.',
   bioQuote: '„Nie prowadzę warsztatów.\nDam Ci ogień.\nPotem dam Ci też narzędzia,\nżebyś płonął dalej."',
   bioP1: 'Krzysztof Wnęk to inspirator, coach PQ, wykładowca WSB i mówca konferencyjny, który od ponad 25 lat pracuje w dynamicznych środowiskach projektowych z wieloma liderami w Polsce.',
+  valuesHeading: 'Kodeks rycerza.',
   values: [
     { label: 'Wiara',           title: 'Wiara',          desc: 'W człowieka. W jego zdolność do zmiany. W to, że każdy ma w sobie Mędrca.' },
     { label: 'Honor',           title: 'Mów co myślisz', desc: 'Rób, co mówisz. Bez skrótów.' },
@@ -83,10 +85,11 @@ export default async function OMniePage() {
   ).catch(() => null)
 
   const d = {
-    heroLines: (raw?.heroH1  ?? F.heroH1).split('\n'),
-    bioQuote:  raw?.bioQuote ?? F.bioQuote,
-    bioP1:     raw?.bioP1    ?? F.bioP1,
-    values:    raw?.values?.length ? raw.values : F.values,
+    heroLines:     (raw?.heroH1  ?? F.heroH1).split('\n'),
+    bioQuote:      raw?.bioQuote     ?? F.bioQuote,
+    bioP1:         raw?.bioP1        ?? F.bioP1,
+    valuesHeading: raw?.valuesHeading ?? F.valuesHeading,
+    values:        raw?.values?.length ? raw.values : F.values,
   }
 
   return (
@@ -125,7 +128,7 @@ export default async function OMniePage() {
         <div className="wrap">
           <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Wartości</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
-            Kodeks rycerza.
+            {d.valuesHeading}
           </h2>
           <div className="values-grid reveal" data-delay="2">
             {d.values.map((val, i) => (

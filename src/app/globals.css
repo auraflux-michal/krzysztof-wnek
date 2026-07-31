@@ -1565,20 +1565,20 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 @media (max-width: 780px) { .roi-grid { grid-template-columns: repeat(2, 1fr); gap: 48px 0; } }
 .roi-cell {
   padding: 8px 36px;
-  border-left: 1px solid rgba(255,255,255,0.08);
+  border-left: 1px solid rgba(0,0,0,0.12);
   text-align: center;
 }
 .roi-cell:first-child { border-left: 0; }
 @media (max-width: 780px) {
   .roi-cell:nth-child(odd) { border-left: 0; }
-  .roi-cell:nth-child(3), .roi-cell:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; }
+  .roi-cell:nth-child(3), .roi-cell:nth-child(4) { border-top: 1px solid rgba(0,0,0,0.12); padding-top: 32px; }
 }
 .roi-num {
   font-family: var(--display);
   font-size: clamp(36px, 3.8vw, 52px);
   line-height: 1;
   font-weight: 500;
-  color: var(--accent-light);
+  color: var(--ink);
   letter-spacing: -0.01em;
 }
 .roi-label {
@@ -1587,7 +1587,7 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.65);
   line-height: 1.6;
 }
 

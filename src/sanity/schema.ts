@@ -139,6 +139,24 @@ const homepage = defineType({
     /* Video */
     defineField({ name: 'mainVimeoId', title: 'Główny film · Vimeo ID (np. 1213568679)', type: 'string', group: 'video' }),
     defineField({ name: 'mainVideoDuration', title: 'Główny film · czas trwania (np. "2:14")', type: 'string', group: 'video' }),
+    defineField({
+      name: 'ytVideos',
+      title: 'YouTube · konkretne filmy (opcjonalne, nadpisuje RSS)',
+      type: 'array',
+      group: 'video',
+      of: [defineArrayMember({
+        type: 'object',
+        name: 'ytVideo',
+        title: 'Film',
+        fields: [
+          defineField({ name: 'label', title: 'Etykieta (np. "NAJNOWSZE")', type: 'string' }),
+          defineField({ name: 'title', title: 'Tytuł', type: 'string' }),
+          defineField({ name: 'url', title: 'URL YouTube (np. https://youtu.be/...)', type: 'url' }),
+        ],
+        preview: { select: { title: 'title', subtitle: 'label' } },
+      })],
+      validation: (r) => r.max(3),
+    }),
 
     /* Saboteurs */
     defineField({ name: 'sabHeading', title: 'Sabotażyści · nagłówek', type: 'string', group: 'saboteurs' }),
@@ -251,6 +269,8 @@ const pageDlaCiebie = defineType({
         preview: { select: { title: 'q' } },
       })],
     }),
+    defineField({ name: 'formatsHeading', title: 'Dwa formaty · nagłówek', type: 'string', group: 'formats' }),
+    defineField({ name: 'stepsHeading', title: 'Trzy kroki · nagłówek', type: 'string', group: 'steps' }),
     defineField({ name: 'testHeading', title: 'Sekcja test · nagłówek', type: 'string', group: 'cta' }),
     defineField({ name: 'testNote', title: 'Sekcja test · podpis (np. "5 minut · bezpłatnie · wyniki na e-mail")', type: 'string', group: 'cta' }),
     defineField({ name: 'testButtonText', title: 'Sekcja test · tekst przycisku', type: 'string', group: 'cta' }),
@@ -311,8 +331,14 @@ const pageDlaFirm = defineType({
         preview: { select: { title: 'num', subtitle: 'label' } },
       })],
     }),
+    defineField({ name: 'formatsHeading', title: 'Formaty · nagłówek', type: 'string', group: 'formats' }),
+    defineField({ name: 'roiHeading', title: 'ROI · nagłówek', type: 'string', group: 'roi' }),
     defineField({ name: 'roiSource', title: 'ROI · źródło danych', type: 'string', group: 'roi' }),
+    defineField({ name: 'dowodyHeading', title: 'Dowody · nagłówek', type: 'string', group: 'dowody' }),
     defineField({ name: 'dowodyVimeoId', title: 'Dowody · Vimeo ID (np. 1213568679)', type: 'string', group: 'dowody' }),
+    defineField({ name: 'dowodyQuote', title: 'Dowody · cytat', type: 'text', group: 'dowody' }),
+    defineField({ name: 'dowodyName', title: 'Dowody · imię i nazwisko', type: 'string', group: 'dowody' }),
+    defineField({ name: 'dowodyRole', title: 'Dowody · stanowisko', type: 'string', group: 'dowody' }),
   ],
 })
 
@@ -349,6 +375,7 @@ const pageOMnie = defineType({
         preview: { select: { title: 'title', subtitle: 'year' } },
       })],
     }),
+    defineField({ name: 'valuesHeading', title: 'Wartości · nagłówek (np. "Kodeks rycerza.")', type: 'string', group: 'values' }),
     defineField({
       name: 'values',
       title: 'Wartości (kodeks rycerza)',
