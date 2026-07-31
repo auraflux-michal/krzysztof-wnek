@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
+import DowodyPlayer from '@/components/DowodyPlayer'
 import PortableBlock from '@/components/PortableBlock'
 import { client } from '@/sanity/client'
 
@@ -30,6 +31,7 @@ interface PageData {
   roiStats?: RoiStat[]; roiSource?: string
   dowodyHeading?: string
   dowodyVimeoId?: string
+  dowodyThumbnailUrl?: string
   dowodyQuote?: string; dowodyName?: string; dowodyRole?: string
 }
 
@@ -56,11 +58,13 @@ const F = {
   dowodyQuote: '„Program PQ całkowicie zmienił mój sposób reagowania na stres i konflikty. Po 7 tygodniach mój zespół działa na zupełnie innym poziomie."',
   dowodyName: 'Anna Kowalska',
   dowodyRole: 'Dyrektor Operacyjny',
-} satisfies Required<PageData>
+} satisfies Omit<Required<PageData>, 'dowodyThumbnailUrl'>
 
 export default async function DlaFirmPage() {
   const raw = await client.fetch<PageData | null>(
-    `*[_type == "pageDlaFirm"][0]`, {}, { next: { revalidate: 60 } }
+    `*[_type == "pageDlaFirm"][0]{ ..., "dowodyThumbnailUrl": dowodyThumbnail.asset->url }`,
+    {},
+    { next: { revalidate: 60 } }
   ).catch(() => null)
 
   const d = {
@@ -74,8 +78,9 @@ export default async function DlaFirmPage() {
     roiStats:      raw?.roiStats?.length ? raw.roiStats : F.roiStats,
     roiSource:     raw?.roiSource     ?? F.roiSource,
     dowodyHeading: raw?.dowodyHeading  ?? F.dowodyHeading,
-    dowodyVimeoId: raw?.dowodyVimeoId  ?? F.dowodyVimeoId,
-    dowodyQuote:   raw?.dowodyQuote    ?? F.dowodyQuote,
+    dowodyVimeoId:      raw?.dowodyVimeoId      ?? F.dowodyVimeoId,
+    dowodyThumbnailUrl: raw?.dowodyThumbnailUrl ?? undefined,
+    dowodyQuote:        raw?.dowodyQuote        ?? F.dowodyQuote,
     dowodyName:    raw?.dowodyName     ?? F.dowodyName,
     dowodyRole:    raw?.dowodyRole     ?? F.dowodyRole,
   }
@@ -138,8 +143,8 @@ export default async function DlaFirmPage() {
       {/* 03 · Efektywność — orange */}
       <section className="sec-tight" style={{ background: 'var(--accent-deep)', color: '#fff' }}>
         <div className="wrap">
-          <div className="eyebrow reveal" style={{ color: 'rgba(0,0,0,0.5)' }}>03 <span className="em">—</span> Efektywność</div>
-          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: 'var(--ink)' } as React.CSSProperties} className="reveal" data-delay="1">
+          <div className="eyebrow reveal" style={{ color: 'rgba(255,255,255,0.6)' }}>03 <span className="em">—</span> Efektywność</div>
+          <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.roiHeading}
           </h2>
           <div className="roi-grid reveal" data-delay="2">
@@ -164,15 +169,10 @@ export default async function DlaFirmPage() {
             {d.dowodyHeading}
           </h2>
           <div className="content-2col reveal" data-delay="2" style={{ alignItems: 'center' }}>
-            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '4px' }}>
-              <iframe
-                src={`https://player.vimeo.com/video/${d.dowodyVimeoId}?title=0&byline=0&portrait=0`}
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-                title="Dowody — Krzysztof Wnęk"
-              />
-            </div>
+            <DowodyPlayer
+              vimeoId={d.dowodyVimeoId}
+              thumbnailUrl={d.dowodyThumbnailUrl ?? `https://vumbnail.com/${d.dowodyVimeoId}.jpg`}
+            />
             <div>
               <div className="testi-card-quote">{d.dowodyQuote}</div>
               <div className="testi-card-name" style={{ marginTop: '28px' }}>{d.dowodyName}</div>

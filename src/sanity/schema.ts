@@ -336,6 +336,13 @@ const pageDlaFirm = defineType({
     defineField({ name: 'roiSource', title: 'ROI · źródło danych', type: 'string', group: 'roi' }),
     defineField({ name: 'dowodyHeading', title: 'Dowody · nagłówek', type: 'string', group: 'dowody' }),
     defineField({ name: 'dowodyVimeoId', title: 'Dowody · Vimeo ID (np. 1213568679)', type: 'string', group: 'dowody' }),
+    defineField({
+      name: 'dowodyThumbnail',
+      title: 'Dowody · miniatura (jeśli puste — automatyczny kadr z Vimeo)',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'dowody',
+    }),
     defineField({ name: 'dowodyQuote', title: 'Dowody · cytat', type: 'text', group: 'dowody' }),
     defineField({ name: 'dowodyName', title: 'Dowody · imię i nazwisko', type: 'string', group: 'dowody' }),
     defineField({ name: 'dowodyRole', title: 'Dowody · stanowisko', type: 'string', group: 'dowody' }),
