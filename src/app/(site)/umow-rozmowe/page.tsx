@@ -31,7 +31,7 @@ const F = {
     { label: 'Twoi sabotażyści',  desc: 'Jeśli zrobiłeś test, razem omówimy Twoje wyniki i pomogę Ci zobaczyć, gdzie najbardziej utrudniają Twoje życie.' },
     { label: 'Twoja decyzja',     desc: 'Jasna rekomendacja — program, coaching lub nic z tego. Mówię wprost i nie obiecuję na wyrost.' },
   ],
-  contactEmail: 'krzysztof@pozytywnainteligencja.pl',
+  contactEmail: 'do@krzysztofwnek.pl',
   contactPlaceholder: 'Tymczasem napisz bezpośrednio — odpowiem w ciągu 24 godzin i razem znajdziemy termin.',
   contactCtaText: 'Napisz do mnie →',
 } satisfies Required<PageData>
