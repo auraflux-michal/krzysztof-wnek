@@ -182,6 +182,8 @@ const homepage = defineType({
           defineField({ name: 'priceSub', title: 'Podpis ceny (opcjonalne)', type: 'string' }),
           defineField({ name: 'ctaLabel', title: 'Tekst linku CTA', type: 'string' }),
           defineField({ name: 'ctaHref', title: 'Link CTA (np. /dla-ciebie)', type: 'string' }),
+          defineField({ name: 'priceLabel', title: 'Stare pole (nieużywane)', type: 'string', hidden: true }),
+          defineField({ name: 'priceText', title: 'Stare pole (nieużywane)', type: 'string', hidden: true }),
         ],
         preview: { select: { title: 'title', subtitle: 'price' } },
       })],
