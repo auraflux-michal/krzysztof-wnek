@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
 import DowodyPlayer from '@/components/DowodyPlayer'
+import HeroBgVideo from '@/components/HeroBgVideo'
 import PortableBlock from '@/components/PortableBlock'
 import { client } from '@/sanity/client'
 
@@ -23,7 +24,7 @@ interface Format { label: string; title: string; desc: string; ctaLabel: string 
 interface RoiStat { num: string; label: string }
 
 interface PageData {
-  heroH1?: string; heroLead?: string
+  heroH1?: string; heroLead?: string; heroVimeoId?: string
   costHeading?: string; costP1?: RichText
   formatsHeading?: string
   formats?: Format[]
@@ -38,6 +39,7 @@ interface PageData {
 const F = {
   heroH1: 'Siła zespołu tkwi\nw różnorodności\noraz inteligencji\npozytywnej.',
   heroLead: 'Pomagam kadrze zarządzającej i zespołom działać skuteczniej i spokojniej — nawet w bardzo dynamicznych warunkach.',
+  heroVimeoId: '1213585137',
   costHeading: 'Najdroższe błędy w firmie zaczynają się w głowie.',
   costP1: 'Gdy liderzy działają z sabotażystami w głowie — każda decyzja kosztuje więcej energii, trwa dłużej i generuje błędy. Konflikty eskalują. Zaangażowanie spada. Rotacja rośnie.',
   formatsHeading: 'Dwa formaty.',
@@ -70,6 +72,7 @@ export default async function DlaFirmPage() {
   const d = {
     heroLines:     (raw?.heroH1      ?? F.heroH1).split('\n'),
     heroLead:      raw?.heroLead      ?? F.heroLead,
+    heroVimeoId:   raw?.heroVimeoId  ?? F.heroVimeoId,
     costHeading:   raw?.costHeading   ?? F.costHeading,
     costP1:        raw?.costP1        ?? F.costP1,
     formatsHeading: raw?.formatsHeading ?? F.formatsHeading,
@@ -89,6 +92,7 @@ export default async function DlaFirmPage() {
     <>
       {/* Hero */}
       <section className="sub-hero dark">
+        {d.heroVimeoId && <HeroBgVideo vimeoId={d.heroVimeoId} />}
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="eyebrow on-dark reveal">Dla Firm <span className="em">—</span> B2B</div>
           <h1 className="reveal" data-delay="1">
@@ -155,7 +159,7 @@ export default async function DlaFirmPage() {
               </div>
             ))}
           </div>
-          <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(0,0,0,0.45)', marginTop: '32px' }}>
+          <p style={{ textAlign: 'center', fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.4)', marginTop: '32px' }}>
             {d.roiSource}
           </p>
         </div>

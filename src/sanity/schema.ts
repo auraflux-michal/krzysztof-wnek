@@ -313,6 +313,7 @@ const pageDlaFirm = defineType({
     { name: 'dowody', title: '🎬 Dowody' },
   ],
   fields: [
+    defineField({ name: 'heroVimeoId', title: 'Hero · Vimeo ID (film w tle, np. 1213585137)', type: 'string', group: 'hero' }),
     defineField({ name: 'heroH1', title: 'Hero · H1', type: 'text', group: 'hero' }),
     defineField({ name: 'heroLead', title: 'Hero · lead', type: 'text', group: 'hero' }),
     defineField({ name: 'costHeading', title: 'Koszt · nagłówek', type: 'string', group: 'cost' }),
@@ -403,16 +404,10 @@ const pageOMnie = defineType({
         preview: { select: { title: 'title', subtitle: 'year' } },
       })],
     }),
-    defineField({ name: 'sceneVimeoId', title: 'Film 1 · Vimeo ID (Scena / Konferencja)', type: 'string', group: 'media' }),
-    defineField({ name: 'sceneLabel', title: 'Film 1 · etykieta (np. "Scena · Konferencja")', type: 'string', group: 'media' }),
-    defineField({
-      name: 'sceneThumbnail',
-      title: 'Film 1 · miniatura (jeśli puste — automatyczny kadr z Vimeo)',
-      type: 'image',
-      options: { hotspot: true },
-      group: 'media',
-    }),
-    defineField({ name: 'studioVimeoId', title: 'Film 2 · Vimeo ID (Studio WSB)', type: 'string', group: 'media' }),
+    defineField({ name: 'sceneVimeoId', title: 'Film 1 · Vimeo ID (usunięty)', type: 'string', group: 'media', hidden: true }),
+    defineField({ name: 'sceneLabel', title: 'Film 1 · etykieta (usunięty)', type: 'string', group: 'media', hidden: true }),
+    defineField({ name: 'sceneThumbnail', title: 'Film 1 · miniatura (usunięty)', type: 'image', group: 'media', hidden: true }),
+    defineField({ name: 'studioVimeoId', title: 'Studio WSB · Vimeo ID', type: 'string', group: 'media' }),
     defineField({ name: 'studioLabel', title: 'Film 2 · etykieta (np. "Studio WSB")', type: 'string', group: 'media' }),
     defineField({
       name: 'studioThumbnail',
