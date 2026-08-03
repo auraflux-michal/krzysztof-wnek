@@ -1387,7 +1387,7 @@ footer.foot {
 }
 @media (max-width: 880px) { .content-2col { grid-template-columns: 1fr; gap: 48px; } }
 
-.portrait-col { position: sticky; top: 0; align-self: flex-start; }
+.portrait-col { position: sticky; top: 80px; align-self: start; }
 @media (max-width: 880px) { .portrait-col { position: relative; top: auto; } }
 
 .steps-row {
