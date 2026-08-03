@@ -43,8 +43,6 @@ const FALLBACK_SLIDES: Slide[] = [
   },
 ]
 
-const PER_PAGE = 3
-
 function chunk<T>(items: T[], size: number): T[][] {
   const pages: T[][] = []
   for (let i = 0; i < items.length; i += size) pages.push(items.slice(i, i + size))
@@ -52,9 +50,22 @@ function chunk<T>(items: T[], size: number): T[][] {
 }
 
 export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { slides?: Slide[] }) {
-  const pages = chunk(slides, PER_PAGE)
+  const [perPage, setPerPage] = useState(3)
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)')
+    const update = (e: MediaQueryList | MediaQueryListEvent) => {
+      setPerPage(e.matches ? 1 : 3)
+      setCurrent(0)
+    }
+    update(mq)
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  const pages = chunk(slides, perPage)
 
   function startTimer() {
     if (timerRef.current) clearInterval(timerRef.current)
@@ -67,7 +78,8 @@ export default function TestimonialsCarousel({ slides = FALLBACK_SLIDES }: { sli
   useEffect(() => {
     startTimer()
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pages.length])
 
   function goTo(n: number) {
     setCurrent((n + pages.length) % pages.length)
