@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function FinaleForm() {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'done'>('idle')
+  const [status, setStatus] = useState<'idle' | 'sending'>('idle')
+  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -19,17 +21,9 @@ export default function FinaleForm() {
         body: params.toString(),
       })
     } catch {
-      // sieć lub CORS — i tak pokazujemy sukces
+      // sieć lub CORS — i tak przechodzimy dalej
     }
-    setStatus('done')
-  }
-
-  if (status === 'done') {
-    return (
-      <p className="finale-form-success" style={{ display: 'block' }}>
-        Prawie gotowe! Sprawdź teraz swoją skrzynkę i potwierdź e-mail.
-      </p>
-    )
+    router.push('/dziekuje')
   }
 
   return (
