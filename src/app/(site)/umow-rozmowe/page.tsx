@@ -65,19 +65,6 @@ export default async function UmowRozmowePage() {
         </div>
       </section>
 
-      <section className="sec light">
-        <div className="wrap">
-          <div className="disc-cols reveal">
-            {d.discoveryCols.map((col, i) => (
-              <div key={i} className="disc-col">
-                <div className="eyebrow">{col.label}</div>
-                <p>{col.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="sec" style={{ paddingTop: 0, background: 'var(--paper)' }}>
         <div className="wrap">
           <div style={{ maxWidth: '900px', margin: '0 auto', padding: 'clamp(40px,6vw,80px) 0' }}>
@@ -89,6 +76,19 @@ export default async function UmowRozmowePage() {
               </a>
               {' '}— odpowiem w ciągu 24h.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec light">
+        <div className="wrap">
+          <div className="disc-cols reveal">
+            {d.discoveryCols.map((col, i) => (
+              <div key={i} className="disc-col">
+                <div className="eyebrow">{col.label}</div>
+                <p>{col.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
