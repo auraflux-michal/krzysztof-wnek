@@ -253,7 +253,7 @@ export default async function HomePage() {
         <div className="wrap">
           <div className="problem-head reveal">
             <div>
-              <div className="eyebrow">01 <span className="em">—</span> Wyzwanie</div>
+              <div className="eyebrow">01 Wyzwanie</div>
               <h2 className="display">
                 {h.problemHeading.includes('brzmi')
                   ? <>Czy to <span className="it">brzmi</span> znajomo?</>
@@ -296,7 +296,7 @@ export default async function HomePage() {
       <section className="sec dark" id="video">
         <div className="wrap-narrow">
           <div className="video-eyebrow reveal">
-            <div className="eyebrow on-dark">02 <span className="em">—</span> Zobacz sam</div>
+            <div className="eyebrow on-dark">02 Zobacz sam</div>
           </div>
           <h2 className="video-headline reveal" data-delay="1">
             {h.videoHeading.includes('może Ci') ? (
@@ -312,7 +312,7 @@ export default async function HomePage() {
         <div className="wrap">
           <div className="sabo-grid">
             <div className="reveal">
-              <div className="eyebrow">03 <span className="em">—</span> Pierwszy krok zmiany</div>
+              <div className="eyebrow">03 Pierwszy krok zmiany</div>
               <h2>
                 {h.sabHeading.includes('wroga')
                   ? <>Zanim zaczniesz walczyć — <br />poznaj <span className="it">wroga</span>.</>
@@ -347,7 +347,7 @@ export default async function HomePage() {
           <div className="about-grid">
             <div className="about-portrait reveal" aria-label="Portret — Krzysztof Wnęk" />
             <div className="about-body reveal" data-delay="1">
-              <div className="eyebrow">04 <span className="em">—</span> Kim jestem</div>
+              <div className="eyebrow">04 Kim jestem</div>
               <div className="about-quote">{h.aboutQuote}</div>
               <PortableBlock value={h.aboutBio1} className="about-bio" />
               <div className="about-cta">
@@ -362,7 +362,7 @@ export default async function HomePage() {
       <section className="sec dark" id="testimonials">
         <div className="wrap">
           <div className="testi-head reveal">
-            <div className="eyebrow on-dark">05 <span className="em">—</span> Dlaczego warto</div>
+            <div className="eyebrow on-dark">05 Dlaczego warto</div>
             <h2>Dowody.</h2>
           </div>
         </div>
@@ -373,7 +373,7 @@ export default async function HomePage() {
       <section className="sec light">
         <div className="wrap">
           <div className="paths-head reveal">
-            <div className="eyebrow">06 <span className="em">—</span> Jak możemy współpracować</div>
+            <div className="eyebrow">06 Jak możemy współpracować</div>
             <h2>{h.pathsHeading}</h2>
             <p>{h.pathsSubheading}</p>
           </div>
@@ -396,7 +396,7 @@ export default async function HomePage() {
       <section className="sec dark" id="youtube">
         <div className="wrap">
           <div className="yt-head reveal">
-            <div className="eyebrow on-dark">07 <span className="em">—</span> YouTube</div>
+            <div className="eyebrow on-dark">07 YouTube</div>
             <h2>{h.ytHeading}</h2>
           </div>
           <YouTubeGrid staticItems={h.ytVideos} />
@@ -411,7 +411,7 @@ export default async function HomePage() {
       {/* FINALE */}
       <section className="light finale" id="umow">
         <div className="finale-inner">
-          <div className="eyebrow reveal">08 <span className="em">—</span> Decyzja</div>
+          <div className="eyebrow reveal">08 Decyzja</div>
           <h2 className="reveal" data-delay="1">
             {h.finaleHeading.includes('krok')
               ? <>Gotowy na <span className="it">krok</span>,<br />który zmienia wszystko?</>

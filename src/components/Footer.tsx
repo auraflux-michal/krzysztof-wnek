@@ -1,6 +1,25 @@
 import Link from 'next/link'
+import { client } from '@/sanity/client'
 
-export default function Footer() {
+interface SiteSettings {
+  youtubeUrl?: string
+  linkedinUrl?: string
+  facebookUrl?: string
+  instagramUrl?: string
+}
+
+export default async function Footer() {
+  const settings = await client.fetch<SiteSettings | null>(
+    `*[_type == "settings"][0]{ youtubeUrl, linkedinUrl, facebookUrl, instagramUrl }`,
+    {},
+    { next: { revalidate: 60 } }
+  ).catch(() => null)
+
+  const youtube  = settings?.youtubeUrl  || 'https://www.youtube.com/@PozytywnaInteligencja'
+  const linkedin = settings?.linkedinUrl || 'https://www.linkedin.com/in/krzysztof-wnek/'
+  const facebook  = settings?.facebookUrl
+  const instagram = settings?.instagramUrl
+
   return (
     <footer className="foot">
       <div className="wrap">
@@ -27,8 +46,10 @@ export default function Footer() {
           <div className="foot-col">
             <h5>Obserwuj</h5>
             <ul>
-              <li><a href="https://www.youtube.com/@PozytywnaInteligencja" target="_blank" rel="noreferrer">YouTube</a></li>
-              <li><a href="https://www.linkedin.com/in/krzysztof-wnek/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li><a href={youtube} target="_blank" rel="noreferrer">YouTube</a></li>
+              <li><a href={linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
+              {facebook && <li><a href={facebook} target="_blank" rel="noreferrer">Facebook</a></li>}
+              {instagram && <li><a href={instagram} target="_blank" rel="noreferrer">Instagram</a></li>}
             </ul>
           </div>
         </div>

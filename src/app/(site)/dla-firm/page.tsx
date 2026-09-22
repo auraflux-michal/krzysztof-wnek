@@ -94,7 +94,7 @@ export default async function DlaFirmPage() {
       <section className="sub-hero dark">
         {d.heroVimeoId && <HeroBgVideo vimeoId={d.heroVimeoId} />}
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div className="eyebrow on-dark reveal">Dla Firm <span className="em">—</span> B2B</div>
+          <div className="eyebrow on-dark reveal">Dla Firm B2B</div>
           <h1 className="reveal" data-delay="1">
             {d.heroLines.map((line, i) => (
               <span key={i}>
@@ -112,7 +112,7 @@ export default async function DlaFirmPage() {
         <div className="wrap">
           <div className="content-2col">
             <div className="reveal">
-              <div className="eyebrow">01 <span className="em">—</span> Koszt</div>
+              <div className="eyebrow">01 Koszt</div>
               <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(36px,4.8vw,64px)', lineHeight: 1.02, letterSpacing: '-0.018em', margin: '18px 0 0', textWrap: 'balance' } as React.CSSProperties}>
                 {d.costHeading}
               </h2>
@@ -127,7 +127,7 @@ export default async function DlaFirmPage() {
       {/* 02 · Formaty */}
       <section className="sec" style={{ paddingTop: 'clamp(80px,9vw,120px)', background: 'var(--paper)' }}>
         <div className="wrap">
-          <div className="eyebrow reveal">02 <span className="em">—</span> Formaty</div>
+          <div className="eyebrow reveal">02 Formaty</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 48px' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.formatsHeading}
           </h2>
@@ -147,7 +147,7 @@ export default async function DlaFirmPage() {
       {/* 03 · Efektywność — orange */}
       <section className="sec-tight" style={{ background: 'var(--accent-deep)', color: '#fff' }}>
         <div className="wrap">
-          <div className="eyebrow reveal" style={{ color: 'rgba(255,255,255,0.6)' }}>03 <span className="em">—</span> Efektywność</div>
+          <div className="eyebrow reveal" style={{ color: 'rgba(255,255,255,0.6)' }}>03 Efektywność</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.roiHeading}
           </h2>
@@ -168,7 +168,7 @@ export default async function DlaFirmPage() {
       {/* 04 · Dowody */}
       <section className="sec dark">
         <div className="wrap">
-          <div className="eyebrow on-dark reveal">04 <span className="em">—</span> Dowody</div>
+          <div className="eyebrow on-dark reveal">04 Dowody</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 48px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.dowodyHeading}
           </h2>
@@ -190,7 +190,7 @@ export default async function DlaFirmPage() {
       <section className="sec light" id="kontakt">
         <div className="wrap">
           <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-            <div className="eyebrow reveal">05 <span className="em">—</span> Skontaktuj się</div>
+            <div className="eyebrow reveal">05 Skontaktuj się</div>
             <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 0' } as React.CSSProperties} className="reveal" data-delay="1">
               Porozmawiajmy.
             </h2>

@@ -138,7 +138,7 @@ export default async function DlaCiebiePage() {
       {/* 01 · Hero */}
       <section className="sub-hero dark">
         <div className="sub-hero-inner" style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div className="eyebrow on-dark reveal">Dla Ciebie <span className="em">—</span> Program PQ</div>
+          <div className="eyebrow on-dark reveal">Dla Ciebie Program PQ</div>
           <h1 className="reveal" data-delay="1">
             {d.heroLines.map((line, i) => (
               <span key={i}>
@@ -156,7 +156,7 @@ export default async function DlaCiebiePage() {
         <div className="wrap">
           <div className="content-2col">
             <div className="reveal">
-              <div className="eyebrow">01 <span className="em">—</span> Co to jest</div>
+              <div className="eyebrow">01 Co to jest</div>
               <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(36px,4.8vw,68px)', lineHeight: 1.02, letterSpacing: '-0.018em', margin: '18px 0 32px', textWrap: 'balance' } as React.CSSProperties}>
                 {d.aboutHeading}
               </h2>
@@ -171,7 +171,7 @@ export default async function DlaCiebiePage() {
       {/* 03 · Dwa formaty */}
       <section className="sec dark">
         <div className="wrap">
-          <div className="eyebrow on-dark reveal">02 <span className="em">—</span> Jak możemy współpracować</div>
+          <div className="eyebrow on-dark reveal">02 Jak możemy współpracować</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.formatsHeading}
           </h2>
@@ -191,7 +191,7 @@ export default async function DlaCiebiePage() {
       {/* 04 · Kroki */}
       <section className="sec" id="kroki" style={{ background: 'var(--paper)' }}>
         <div className="wrap">
-          <div className="eyebrow reveal">03 <span className="em">—</span> Proces</div>
+          <div className="eyebrow reveal">03 Proces</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 0', textWrap: 'balance' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.stepsHeading}
           </h2>
@@ -210,7 +210,7 @@ export default async function DlaCiebiePage() {
       {/* 05 · Zacznij od testu */}
       <section className="dark sec-tight">
         <div className="wrap" style={{ textAlign: 'center' }}>
-          <div className="eyebrow on-dark reveal">04 <span className="em">—</span> Pierwszy krok</div>
+          <div className="eyebrow on-dark reveal">04 Pierwszy krok</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5.5vw,80px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px auto 16px', maxWidth: '16ch', textWrap: 'balance', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.testHeading.includes('testu')
               ? <>Zacznij od <em>testu</em>.</>
@@ -229,7 +229,7 @@ export default async function DlaCiebiePage() {
       <section className="sec light">
         <div className="wrap">
           <div style={{ textAlign: 'center' }}>
-            <div className="eyebrow reveal">05 <span className="em">—</span> Pytania</div>
+            <div className="eyebrow reveal">05 Pytania</div>
             <h2 style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(48px,6vw,88px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px' } as React.CSSProperties} className="reveal" data-delay="1">FAQ</h2>
           </div>
           <FaqAccordion items={d.faq} />

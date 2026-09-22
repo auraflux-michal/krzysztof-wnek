@@ -4,9 +4,10 @@ interface Props {
   vimeoId: string
   thumbnailUrl: string
   label?: string
+  style?: React.CSSProperties
 }
 
-export default function PhotoSlotPlayer({ vimeoId, thumbnailUrl, label }: Props) {
+export default function PhotoSlotPlayer({ vimeoId, thumbnailUrl, label, style }: Props) {
   function open() {
     window.dispatchEvent(new CustomEvent('open-video', { detail: `vimeo:${vimeoId}` }))
   }
@@ -14,6 +15,7 @@ export default function PhotoSlotPlayer({ vimeoId, thumbnailUrl, label }: Props)
   return (
     <div
       className="photo-slot"
+      style={style}
       onClick={open}
       role="button"
       tabIndex={0}

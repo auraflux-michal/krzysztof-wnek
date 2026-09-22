@@ -122,7 +122,7 @@ export default async function OMniePage() {
           <div className="content-2col" style={{ alignItems: 'flex-start' }}>
             <div className="reveal portrait-col" style={{ aspectRatio: '4/5', backgroundImage: 'url(/krzysztof-wnek.jpg)', backgroundSize: 'cover', backgroundPosition: 'center top', width: '100%' }} aria-label="Portret — Krzysztof Wnęk" />
             <div className="reveal" data-delay="1">
-              <div className="eyebrow">01 <span className="em">—</span> Kim jestem</div>
+              <div className="eyebrow">01 Kim jestem</div>
               <div style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(26px,3.2vw,40px)', lineHeight: 1.18, color: 'var(--text)', letterSpacing: '-0.005em', margin: '22px 0 36px', textWrap: 'pretty', whiteSpace: 'pre-line' } as React.CSSProperties}>
                 {d.bioQuote}
               </div>
@@ -134,7 +134,7 @@ export default async function OMniePage() {
 
       <section className="dark sec-tight">
         <div className="wrap">
-          <div className="eyebrow on-dark reveal">03 <span className="em">—</span> Wartości</div>
+          <div className="eyebrow on-dark reveal">03 Wartości</div>
           <h2 style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(40px,5vw,72px)', lineHeight: 1, letterSpacing: '-0.02em', margin: '18px 0 64px', color: '#fff' } as React.CSSProperties} className="reveal" data-delay="1">
             {d.valuesHeading}
           </h2>
@@ -153,11 +153,12 @@ export default async function OMniePage() {
       {d.studioVimeoId && (
         <section className="sec dark" style={{ paddingTop: 0 }}>
           <div className="wrap">
-            <div className="reveal" style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', width: '100%' }}>
+            <div className="reveal">
               <PhotoSlotPlayer
                 vimeoId={d.studioVimeoId}
                 thumbnailUrl={d.studioThumbnailUrl ?? `https://vumbnail.com/${d.studioVimeoId}.jpg`}
                 label={d.studioLabel}
+                style={{ aspectRatio: '16/9' }}
               />
             </div>
           </div>
