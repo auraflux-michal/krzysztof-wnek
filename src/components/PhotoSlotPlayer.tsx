@@ -15,12 +15,11 @@ export default function PhotoSlotPlayer({ vimeoId, thumbnailUrl, label, style }:
   return (
     <div
       className="photo-slot"
-      style={style}
+      style={{ cursor: 'pointer', ...style }}
       onClick={open}
       role="button"
       tabIndex={0}
       aria-label={`Odtwórz: ${label}`}
-      style={{ cursor: 'pointer' }}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open() } }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
