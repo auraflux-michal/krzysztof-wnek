@@ -120,7 +120,9 @@ export default async function OMniePage() {
       <section className="sec light">
         <div className="wrap">
           <div className="content-2col" style={{ alignItems: 'flex-start' }}>
-            <div className="reveal portrait-col" style={{ aspectRatio: '4/5', backgroundImage: 'url(/krzysztof-wnek.jpg)', backgroundSize: 'cover', backgroundPosition: 'center top', width: '100%' }} aria-label="Portret — Krzysztof Wnęk" />
+            <div className="portrait-col">
+              <div className="reveal" style={{ aspectRatio: '4/5', backgroundImage: 'url(/krzysztof-wnek.jpg)', backgroundSize: 'cover', backgroundPosition: 'center top', width: '100%' }} aria-label="Portret — Krzysztof Wnęk" />
+            </div>
             <div className="reveal" data-delay="1">
               <div className="eyebrow">01 Kim jestem</div>
               <div style={{ fontFamily: 'var(--display)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(26px,3.2vw,40px)', lineHeight: 1.18, color: 'var(--text)', letterSpacing: '-0.005em', margin: '22px 0 36px', textWrap: 'pretty', whiteSpace: 'pre-line' } as React.CSSProperties}>
