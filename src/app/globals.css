@@ -1670,6 +1670,64 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 .disc-col .eyebrow { margin-bottom: 20px; }
 .disc-col p { font-size: 16px; color: var(--text-muted); line-height: 1.65; margin: 0; }
 
+/* ─── Umów rozmowę — split layout ─── */
+.umow-split {
+  display: grid;
+  grid-template-columns: 44fr 56fr;
+  min-height: calc(100vh - 80px);
+}
+@media (max-width: 900px) {
+  .umow-split { grid-template-columns: 1fr; min-height: auto; }
+}
+
+.umow-left {
+  background: var(--ink);
+  padding: clamp(56px, 7vw, 96px) clamp(32px, 5vw, 72px);
+  display: flex; flex-direction: column; justify-content: space-between;
+  color: #fff;
+}
+@media (max-width: 720px) { .umow-left { padding: 48px 24px; } }
+
+.umow-disc {
+  border-top: 1px solid var(--rule-dark);
+  margin-top: 48px;
+}
+.umow-disc-item {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule-dark);
+}
+.umow-disc-item .eyebrow { margin-bottom: 8px; }
+.umow-disc-item p { font-size: 14px; color: var(--text-light-muted); line-height: 1.65; margin: 0; }
+
+.umow-contact {
+  margin-top: 40px; padding-top: 28px;
+  border-top: 1px solid var(--rule-dark);
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.3);
+}
+.umow-contact a { color: rgba(255,255,255,0.55); text-decoration: underline; text-underline-offset: 3px; }
+
+.umow-right {
+  background: var(--paper);
+  padding: clamp(48px, 6vw, 80px) clamp(32px, 5vw, 64px);
+  display: flex; flex-direction: column;
+  border-left: 1px solid var(--rule-light);
+}
+@media (max-width: 900px) { .umow-right { border-left: none; border-top: 1px solid var(--rule-light); } }
+@media (max-width: 720px) { .umow-right { padding: 40px 24px; } }
+
+.umow-right .eyebrow { margin-bottom: 12px; }
+.umow-cal-title {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(20px, 2vw, 28px); letter-spacing: -0.01em;
+  color: var(--text); margin-bottom: 28px;
+}
+.umow-cal-alt {
+  margin-top: 20px; text-align: center;
+  font-size: 14px; color: var(--text-dim); line-height: 1.6;
+}
+.umow-cal-alt a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
+
 /* ─── Not-ready CTA ─── */
 .not-ready {
   text-align: center;
