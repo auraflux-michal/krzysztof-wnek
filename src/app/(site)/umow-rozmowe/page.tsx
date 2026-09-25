@@ -51,46 +51,52 @@ export default async function UmowRozmowePage() {
     <div className="umow-page-bg">
       <div className="umow-split">
 
-        {/* LEFT TOP — heading + desc (spans left col on desktop, top on mobile) */}
+        {/* LEFT TOP — heading + desc */}
         <div className="umow-left-top">
-          <div className="eyebrow on-dark reveal">Bezpłatna sesja Discovery</div>
-          <h1
-            style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(44px,5.5vw,80px)', lineHeight: 0.98, letterSpacing: '-0.02em', color: '#fff', margin: '24px 0 24px', textWrap: 'balance' } as React.CSSProperties}
-            className="reveal"
-            data-delay="1"
-          >
-            {d.heroH1Line1}<br /><span style={{ fontStyle: 'italic', fontWeight: 400 }}>{d.heroH1Line2}</span>
-          </h1>
-          <p
-            style={{ fontSize: '16px', color: 'var(--text-light)', lineHeight: 1.65, maxWidth: '42ch', margin: 0 }}
-            className="reveal"
-            data-delay="2"
-          >
-            {d.heroDesc}
-          </p>
+          <div className="umow-col-l">
+            <div className="eyebrow on-dark reveal">Bezpłatna sesja Discovery</div>
+            <h1
+              style={{ fontFamily: 'var(--display)', fontWeight: 500, fontSize: 'clamp(44px,5.5vw,80px)', lineHeight: 0.98, letterSpacing: '-0.02em', color: '#fff', margin: '24px 0 24px', textWrap: 'balance' } as React.CSSProperties}
+              className="reveal"
+              data-delay="1"
+            >
+              {d.heroH1Line1}<br /><span style={{ fontStyle: 'italic', fontWeight: 400 }}>{d.heroH1Line2}</span>
+            </h1>
+            <p
+              style={{ fontSize: '16px', color: 'var(--text-light)', lineHeight: 1.65, maxWidth: '42ch', margin: 0 }}
+              className="reveal"
+              data-delay="2"
+            >
+              {d.heroDesc}
+            </p>
+          </div>
         </div>
 
-        {/* RIGHT — calendar (appears after heading on mobile, right col on desktop) */}
+        {/* RIGHT — calendar */}
         <div className="umow-right">
-          <div className="eyebrow">Wybierz termin</div>
-          <div className="umow-cal-title">Konsultacja Discovery · 30 min</div>
-          <ZencalCalendar />
-          <p className="umow-cal-alt">
-            Wolisz napisać?{' '}
-            <a href={`mailto:${d.contactEmail}`}>{d.contactEmail}</a>
-            {' '}— odpowiem w ciągu 24h.
-          </p>
+          <div className="umow-col-r">
+            <div className="eyebrow">Wybierz termin</div>
+            <div className="umow-cal-title">Konsultacja Discovery · 30 min</div>
+            <ZencalCalendar />
+            <p className="umow-cal-alt">
+              Wolisz napisać?{' '}
+              <a href={`mailto:${d.contactEmail}`}>{d.contactEmail}</a>
+              {' '}— odpowiem w ciągu 24h.
+            </p>
+          </div>
         </div>
 
-        {/* LEFT BOTTOM — discovery points (after calendar on mobile) */}
+        {/* LEFT BOTTOM — discovery points */}
         <div className="umow-left-bottom">
-          <div className="umow-disc reveal" data-delay="3">
-            {d.discoveryCols.map((col, i) => (
-              <div key={i} className="umow-disc-item">
-                <div className="eyebrow on-dark">{col.label}</div>
-                <p>{col.desc}</p>
-              </div>
-            ))}
+          <div className="umow-col-l">
+            <div className="umow-disc reveal" data-delay="3">
+              {d.discoveryCols.map((col, i) => (
+                <div key={i} className="umow-disc-item">
+                  <div className="eyebrow on-dark">{col.label}</div>
+                  <p>{col.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

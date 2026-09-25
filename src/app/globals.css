@@ -1672,38 +1672,18 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 
 /* ─── Umów rozmowę — split layout ─── */
 
-/*
- * .umow-page-bg: two-layer background that extends edge-to-edge
- *   Layer 1 (top): horizontal split — ink left, transparent right
- *   Layer 2 (bottom): vertical nav gradient — ink top, paper below
- *   Combined: left=ink, right-top=ink (behind nav), right-below=paper
- *
- * For max-width:1440px centered grid, split aligns at calc(50% - 86px)
- * because: 44% × 1440 = 634px, and 634 - 720 = -86 from center.
- */
-.umow-page-bg {
-  background:
-    linear-gradient(to right, var(--ink) 44%, transparent 44%),
-    linear-gradient(to bottom, var(--ink) clamp(104px, 7.5vw, 116px), var(--paper) clamp(104px, 7.5vw, 116px));
-}
-@media (min-width: 1440px) {
-  .umow-page-bg {
-    background:
-      linear-gradient(to right, var(--ink) calc(50% - 86px), transparent calc(50% - 86px)),
-      linear-gradient(to bottom, var(--ink) clamp(104px, 7.5vw, 116px), var(--paper) clamp(104px, 7.5vw, 116px));
-  }
-}
-@media (max-width: 900px) {
-  .umow-page-bg { background: var(--ink); }
-}
+/* umow-page-bg: dark base so transparent nav always sees dark behind it */
+.umow-page-bg { background: var(--ink); }
 
+/* umow-split: FULL-WIDTH grid — no max-width here.
+   Each column has its own background. Inner wrappers (umow-col-l / umow-col-r)
+   constrain content to 634px / 806px (= 44/56% of 1440px) and push it to the
+   column edge adjacent to the split — so backgrounds always align with columns. */
 .umow-split {
   display: grid;
   grid-template-columns: 44fr 56fr;
   grid-template-rows: auto auto;
   grid-template-areas: "lt cal" "lb cal";
-  max-width: 1440px;
-  margin: 0 auto;
 }
 @media (max-width: 900px) {
   .umow-split {
@@ -1713,46 +1693,60 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
   }
 }
 
-/* Left top: heading + desc — background from wrapper on desktop */
-.umow-left-top {
-  grid-area: lt;
-  color: #fff;
+/* Left columns: always dark, full-height */
+.umow-left-top  { grid-area: lt; background: var(--ink); color: #fff; }
+.umow-left-bottom { grid-area: lb; background: var(--ink); color: #fff; }
+
+/* Inner wrapper for left columns: max 634px, aligned to the RIGHT of the column
+   (adjacent to the dark/light split). On screens narrower than 1440px the
+   max-width has no effect — the wrapper fills its column naturally. */
+.umow-col-l {
+  max-width: 634px;
+  margin-left: auto;
+}
+.umow-left-top .umow-col-l {
   padding: clamp(104px, 7.5vw, 116px) clamp(40px, 4vw, 56px) clamp(40px, 5vw, 56px);
 }
-@media (max-width: 900px) { .umow-left-top { background: var(--ink); padding: 104px 24px 40px; } }
-
-/* Left bottom: discovery — background from wrapper on desktop */
-.umow-left-bottom {
-  grid-area: lb;
-  color: #fff;
+.umow-left-bottom .umow-col-l {
   padding: 0 clamp(40px, 4vw, 56px) clamp(64px, 8vw, 96px);
 }
-@media (max-width: 900px) { .umow-left-bottom { background: var(--ink); padding: 0 24px 64px; } }
+
+/* Right column: dark at the nav area, paper below — transparent nav sees dark everywhere */
+.umow-right {
+  grid-area: cal;
+  background: linear-gradient(
+    to bottom,
+    var(--ink) clamp(104px, 7.5vw, 116px),
+    var(--paper) clamp(104px, 7.5vw, 116px)
+  );
+}
+
+/* Inner wrapper for right column: max 806px, aligned to the LEFT of the column
+   (adjacent to the split). */
+.umow-col-r {
+  max-width: 806px;
+  margin-right: auto;
+  padding: calc(clamp(104px, 7.5vw, 116px) + 28px) clamp(48px, 5vw, 80px) clamp(48px, 6vw, 80px) clamp(48px, 4vw, 64px);
+  display: flex; flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  .umow-col-l { max-width: none; margin-left: 0; }
+  .umow-left-top .umow-col-l  { padding: 104px 24px 40px; }
+  .umow-left-bottom .umow-col-l { padding: 0 24px 64px; }
+  .umow-right {
+    background: var(--paper);
+    border-top: 1px solid var(--rule-light);
+  }
+  .umow-col-r { max-width: none; margin-right: 0; padding: 40px 24px 48px; }
+}
 
 .umow-disc { border-top: 1px solid var(--rule-dark); }
 .umow-disc-item { padding: 22px 0; border-bottom: 1px solid var(--rule-dark); }
 .umow-disc-item .eyebrow { margin-bottom: 8px; }
 .umow-disc-item p { font-size: 14px; color: var(--text-light-muted); line-height: 1.65; margin: 0; }
 
-.umow-contact {
-  margin-top: 40px; padding-top: 28px;
-  border-top: 1px solid var(--rule-dark);
-  font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.3);
-}
-.umow-contact a { color: rgba(255,255,255,0.55); text-decoration: underline; text-underline-offset: 3px; }
-
-/* Right: calendar — background from wrapper on desktop */
-.umow-right {
-  grid-area: cal;
-  padding: calc(clamp(104px, 7.5vw, 116px) + 28px) clamp(48px, 5vw, 80px) clamp(48px, 6vw, 80px) clamp(48px, 4vw, 64px);
-  display: flex; flex-direction: column;
-}
-@media (max-width: 900px) {
-  .umow-right { background: var(--paper); border-top: 1px solid var(--rule-light); padding: 40px 24px 48px; }
-}
-
-.umow-right .eyebrow { margin-bottom: 12px; }
+.umow-col-r .eyebrow { margin-bottom: 12px; }
 .umow-cal-title {
   font-family: var(--display); font-weight: 500;
   font-size: clamp(20px, 2vw, 28px); letter-spacing: -0.01em;
