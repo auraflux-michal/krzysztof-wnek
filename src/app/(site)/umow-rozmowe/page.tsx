@@ -48,7 +48,7 @@ export default async function UmowRozmowePage() {
   }
 
   return (
-    <>
+    <div className="umow-page-bg">
       <div className="umow-split">
 
         {/* LEFT TOP — heading + desc (spans left col on desktop, top on mobile) */}
@@ -106,6 +106,6 @@ export default async function UmowRozmowePage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

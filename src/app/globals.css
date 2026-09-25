@@ -1671,12 +1671,20 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 .disc-col p { font-size: 16px; color: var(--text-muted); line-height: 1.65; margin: 0; }
 
 /* ─── Umów rozmowę — split layout ─── */
+
+/* Full-viewport dark wrapper so transparent nav sees dark bg on all widths */
+.umow-page-bg {
+  background: var(--ink);
+}
+
 .umow-split {
   display: grid;
   grid-template-columns: 44fr 56fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: "lt cal" "lb cal";
   min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 @media (max-width: 900px) {
   .umow-split {
