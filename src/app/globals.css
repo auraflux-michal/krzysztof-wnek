@@ -1716,16 +1716,15 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 }
 .umow-contact a { color: rgba(255,255,255,0.55); text-decoration: underline; text-underline-offset: 3px; }
 
-/* Right: calendar */
+/* Right: calendar — first 80px matches dark left col to cover nav area */
 .umow-right {
   grid-area: cal;
-  background: var(--paper);
+  background: linear-gradient(to bottom, var(--ink) 80px, var(--paper) 80px);
   padding: clamp(120px, 14vw, 180px) clamp(32px, 5vw, 64px) clamp(48px, 6vw, 80px);
   display: flex; flex-direction: column;
-  border-left: 1px solid var(--rule-light);
 }
 @media (max-width: 900px) {
-  .umow-right { border-left: none; border-top: 1px solid var(--rule-light); padding: 40px 24px 48px; }
+  .umow-right { background: var(--paper); border-top: 1px solid var(--rule-light); padding: 40px 24px 48px; }
 }
 
 .umow-right .eyebrow { margin-bottom: 12px; }

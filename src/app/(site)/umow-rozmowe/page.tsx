@@ -82,7 +82,7 @@ export default async function UmowRozmowePage() {
           </p>
         </div>
 
-        {/* LEFT BOTTOM — discovery points + contact (after calendar on mobile) */}
+        {/* LEFT BOTTOM — discovery points (after calendar on mobile) */}
         <div className="umow-left-bottom">
           <div className="umow-disc reveal" data-delay="3">
             {d.discoveryCols.map((col, i) => (
@@ -91,11 +91,6 @@ export default async function UmowRozmowePage() {
                 <p>{col.desc}</p>
               </div>
             ))}
-          </div>
-          <div className="umow-contact reveal" data-delay="4">
-            Wolisz napisać?{' '}
-            <a href={`mailto:${d.contactEmail}`}>{d.contactEmail}</a>
-            {' '}— odpowiem w ciągu 24h.
           </div>
         </div>
 
