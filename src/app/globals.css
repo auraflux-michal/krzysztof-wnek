@@ -1691,9 +1691,9 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 .umow-left-top {
   grid-area: lt;
   background: var(--ink); color: #fff;
-  padding: clamp(120px, 14vw, 180px) clamp(32px, 5vw, 72px) clamp(40px, 5vw, 56px);
+  padding: clamp(104px, 7.5vw, 116px) clamp(32px, 5vw, 72px) clamp(40px, 5vw, 56px);
 }
-@media (max-width: 720px) { .umow-left-top { padding: 112px 24px 40px; } }
+@media (max-width: 720px) { .umow-left-top { padding: 104px 24px 40px; } }
 
 /* Left bottom: discovery + contact */
 .umow-left-bottom {
@@ -1719,8 +1719,8 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 /* Right: calendar — first 80px matches dark left col to cover nav area */
 .umow-right {
   grid-area: cal;
-  background: linear-gradient(to bottom, var(--ink) clamp(120px, 14vw, 180px), var(--paper) clamp(120px, 14vw, 180px));
-  padding: clamp(120px, 14vw, 180px) clamp(32px, 5vw, 64px) clamp(48px, 6vw, 80px);
+  background: linear-gradient(to bottom, var(--ink) clamp(104px, 7.5vw, 116px), var(--paper) clamp(104px, 7.5vw, 116px));
+  padding: clamp(104px, 7.5vw, 116px) clamp(32px, 5vw, 64px) clamp(48px, 6vw, 80px);
   display: flex; flex-direction: column;
 }
 @media (max-width: 900px) {
