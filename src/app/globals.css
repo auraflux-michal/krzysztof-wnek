@@ -1680,18 +1680,14 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 .umow-split {
   display: grid;
   grid-template-columns: 44fr 56fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto;
   grid-template-areas: "lt cal" "lb cal";
-  min-height: 100vh;
-  max-width: 1440px;
-  margin: 0 auto;
 }
 @media (max-width: 900px) {
   .umow-split {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     grid-template-areas: "lt" "cal" "lb";
-    min-height: auto;
   }
 }
 
@@ -1699,7 +1695,7 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 .umow-left-top {
   grid-area: lt;
   background: var(--ink); color: #fff;
-  padding: clamp(104px, 7.5vw, 116px) clamp(32px, 5vw, 72px) clamp(40px, 5vw, 56px);
+  padding: clamp(104px, 7.5vw, 116px) max(40px, calc((44vw - 520px) / 2)) clamp(40px, 5vw, 56px) max(40px, calc((44vw - 520px) / 2));
 }
 @media (max-width: 720px) { .umow-left-top { padding: 104px 24px 40px; } }
 
@@ -1707,7 +1703,7 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 .umow-left-bottom {
   grid-area: lb;
   background: var(--ink); color: #fff;
-  padding: 0 clamp(32px, 5vw, 72px) clamp(64px, 8vw, 96px);
+  padding: 0 max(40px, calc((44vw - 520px) / 2)) clamp(64px, 8vw, 96px) max(40px, calc((44vw - 520px) / 2));
 }
 @media (max-width: 720px) { .umow-left-bottom { padding: 0 24px 64px; } }
 
@@ -1724,11 +1720,11 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 }
 .umow-contact a { color: rgba(255,255,255,0.55); text-decoration: underline; text-underline-offset: 3px; }
 
-/* Right: calendar — first 80px matches dark left col to cover nav area */
+/* Right: calendar — first section matches dark left col to cover nav area */
 .umow-right {
   grid-area: cal;
   background: linear-gradient(to bottom, var(--ink) clamp(104px, 7.5vw, 116px), var(--paper) clamp(104px, 7.5vw, 116px));
-  padding: clamp(104px, 7.5vw, 116px) clamp(32px, 5vw, 64px) clamp(48px, 6vw, 80px);
+  padding: clamp(104px, 7.5vw, 116px) max(48px, calc((56vw - 580px) / 2)) clamp(48px, 6vw, 80px) max(80px, calc((56vw - 580px) / 2));
   display: flex; flex-direction: column;
 }
 @media (max-width: 900px) {
