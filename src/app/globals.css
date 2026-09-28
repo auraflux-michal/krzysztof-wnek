@@ -1673,7 +1673,7 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
 /* ─── Umów rozmowę — split layout ─── */
 
 /* umow-page-bg: dark base so transparent nav always sees dark behind it */
-.umow-page-bg { background: var(--ink); }
+.umow-page-bg { background: var(--ink); overflow-x: clip; }
 
 /* umow-split: FULL-WIDTH grid — no max-width here.
    Each column has its own background. Inner wrappers (umow-col-l / umow-col-r)
@@ -1721,7 +1721,8 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
   );
   overflow-x: clip; /* prevent zencal embed from causing horizontal scroll */
 }
-.zencal-embed { max-width: 100%; }
+.zencal-embed { max-width: 100%; overflow: hidden; }
+.zencal-embed iframe { width: 100% !important; max-width: 100% !important; }
 
 /* Inner wrapper for right column: max 806px, aligned to the LEFT of the column
    (adjacent to the split). */
