@@ -1719,7 +1719,9 @@ h3.faq-q { font-size: clamp(18px, 1.8vw, 24px); }
     var(--ink) clamp(104px, 7.5vw, 116px),
     var(--paper) clamp(104px, 7.5vw, 116px)
   );
+  overflow-x: clip; /* prevent zencal embed from causing horizontal scroll */
 }
+.zencal-embed { max-width: 100%; }
 
 /* Inner wrapper for right column: max 806px, aligned to the LEFT of the column
    (adjacent to the split). */

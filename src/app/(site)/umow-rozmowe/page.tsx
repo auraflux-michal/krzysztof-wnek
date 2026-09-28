@@ -107,7 +107,7 @@ export default async function UmowRozmowePage() {
           <div className="label reveal">Nadal się wahasz?</div>
           <div className="reveal" data-delay="1">
             <a href="/#umow" className="btn btn-outline-light">
-              Najpierw zrób bezpłatny test sabotażystów <span className="arrow">→</span>
+              Zrób bezpłatny test sabotażystów <span className="arrow">→</span>
             </a>
           </div>
         </div>
