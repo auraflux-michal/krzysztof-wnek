@@ -90,7 +90,7 @@ export default async function UmowRozmowePage() {
             <p className="umow-cal-alt">
               Wolisz napisać?{' '}
               <a href={`mailto:${d.contactEmail}`}>{d.contactEmail}</a>
-              {' '}— odpowiem w ciągu 24h.
+              {' '}odpowiem w ciągu 24h.
             </p>
           </div>
         </div>
