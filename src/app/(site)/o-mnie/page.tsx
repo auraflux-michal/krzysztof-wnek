@@ -8,16 +8,25 @@ import { client } from '@/sanity/client'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RichText = string | Record<string, any>[]
 
-export const metadata: Metadata = {
-  title: 'O Mnie — Certyfikowany Coach PQ',
-  description: 'Krzysztof Wnęk — certyfikowany Coach Positive Intelligence® (Stanford), wykładowca WSB-NLU, mówca konferencyjny. Ponad 200 absolwentów programu PQ w Polsce.',
-  openGraph: {
-    title: 'O Mnie — Krzysztof Wnęk | Certyfikowany Coach PQ',
-    description: 'Coach PQ certyfikowany przez Positive Intelligence (Stanford), wykładowca WSB-NLU, mówca konferencyjny. Ponad 200 absolwentów programu PQ.',
-    url: '/o-mnie',
-    images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — portret' }],
-  },
-  alternates: { canonical: '/o-mnie' },
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await client.fetch<{ seoTitle?: string; seoDescription?: string; ogDescription?: string } | null>(
+    `*[_type == "pageOMnie"][0]{ seoTitle, seoDescription, ogDescription }`,
+    {}, { next: { revalidate: 60 } }
+  ).catch(() => null)
+  const title  = seo?.seoTitle || 'O Mnie — Certyfikowany Coach PQ'
+  const desc   = seo?.seoDescription || 'Krzysztof Wnęk — certyfikowany Coach Positive Intelligence® (Stanford), wykładowca WSB-NLU, mówca konferencyjny. Ponad 200 absolwentów programu PQ w Polsce.'
+  const ogDesc = seo?.ogDescription || seo?.seoDescription || 'Coach PQ certyfikowany przez Positive Intelligence (Stanford), wykładowca WSB-NLU, mówca konferencyjny. Ponad 200 absolwentów programu PQ.'
+  return {
+    title,
+    description: desc,
+    openGraph: {
+      title: seo?.seoTitle || 'O Mnie — Krzysztof Wnęk | Certyfikowany Coach PQ',
+      description: ogDesc,
+      url: '/o-mnie',
+      images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — portret' }],
+    },
+    alternates: { canonical: '/o-mnie' },
+  }
 }
 
 const PERSON_SCHEMA = {

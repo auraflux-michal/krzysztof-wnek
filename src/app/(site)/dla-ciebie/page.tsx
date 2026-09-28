@@ -8,16 +8,25 @@ import { client } from '@/sanity/client'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RichText = string | Record<string, any>[]
 
-export const metadata: Metadata = {
-  title: 'Program PQ — 7-tygodniowy Trening Mentalny',
-  description: 'Positive Intelligence® to nie pozytywne myślenie. Naukowo udowodniony program dla liderów, który buduje trwałe ścieżki neuronalne. Certyfikowany przez Shirzada Chamine (Stanford). Mierzalna zmiana w 7 tygodniach.',
-  openGraph: {
-    title: 'Program PQ — 7-tygodniowy Trening Mentalny | Krzysztof Wnęk',
-    description: 'Naukowo udowodniony system Positive Intelligence® dla liderów. Buduje trwałe ścieżki neuronalne. Mierzalna zmiana w 7 tygodniach.',
-    url: '/dla-ciebie',
-    images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — Coach PQ' }],
-  },
-  alternates: { canonical: '/dla-ciebie' },
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await client.fetch<{ seoTitle?: string; seoDescription?: string; ogDescription?: string } | null>(
+    `*[_type == "pageDlaCiebie"][0]{ seoTitle, seoDescription, ogDescription }`,
+    {}, { next: { revalidate: 60 } }
+  ).catch(() => null)
+  const title  = seo?.seoTitle || 'Program PQ — 7-tygodniowy Trening Mentalny'
+  const desc   = seo?.seoDescription || 'Positive Intelligence® to nie pozytywne myślenie. Naukowo udowodniony program dla liderów, który buduje trwałe ścieżki neuronalne. Certyfikowany przez Shirzada Chamine (Stanford). Mierzalna zmiana w 7 tygodniach.'
+  const ogDesc = seo?.ogDescription || seo?.seoDescription || 'Naukowo udowodniony system Positive Intelligence® dla liderów. Buduje trwałe ścieżki neuronalne. Mierzalna zmiana w 7 tygodniach.'
+  return {
+    title,
+    description: desc,
+    openGraph: {
+      title: seo?.seoTitle || 'Program PQ — 7-tygodniowy Trening Mentalny | Krzysztof Wnęk',
+      description: ogDesc,
+      url: '/dla-ciebie',
+      images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — Coach PQ' }],
+    },
+    alternates: { canonical: '/dla-ciebie' },
+  }
 }
 
 interface Step { num: string; title: string; desc: string }

@@ -1,5 +1,15 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 
+/* ── Shared SEO fields (added to every page type) ── */
+
+const seoGroup = { name: 'seo', title: '🔍 SEO' }
+
+const seoFields = () => [
+  defineField({ name: 'seoTitle', title: 'Tytuł (opcjonalne — nadpisuje domyślny)', type: 'string', group: 'seo' }),
+  defineField({ name: 'seoDescription', title: 'Opis w Google (do 160 znaków)', type: 'text', rows: 3, group: 'seo' }),
+  defineField({ name: 'ogDescription', title: 'Opis przy wklejaniu linku (Messenger, Slack…)', type: 'text', rows: 3, group: 'seo' }),
+]
+
 /* ── Shared helper types ── */
 
 const authCell = defineArrayMember({
@@ -90,6 +100,7 @@ const homepage = defineType({
     { name: 'paths', title: '🛤️ Ścieżki' },
     { name: 'youtube', title: '📺 YouTube' },
     { name: 'finale', title: '🎯 Finale' },
+    seoGroup,
   ],
   fields: [
     /* Hero */
@@ -215,6 +226,7 @@ const homepage = defineType({
     defineField({ name: 'finaleHeading', title: 'Finale · nagłówek', type: 'string', group: 'finale' }),
     defineField({ name: 'finaleLead', title: 'Finale · lead', type: 'string', group: 'finale' }),
     defineField({ name: 'finaleNote', title: 'Finale · mała nota', type: 'string', group: 'finale' }),
+    ...seoFields(),
   ],
 })
 
@@ -231,6 +243,7 @@ const pageDlaCiebie = defineType({
     { name: 'steps', title: '📋 Kroki' },
     { name: 'faq', title: '❓ FAQ' },
     { name: 'cta', title: '🎯 CTA' },
+    seoGroup,
   ],
   fields: [
     defineField({ name: 'heroH1', title: 'Hero · nagłówek H1 (4 linie, każda nową linią)', type: 'text', group: 'hero' }),
@@ -296,6 +309,7 @@ const pageDlaCiebie = defineType({
     defineField({ name: 'testButtonText', title: 'Sekcja test · tekst przycisku', type: 'string', group: 'cta' }),
     defineField({ name: 'ctaHeading', title: 'Końcowy CTA · nagłówek', type: 'string', group: 'cta' }),
     defineField({ name: 'ctaButtonText', title: 'Końcowy CTA · tekst przycisku', type: 'string', group: 'cta' }),
+    ...seoFields(),
   ],
 })
 
@@ -311,6 +325,7 @@ const pageDlaFirm = defineType({
     { name: 'formats', title: '📋 Formaty' },
     { name: 'roi', title: '📈 ROI' },
     { name: 'dowody', title: '🎬 Dowody' },
+    seoGroup,
   ],
   fields: [
     defineField({ name: 'heroVimeoId', title: 'Hero · Vimeo ID (film w tle, np. 1213585137)', type: 'string', group: 'hero' }),
@@ -367,6 +382,7 @@ const pageDlaFirm = defineType({
     defineField({ name: 'dowodyQuote', title: 'Dowody · cytat', type: 'text', group: 'dowody' }),
     defineField({ name: 'dowodyName', title: 'Dowody · imię i nazwisko', type: 'string', group: 'dowody' }),
     defineField({ name: 'dowodyRole', title: 'Dowody · stanowisko', type: 'string', group: 'dowody' }),
+    ...seoFields(),
   ],
 })
 
@@ -382,6 +398,7 @@ const pageOMnie = defineType({
     { name: 'timeline', title: '📅 Oś czasu' },
     { name: 'values', title: '⚔️ Wartości' },
     { name: 'media', title: '🎬 Media (filmy)' },
+    seoGroup,
   ],
   fields: [
     defineField({ name: 'heroH1', title: 'Hero · H1', type: 'text', group: 'hero' }),
@@ -434,6 +451,7 @@ const pageOMnie = defineType({
         preview: { select: { title: 'label' } },
       })],
     }),
+    ...seoFields(),
   ],
 })
 
@@ -447,6 +465,7 @@ const pageUmowRozmowe = defineType({
     { name: 'hero', title: '🦸 Hero' },
     { name: 'discovery', title: '🔍 Discovery' },
     { name: 'contact', title: '📩 Kontakt' },
+    seoGroup,
   ],
   fields: [
     defineField({ name: 'heroH1Line1', title: 'Hero · linia 1 (np. "30 minut.")', type: 'string', group: 'hero' }),
@@ -471,6 +490,7 @@ const pageUmowRozmowe = defineType({
     defineField({ name: 'contactEmail', title: 'Kontakt · e-mail (do mailto:)', type: 'string', group: 'contact' }),
     defineField({ name: 'contactPlaceholder', title: 'Kontakt · tekst zastępczy dla kalendarza', type: 'text', group: 'contact' }),
     defineField({ name: 'contactCtaText', title: 'Kontakt · tekst przycisku', type: 'string', group: 'contact' }),
+    ...seoFields(),
   ],
 })
 

@@ -2,16 +2,25 @@ import type { Metadata } from 'next'
 import { client } from '@/sanity/client'
 import ZencalCalendar from '@/components/ZencalCalendar'
 
-export const metadata: Metadata = {
-  title: 'Umów Rozmowę Discovery (30 min, Bezpłatnie)',
-  description: 'Zarezerwuj bezpłatną 30-minutową rozmowę Discovery. To nie jest rozmowa sprzedażowa — to mapa Twojej sytuacji i blokaży. Bez zobowiązań.',
-  openGraph: {
-    title: 'Umów Rozmowę Discovery (30 min) | Krzysztof Wnęk',
-    description: 'Bezpłatna 30-minutowa rozmowa Discovery. Mapa Twojej sytuacji i blokaży. Zero zobowiązań.',
-    url: '/umow-rozmowe',
-    images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — umów rozmowę' }],
-  },
-  alternates: { canonical: '/umow-rozmowe' },
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await client.fetch<{ seoTitle?: string; seoDescription?: string; ogDescription?: string } | null>(
+    `*[_type == "pageUmowRozmowe"][0]{ seoTitle, seoDescription, ogDescription }`,
+    {}, { next: { revalidate: 60 } }
+  ).catch(() => null)
+  const title = seo?.seoTitle || 'Umów Rozmowę Discovery (30 min, Bezpłatnie)'
+  const desc  = seo?.seoDescription || 'Zarezerwuj bezpłatną 30-minutową rozmowę Discovery. To nie jest rozmowa sprzedażowa — to mapa Twojej sytuacji i blokaży. Bez zobowiązań.'
+  const ogDesc = seo?.ogDescription || seo?.seoDescription || 'Bezpłatna 30-minutowa rozmowa Discovery. Mapa Twojej sytuacji i blokaży. Zero zobowiązań.'
+  return {
+    title,
+    description: desc,
+    openGraph: {
+      title: seo?.seoTitle || 'Umów Rozmowę Discovery (30 min) | Krzysztof Wnęk',
+      description: ogDesc,
+      url: '/umow-rozmowe',
+      images: [{ url: '/krzysztof-wnek.jpg', width: 800, height: 1000, alt: 'Krzysztof Wnęk — umów rozmowę' }],
+    },
+    alternates: { canonical: '/umow-rozmowe' },
+  }
 }
 
 interface DiscoveryCol { label: string; desc: string }

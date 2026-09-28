@@ -11,16 +11,25 @@ import { client } from '@/sanity/client'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RichText = string | Record<string, any>[]
 
-export const metadata: Metadata = {
-  title: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor | Positive Intelligence®',
-  description: 'Pomagam liderom i menedżerom odzyskać radość i efektywność bez wypalenia. Certyfikowany Coach Positive Intelligence® (Stanford). 7-tygodniowy program PQ, coaching 1:1, prelekcje dla firm.',
-  openGraph: {
-    title: 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor',
-    description: 'Pomagam liderom odzyskać radość i efektywność. Certyfikowany Coach Positive Intelligence® (Stanford).',
-    url: '/',
-    images: [{ url: '/hero.jpg', width: 1200, height: 630, alt: 'Krzysztof Wnęk — Coach PQ' }],
-  },
-  alternates: { canonical: '/' },
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await client.fetch<{ seoTitle?: string; seoDescription?: string; ogDescription?: string } | null>(
+    `*[_type == "homepage"][0]{ seoTitle, seoDescription, ogDescription }`,
+    {}, { next: { revalidate: 60 } }
+  ).catch(() => null)
+  const title  = seo?.seoTitle || 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor | Positive Intelligence®'
+  const desc   = seo?.seoDescription || 'Pomagam liderom i menedżerom odzyskać radość i efektywność bez wypalenia. Certyfikowany Coach Positive Intelligence® (Stanford). 7-tygodniowy program PQ, coaching 1:1, prelekcje dla firm.'
+  const ogDesc = seo?.ogDescription || seo?.seoDescription || 'Pomagam liderom odzyskać radość i efektywność. Certyfikowany Coach Positive Intelligence® (Stanford).'
+  return {
+    title,
+    description: desc,
+    openGraph: {
+      title: seo?.seoTitle || 'Krzysztof Wnęk — Coach PQ, Mówca, Mentor',
+      description: ogDesc,
+      url: '/',
+      images: [{ url: '/hero.jpg', width: 1200, height: 630, alt: 'Krzysztof Wnęk — Coach PQ' }],
+    },
+    alternates: { canonical: '/' },
+  }
 }
 
 /* ── Sanity types ── */
