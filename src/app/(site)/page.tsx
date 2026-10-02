@@ -230,6 +230,7 @@ export default async function HomePage() {
             <div className="hero-ctas">
               <div className="hero-cta-group">
                 <a href="#umow" className="btn btn-teal">{h.heroCtaText}</a>
+                <a href="/umow-rozmowe" className="btn btn-outline-light hero-umow-mobile">Umów rozmowę <span className="arrow">→</span></a>
                 <p className="hero-free-tag">
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
                     <circle cx="8" cy="8" r="7" />
