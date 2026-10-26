@@ -9,7 +9,7 @@ export default function ZencalCalendar() {
 
     const script = document.createElement('script')
     script.id = 'zencal-js'
-    script.src = 'https://app.zencal.io/js/embed.js?v=4.0.4'
+    script.src = 'https://app.zencal.io/js/embed.js'
     script.setAttribute('data-cookieconsent', 'ignore')
     document.body.appendChild(script)
 
