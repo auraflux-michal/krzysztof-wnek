@@ -229,7 +229,7 @@ export default async function HomePage() {
             <p className="hero-sub">{h.heroSub}</p>
             <div className="hero-ctas">
               <div className="hero-cta-group">
-                <a href="#umow" className="btn btn-teal">{h.heroCtaText}</a>
+                <a href="#test" className="btn btn-teal">{h.heroCtaText}</a>
                 <a href="/umow-rozmowe" className="btn btn-outline-light hero-umow-mobile">Umów rozmowę <span className="arrow">→</span></a>
                 <p className="hero-free-tag">
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
@@ -329,7 +329,7 @@ export default async function HomePage() {
                   : h.sabHeading}
               </h2>
               <PortableBlock value={h.sabDesc} className="desc" />
-              <a href="#umow" className="btn btn-dark">{h.sabCtaText}</a>
+              <a href="#test" className="btn btn-dark">{h.sabCtaText}</a>
               <p className="note">{h.sabCtaNote}</p>
             </div>
             <div className="reveal" data-delay="2">
@@ -345,7 +345,7 @@ export default async function HomePage() {
                   </div>
                 ))}
               </div>
-              <a href="#umow" className="btn btn-dark sabo-mobile-cta">{h.sabCtaText}</a>
+              <a href="#test" className="btn btn-dark sabo-mobile-cta">{h.sabCtaText}</a>
             </div>
           </div>
         </div>
@@ -419,7 +419,7 @@ export default async function HomePage() {
       </section>
 
       {/* FINALE */}
-      <section className="light finale" id="umow">
+      <section className="light finale" id="finale">
         <div className="finale-inner">
           <div className="eyebrow reveal">08 Decyzja</div>
           <h2 className="reveal" data-delay="1">
