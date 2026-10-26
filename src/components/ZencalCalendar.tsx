@@ -21,7 +21,7 @@ export default function ZencalCalendar() {
   return (
     <div
       data-type="u"
-      data-owner="pozytywnainteligencja"
+      data-owner="krzysztofwnek"
       data-slug="konsultacja-pq"
       data-primary="#191919"
       data-secondary="#7a7979"
