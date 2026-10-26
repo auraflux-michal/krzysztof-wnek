@@ -318,7 +318,7 @@ export default async function HomePage() {
       </section>
 
       {/* SABOTEURS */}
-      <section className="sec light sabo" id="test">
+      <section className="sec light sabo" id="sabo">
         <div className="wrap">
           <div className="sabo-grid">
             <div className="reveal">
@@ -419,7 +419,7 @@ export default async function HomePage() {
       </section>
 
       {/* FINALE */}
-      <section className="light finale" id="finale">
+      <section className="light finale" id="test">
         <div className="finale-inner">
           <div className="eyebrow reveal">08 Decyzja</div>
           <h2 className="reveal" data-delay="1">
